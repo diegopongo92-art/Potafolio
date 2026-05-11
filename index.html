@@ -3,252 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Pongo | Portafolio de Inteligencia de Datos</title>
+    <title>Diego Pongo | Portafolio Inteligencia MML</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* ESTILOS DEL "MARCO" DEL PORTAFOLIO */
-        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        .portfolio-header { padding: 60px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .project-section { padding: 80px 5%; max-width: 1600px; margin: 0 auto; }
-        .project-title { font-size: 2.5rem; font-weight: 900; font-style: italic; text-transform: uppercase; margin-bottom: 40px; color: #3b82f6; }
-
-        /* ============================================================
-           CSS ORIGINAL DE TU DASHBOARD (SIN SIMPLIFICAR)
-           ============================================================ */
         :root {
             --primary: #002f80;
-            --primary-light: #2563eb;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
+            --bg-body: #020617;
+            --bg-plat: #f8fafc;
             --border: #e2e8f0;
-            --radius: 16px;
-            --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 10px 25px -5px rgba(0, 47, 128, 0.08);
+            --text-muted: #64748b;
         }
 
-        .mml-container {
-            display: flex; height: 850px; background: var(--bg-color); 
-            border-radius: 24px; overflow: hidden; color: var(--text-dark);
+        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: white; margin: 0; }
+
+        /* PORTAFOLIO WRAPPER */
+        .project-container { max-width: 1400px; margin: 50px auto; padding: 0 20px; }
+        .platform-frame {
+            background: var(--bg-plat); color: #1e293b;
+            border-radius: 20px; overflow: hidden;
+            display: flex; height: 800px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
         }
 
-        /* Sidebar Original */
-        .sidebar { width: 72px; background: white; border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 24px 0; gap: 32px; }
-        .nav-icon { font-size: 24px; color: #94a3b8; cursor: pointer; transition: all 0.2s ease; position: relative; }
-        .nav-icon:hover { color: var(--primary); }
-        .nav-icon.active { color: var(--primary); }
-        .nav-icon.active::after { content: ''; position: absolute; left: -24px; top: 50%; transform: translateY(-50%); width: 4px; height: 24px; background: var(--primary); border-radius: 0 4px 4px 0; }
-
-        /* Dashboard Content */
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .top-bar { background: white; height: 72px; border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 32px; justify-content: space-between; }
-        .tabs { display: flex; gap: 32px; height: 100%; }
-        .tab { height: 100%; display: flex; align-items: center; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; transition: 0.2s; letter-spacing: 0.5px; }
-        .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-        /* KPI Cards Originales */
-        .kpi-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 24px; padding: 32px; }
-        .kpi-card {
-            background: var(--card-bg); border-radius: var(--radius); padding: 24px;
-            display: flex; flex-direction: column; position: relative; overflow: hidden;
-            border: 1px solid var(--border); box-shadow: var(--shadow-md); transition: transform 0.2s;
+        /* SIDEBAR (72px exactos) */
+        .sidebar {
+            width: 72px; background: white; border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center; padding: 25px 0; gap: 30px;
         }
-        .kpi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-        .kpi-title { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px; }
-        .kpi-value { font-size: 28px; font-weight: 900; color: var(--text-dark); margin-bottom: 4px; }
-        .kpi-box-blue { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border: none; }
-        .kpi-box-blue .kpi-title { color: rgba(255,255,255,0.7); }
-        .kpi-box-blue .kpi-value { color: white; }
-        .kpi-icon-bg { position: absolute; right: -10px; bottom: -10px; font-size: 80px; opacity: 0.1; transform: rotate(-10deg); }
+        .side-icon { font-size: 24px; color: #94a3b8; cursor: pointer; transition: 0.2s; position: relative; }
+        .side-icon.active { color: var(--primary); }
+        .side-icon.active::after {
+            content: ''; position: absolute; left: -25px; top: 50%; transform: translateY(-50%);
+            width: 4px; height: 25px; background: var(--primary); border-radius: 0 4px 4px 0;
+        }
 
-        /* ============================================================
-           CSS ORIGINAL DEL SEMÁFORO (SIN SIMPLIFICAR)
-           ============================================================ */
-        .semaforo-container { background: #f1f5f9; border-radius: 20px; overflow: hidden; color: #1e293b; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
-        .sem-header { background: var(--primary); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .sem-title { color: white; font-weight: 900; font-style: italic; text-transform: uppercase; font-size: 1.2rem; }
+        /* CONTENIDO PRINCIPAL */
+        .main-view { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* TABS (Tus 3 pestañas: General, Semáforo, Ahorro) */
+        .nav-tabs { background: white; display: flex; padding: 0 30px; border-bottom: 1px solid var(--border); gap: 40px; }
+        .tab-btn {
+            padding: 22px 0; font-size: 11px; font-weight: 800; text-transform: uppercase;
+            color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px; transition: 0.2s;
+        }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+        /* VISTAS */
+        .view-content { flex: 1; overflow-y: auto; display: none; }
+        .view-content.active { display: block; }
+
+        /* KPI CARDS */
+        .kpi-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 20px; padding: 30px; }
+        .kpi-card {
+            background: white; padding: 24px; border-radius: 16px; border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .kpi-card:hover { transform: translateY(-3px); }
+        .kpi-label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+        .kpi-value { font-size: 26px; font-weight: 900; color: #0f172a; }
+
+        /* TABLA SEMÁFORO (Colores por fila exactos) */
+        .table-container { padding: 0 30px 30px 30px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
+        th { background: #f1f5f9; padding: 18px; text-align: left; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
+        td { padding: 18px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         
-        .sem-table { width: 100%; border-collapse: collapse; background: white; }
-        .sem-table th { background: #f8fafc; padding: 18px 15px; text-align: left; font-size: 10px; font-weight: 800; text-transform: uppercase; color: #64748b; border-bottom: 2px solid #e2e8f0; }
-        .sem-table td { padding: 18px 15px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-
-        /* Badges exactos */
-        .badge { padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; display: inline-block; }
-        .badge-pos { background: #15803d; color: white; }
-        .badge-neg { background: #b91c1c; color: white; }
-        .badge-neu { background: #ca8a04; color: white; }
-
-        /* Colores de fila exactos */
         .row-positivo { background-color: #f0fdf4 !important; }
         .row-negativo { background-color: #fef2f2 !important; }
         .row-neutro { background-color: #fffbeb !important; }
 
-        .disclaimer { background: #e2e8f0; color: #475569; font-size: 10px; font-weight: 800; text-transform: uppercase; text-align: center; padding: 12px; letter-spacing: 1px; }
+        .badge { padding: 5px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: white; }
+        .bg-positivo { background: #15803d; }
+        .bg-negativo { background: #b91c1c; }
+        .bg-neutro { background: #ca8a04; }
+
+        .disclaimer { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; text-align: center; padding: 20px; background: #f1f5f9; }
     </style>
 </head>
 <body>
 
-    <header class="portfolio-header">
-        <h1 class="text-6xl font-black italic uppercase tracking-tighter mb-4">Diego Pongo</h1>
-        <p class="text-blue-500 font-bold uppercase tracking-[0.4em] text-xs">Data Intelligence & Media Analytics</p>
-    </header>
+    <div class="project-container">
+        <h1 class="text-5xl font-black italic uppercase tracking-tighter mb-2">Diego Pongo</h1>
+        <p class="text-blue-500 font-bold uppercase tracking-[0.4em] text-xs mb-10">Data Intelligence Portfolio</p>
 
-    <section class="project-section">
-        <h2 class="project-title">01. Dashboard de Monitoreo</h2>
-        
-        <div class="mml-container">
+        <div class="platform-frame">
             <aside class="sidebar">
-                <i class="ph-fill ph-house-line nav-icon active"></i>
-                <i class="ph-bold ph-chart-bar nav-icon"></i>
-                <i class="ph-bold ph-newspaper nav-icon"></i>
-                <i class="ph-bold ph-users nav-icon"></i>
-                <i class="ph-bold ph-gear nav-icon" style="margin-top: auto;"></i>
+                <i class="ph-fill ph-house side-icon active"></i>
+                <i class="ph-bold ph-chart-pie side-icon"></i>
+                <i class="ph-bold ph-newspaper side-icon"></i>
+                <i class="ph-bold ph-users side-icon"></i>
+                <i class="ph-bold ph-gear side-icon" style="margin-top: auto;"></i>
             </aside>
 
-            <main class="main-content">
-                <header class="top-bar">
-                    <div class="tabs">
-                        <div class="tab active">Resumen General</div>
-                        <div class="tab">Alcance de Medios</div>
-                        <div class="tab">Ahorro Publicitario (VPR)</div>
-                        <div class="tab">Menciones Críticas</div>
-                    </div>
-                </header>
+            <main class="main-view">
+                <nav class="nav-tabs">
+                    <div class="tab-btn active" onclick="switchTab('general')">General</div>
+                    <div class="tab-btn" onclick="switchTab('semaforo')">Semáforo</div>
+                    <div class="tab-btn" onclick="switchTab('ahorro')">Ahorro</div>
+                </nav>
 
-                <div class="overflow-y-auto">
+                <section id="general" class="view-content active">
                     <div class="kpi-grid">
-                        <div class="kpi-card kpi-box-blue">
-                            <i class="ph-fill ph-currency-circle-dollar kpi-icon-bg"></i>
-                            <span class="kpi-title">Ahorro Publicitario (VPR)</span>
-                            <span class="kpi-value">S/ 1,420,800</span>
-                        </div>
-                        <div class="kpi-card">
-                            <i class="ph-fill ph-users-three kpi-icon-bg"></i>
-                            <span class="kpi-title">Alcance Estimado</span>
-                            <span class="kpi-value">4.2M</span>
-                        </div>
-                        <div class="kpi-card">
-                            <i class="ph-fill ph-megaphone kpi-icon-bg"></i>
-                            <span class="kpi-title">Total Menciones</span>
-                            <span class="kpi-value">856</span>
-                        </div>
-                        <div class="kpi-card">
-                            <i class="ph-fill ph-chart-line-up kpi-icon-bg" style="color: #10b981; opacity: 0.2;"></i>
-                            <span class="kpi-title">Tono Positivo</span>
-                            <span class="kpi-value" style="color: #10b981;">78.4%</span>
-                        </div>
+                        <div class="kpi-card"><p class="kpi-label">VPR Total</p><p class="kpi-value">S/ 1,420,000</p></div>
+                        <div class="kpi-card"><p class="kpi-label">Alcance</p><p class="kpi-value">4.2M</p></div>
+                        <div class="kpi-card"><p class="kpi-label">Notas</p><p class="kpi-value">856</p></div>
+                        <div class="kpi-card"><p class="kpi-label">Sentimiento</p><p class="kpi-value text-emerald-600">78%</p></div>
                     </div>
+                    <div class="px-8 h-80"><canvas id="chartGeneral"></canvas></div>
+                </section>
 
-                    <div class="px-8 pb-8 grid grid-cols-2 gap-8">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                            <p class="text-[10px] font-black uppercase text-slate-400 mb-6">Inversión por Medio</p>
-                            <div class="h-80"><canvas id="canvasBar"></canvas></div>
+                <section id="semaforo" class="view-content">
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-black uppercase text-slate-400 text-xs">Monitoreo de Medios Diario</h3>
+                            <input type="text" placeholder="Buscar noticia..." class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs outline-none w-64">
                         </div>
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                            <p class="text-[10px] font-black uppercase text-slate-400 mb-6">Distribución de Sentimiento</p>
-                            <div class="h-80"><canvas id="canvasPie"></canvas></div>
+                        <div class="table-container p-0">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Noticia / Medio</th>
+                                        <th>Tono</th>
+                                        <th>Resumen Estratégico</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaSemaforo">
+                                    <tr class="row-positivo">
+                                        <td class="font-bold text-slate-400">12/05</td>
+                                        <td>
+                                            <div class="font-black text-[#002f80]">MML recupera áreas verdes</div>
+                                            <div class="text-[10px] font-bold text-slate-400 uppercase">El Comercio</div>
+                                        </td>
+                                        <td><span class="badge bg-positivo">Positivo</span></td>
+                                        <td class="italic font-medium">Gestión exitosa reconocida por vecinos.</td>
+                                    </tr>
+                                    <tr class="row-negativo">
+                                        <td class="font-bold text-slate-400">12/05</td>
+                                        <td>
+                                            <div class="font-black text-[#002f80]">Quejas por obras en Av. Huaylas</div>
+                                            <div class="text-[10px] font-bold text-slate-400 uppercase">Exitosa</div>
+                                        </td>
+                                        <td><span class="badge bg-negativo">Negativo</span></td>
+                                        <td class="italic font-medium">Alerta de tráfico. Se requiere fiscalización.</td>
+                                    </tr>
+                                    <tr class="row-neutro">
+                                        <td class="font-bold text-slate-400">11/05</td>
+                                        <td>
+                                            <div class="font-black text-[#002f80]">Entrevista a Vocero sobre planes</div>
+                                            <div class="text-[10px] font-bold text-slate-400 uppercase">TV Perú</div>
+                                        </td>
+                                        <td><span class="badge bg-neutro">Neutro</span></td>
+                                        <td class="italic font-medium">Nota técnica informativa.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="disclaimer">Simulación con datos de muestra para fines de portafolio comercial</div>
-                </div>
+                </section>
+
+                <section id="ahorro" class="view-content">
+                    <div class="p-8">
+                        <div class="bg-white p-8 rounded-2xl border border-slate-200 h-96">
+                            <p class="kpi-label mb-6">Ahorro Publicitario por Canal (VPR)</p>
+                            <canvas id="chartAhorro"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="disclaimer">
+                    * Simulación Interactiva: Datos anonimizados por motivos de confidencialidad y seguridad.
+                </footer>
             </main>
         </div>
-    </section>
-
-    <section class="project-section">
-        <h2 class="project-title text-right">02. Semáforo de Gestión</h2>
-        
-        <div class="semaforo-container">
-            <div class="sem-header">
-                <div class="sem-title">Semáforo de Noticias MML</div>
-                <div class="flex gap-4">
-                    <input type="text" id="buscador" onkeyup="filtrar()" placeholder="Filtrar por medio o titular..." class="px-4 py-2 rounded-lg text-xs outline-none w-64 border-none text-slate-800">
-                </div>
-            </div>
-
-            <div class="bg-white">
-                <table class="sem-table" id="tablaSem">
-                    <thead>
-                        <tr>
-                            <th style="width: 15%;">Fecha</th>
-                            <th style="width: 35%;">Titular / Medio</th>
-                            <th style="width: 15%;">Tono</th>
-                            <th style="width: 35%;">Resumen Estratégico</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodySem">
-                        </tbody>
-                </table>
-            </div>
-            <div class="disclaimer">Debido a la naturaleza de la gestión, los datos sensibles han sido anonimizados</div>
-        </div>
-    </section>
+    </div>
 
     <script>
-        // DATOS REALES BASADOS EN TU LÓGICA
-        const dataSem = [
-            { f: '12/05/2024', t: 'MML recupera áreas verdes en Cercado de Lima', m: 'EL COMERCIO', tono: 'Positivo', r: 'Acción rápida de servicios a la ciudad. Vecinos conformes.', cls: 'row-positivo', b: 'badge-pos' },
-            { f: '12/05/2024', t: 'Obras en Av. Huaylas presentan demoras', m: 'EXITOSA', tono: 'Negativo', r: 'Alerta de congestión. Gerencia de Movilidad en camino.', cls: 'row-negativo', b: 'badge-neg' },
-            { f: '11/05/2024', t: 'Entrevista a Vocero sobre seguridad', m: 'RPP NOTICIAS', tono: 'Neutro', r: 'Explicación técnica de los nuevos operativos nocturnos.', cls: 'row-neutro', b: 'badge-neu' },
-            { f: '11/05/2024', t: 'Inauguran nueva iluminación en Parques', m: 'TV PERÚ', tono: 'Positivo', r: 'Nota informativa resalta mejora en seguridad ciudadana.', cls: 'row-positivo', b: 'badge-pos' },
-            { f: '10/05/2024', t: 'Comercio ambulatorio se incrementa en Mesa Redonda', m: 'LA REPÚBLICA', tono: 'Negativo', r: 'Alerta crítica. Se requiere presencia de fiscalización.', cls: 'row-negativo', b: 'badge-neg' }
-        ];
+        // Lógica de cambio de pestañas
+        function switchTab(tabId) {
+            // Quitar clase active de todos los botones y vistas
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.view-content').forEach(view => view.classList.remove('active'));
+
+            // Agregar active al seleccionado
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
 
         window.onload = () => {
-            // Cargar Tabla con tus estilos de fila exactos
-            const tbody = document.getElementById('bodySem');
-            tbody.innerHTML = dataSem.map(n => `
-                <tr class="${n.cls}">
-                    <td class="font-bold text-slate-400">${n.f}</td>
-                    <td>
-                        <div class="font-black text-[#002f80] text-[13px] leading-tight mb-1">${n.t}</div>
-                        <div class="text-[10px] font-extrabold text-slate-400 uppercase">${n.m}</div>
-                    </td>
-                    <td><span class="badge ${n.b}">${n.tono}</span></td>
-                    <td class="italic font-semibold text-slate-600">${n.r}</td>
-                </tr>
-            `).join('');
+            // Chart General
+            new Chart(document.getElementById('chartGeneral'), {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie'],
+                    datasets: [{ label: 'Impacto', data: [65, 78, 72, 85, 78], borderColor: '#002f80', tension: 0.4, fill: true, backgroundColor: 'rgba(0, 47, 128, 0.05)' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
 
-            // Gráficos (Configuración completa de tus archivos)
-            new Chart(document.getElementById('canvasBar'), {
+            // Chart Ahorro
+            new Chart(document.getElementById('chartAhorro'), {
                 type: 'bar',
                 data: {
-                    labels: ['Impreso', 'Radial', 'Digital', 'TV'],
-                    datasets: [{ data: [520000, 310000, 240000, 350000], backgroundColor: '#002f80', borderRadius: 8 }]
+                    labels: ['Impreso', 'Radial', 'TV', 'Digital'],
+                    datasets: [{ label: 'S/', data: [450000, 320000, 580000, 210000], backgroundColor: '#002f80', borderRadius: 8 }]
                 },
-                options: { 
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'top', font: { weight: 'bold' }, formatter: Math.round } },
-                    scales: { y: { display: false }, x: { grid: { display: false } } }
-                },
-                plugins: [ChartDataLabels]
-            });
-
-            new Chart(document.getElementById('canvasPie'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Positivo', 'Neutro', 'Negativo'],
-                    datasets: [{ data: [78, 12, 10], backgroundColor: ['#10b981', '#f59e0b', '#ef4444'], borderWidth: 0 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, cutout: '80%' }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         };
-
-        function filtrar() {
-            let val = document.getElementById('buscador').value.toLowerCase();
-            let rows = document.querySelectorAll('#bodySem tr');
-            rows.forEach(r => r.style.display = r.innerText.toLowerCase().includes(val) ? '' : 'none');
-        }
     </script>
 </body>
 </html>
