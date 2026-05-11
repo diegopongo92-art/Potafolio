@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego | Portafolio Analytics</title>
+    <title>Diego Pongo | Portafolio de Inteligencia Gubernamental</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
@@ -12,170 +12,250 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        :root { --primary: #002f80; --bg-plat: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background: #020617; color: white; margin: 0; scroll-behavior: smooth; }
-
-        /* --- ESTILOS PLATAFORMA (RÉPLICA EXACTA) --- */
-        .platform-window {
-            background: var(--bg-plat); color: #1e293b;
-            border-radius: 20px; overflow: hidden;
-            display: flex; height: 750px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        /* --- ESTILOS BASE DEL PORTAFOLIO --- */
+        :root { --primary-mml: #002f80; --bg-gray: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; margin: 0; }
+        
+        /* --- CLASES COPIADAS DE TUS ARCHIVOS TXT --- */
+        .platform-wrapper {
+            background: var(--bg-gray);
+            color: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            height: 800px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 80px;
         }
 
-        /* Sidebar Lateral */
-        .sidebar { width: 70px; background: white; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 25px; }
-        .side-icon { font-size: 24px; color: #94a3b8; cursor: pointer; transition: 0.2s; }
-        .side-icon.active { color: var(--primary); }
+        /* SIDEBAR (Exacto a tu imagen) */
+        .sidebar-mml {
+            width: 72px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0;
+            gap: 32px;
+        }
+        .side-btn { font-size: 24px; color: #94a3b8; cursor: pointer; transition: 0.2s; }
+        .side-btn.active { color: var(--primary-mml); }
 
-        /* Contenido Principal */
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        /* TABS SUPERIORES (Exacto a tu imagen) */
+        .tabs-header {
+            background: white;
+            padding: 0 32px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 40px;
+        }
+        .tab-link {
+            padding: 20px 0;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-link.active { color: var(--primary-mml); border-bottom-color: var(--primary-mml); }
+
+        /* KPI CARDS (Exacto a tu dashboard de monitoreo.txt) */
+        .kpi-container { display: grid; grid-template-cols: repeat(4, 1fr); gap: 20px; padding: 24px 32px; }
+        .kpi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-mml);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .kpi-title { font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 8px; }
+        .kpi-value { font-size: 24px; font-weight: 900; color: var(--primary-mml); }
+
+        /* TABLA SEMÁFORO (Exacto a tu tablero diario.txt) */
+        .semaforo-table { width: 100%; border-collapse: collapse; background: white; }
+        .semaforo-table th { 
+            background: #f8fafc; padding: 16px; text-align: left; 
+            font-size: 10px; text-transform: uppercase; color: #64748b; 
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .semaforo-table td { padding: 16px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
         
-        /* Nav Superior */
-        .top-nav { background: white; padding: 0 30px; border-bottom: 1px solid #e2e8f0; display: flex; gap: 30px; }
-        .nav-item { padding: 20px 0; font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; cursor: pointer; border-bottom: 3px solid transparent; }
-        .nav-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .row-pos { background-color: #f0fdf4 !important; } /* Verde suave */
+        .row-neg { background-color: #fef2f2 !important; } /* Rojo suave */
+        .row-neu { background-color: #fffbeb !important; } /* Ámbar suave */
 
-        /* KPIs Estilo Imagen */
-        .kpi-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 20px; padding: 30px; }
-        .kpi-card { background: white; padding: 20px; border-radius: 12px; border-left: 4px solid var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .kpi-label { font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
-        .kpi-value { font-size: 24px; font-weight: 900; color: var(--primary); }
+        .badge-mml {
+            padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 10px;
+            text-transform: uppercase; color: white; display: inline-block;
+        }
+        .bg-pos { background: #166534; }
+        .bg-neg { background: #991b1b; }
+        .bg-neu { background: #ca8a04; }
 
-        /* Tabla con colores de fila (Semáforo) */
-        .table-container { padding: 0 30px 30px 30px; }
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
-        th { background: #f1f5f9; padding: 15px; text-align: left; font-size: 10px; text-transform: uppercase; color: #64748b; }
-        td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-        
-        .row-positivo { background-color: #f0fdf4; }
-        .row-negativo { background-color: #fef2f2; }
-        .row-neutro { background-color: #fffbeb; }
-
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: white; }
-        .bg-positivo { background: #166534; }
-        .bg-negativo { background: #991b1b; }
-        .bg-neutro { background: #ca8a04; }
-
-        .sim-note { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; text-align: center; padding: 20px; }
+        .disclaimer {
+            font-size: 10px; font-weight: 700; color: #475569;
+            text-transform: uppercase; text-align: center; padding: 15px; background: #e2e8f0;
+        }
     </style>
 </head>
-<body>
+<body class="p-6 md:p-12">
 
-    <section class="py-20 text-center">
-        <h1 class="text-7xl font-black italic uppercase tracking-tighter text-blue-500">DIEGO PONGO</h1>
-        <p class="text-slate-400 font-bold uppercase tracking-[0.4em] text-[10px] mt-4">Estratega de Datos & Comunicación Gubernamental</p>
-    </section>
+    <div class="max-w-[1400px] mx-auto mb-16 border-l-4 border-blue-600 pl-6">
+        <h1 class="text-6xl font-black italic uppercase tracking-tighter">Diego Pongo</h1>
+        <p class="text-blue-500 font-extrabold uppercase tracking-[0.3em] text-xs">Estrategia Política & Data Analytics</p>
+    </div>
 
-    <div class="max-w-[1400px] mx-auto px-6">
+    <div class="max-w-[1400px] mx-auto">
         
-        <h2 class="text-2xl font-black italic uppercase mb-6 flex items-center gap-3">
-            <i class="ph-fill ph-chart-pie-slice text-blue-500"></i> 01. Dashboard de Monitoreo
+        <h2 class="text-xl font-black uppercase mb-6 flex items-center gap-3">
+            <i class="ph-fill ph-chart-bar text-blue-600"></i> 01. Dashboard de Monitoreo MML
         </h2>
         
-        <div class="platform-window mb-20">
-            <div class="sidebar">
-                <i class="ph-fill ph-house-line side-icon active"></i>
-                <i class="ph-bold ph-chart-bar side-icon"></i>
-                <i class="ph-bold ph-users-three side-icon"></i>
-                <i class="ph-bold ph-gear side-icon"></i>
+        <div class="platform-wrapper">
+            <div class="sidebar-mml">
+                <i class="ph-fill ph-house-line side-btn active"></i>
+                <i class="ph-bold ph-chart-line-up side-btn"></i>
+                <i class="ph-bold ph-newspaper side-btn"></i>
+                <i class="ph-bold ph-users side-btn"></i>
+                <div class="mt-auto"><i class="ph-bold ph-gear side-btn"></i></div>
             </div>
-            
-            <div class="main-content">
-                <div class="top-nav">
-                    <div class="nav-item active">Resumen General</div>
-                    <div class="nav-item">Alcance de Medios</div>
-                    <div class="nav-item">Ahorro Publicitario (VPR)</div>
+
+            <div class="flex-1 flex flex-col overflow-hidden">
+                <div class="tabs-header">
+                    <div class="tab-link active">Resumen General</div>
+                    <div class="tab-link">Alcance de Medios</div>
+                    <div class="tab-link">Ahorro Publicitario (VPR)</div>
                 </div>
 
-                <div class="kpi-grid">
-                    <div class="kpi-card"><p class="kpi-label">VPR Acumulado</p><p class="kpi-value">S/ 1,420,850</p></div>
-                    <div class="kpi-card" style="border-left-color: #3b82f6;"><p class="kpi-label">Alcance Total</p><p class="kpi-value">4.2M</p></div>
-                    <div class="kpi-card" style="border-left-color: #10b981;"><p class="kpi-label">Menciones Positivas</p><p class="kpi-value">78%</p></div>
-                    <div class="kpi-card" style="border-left-color: #f59e0b;"><p class="kpi-label">Total Notas</p><p class="kpi-value">856</p></div>
-                </div>
+                <div class="flex-1 overflow-y-auto">
+                    <div class="kpi-container">
+                        <div class="kpi-card"><p class="kpi-title">Ahorro VPR</p><p class="kpi-value">S/ 1,420,000</p></div>
+                        <div class="kpi-card" style="border-left-color: #3b82f6;"><p class="kpi-title">Alcance Estimado</p><p class="kpi-value">4.2M</p></div>
+                        <div class="kpi-card" style="border-left-color: #10b981;"><p class="kpi-title">Tono Positivo</p><p class="kpi-value">76%</p></div>
+                        <div class="kpi-card" style="border-left-color: #f59e0b;"><p class="kpi-title">Total Notas</p><p class="kpi-value">856</p></div>
+                    </div>
 
-                <div class="px-[30px] flex-1">
-                    <div class="bg-white p-6 rounded-xl h-[350px]">
-                        <canvas id="chartDash"></canvas>
+                    <div class="px-8 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <p class="text-[10px] font-black uppercase text-slate-400 mb-6">Ahorro por Medio (VPR)</p>
+                            <div class="h-[300px]"><canvas id="chartVPR"></canvas></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <p class="text-[10px] font-black uppercase text-slate-400 mb-6">Distribución de Sentimiento</p>
+                            <div class="h-[300px] flex justify-center"><canvas id="chartTono"></canvas></div>
+                        </div>
                     </div>
                 </div>
-                <p class="sim-note italic">* Simulación: Los datos mostrados son ficticios para proteger información sensible de la gestión.</p>
+                <div class="disclaimer italic">Los datos mostrados son simulaciones con fines de portafolio para proteger información sensible.</div>
             </div>
         </div>
 
-        <h2 class="text-2xl font-black italic uppercase mb-6 flex items-center gap-3 text-right justify-end">
-            02. Semáforo de Gestión <i class="ph-fill ph-traffic-light text-blue-500"></i>
+        <h2 class="text-xl font-black uppercase mb-6 flex items-center gap-3">
+            <i class="ph-fill ph-traffic-light text-blue-600"></i> 02. Semáforo de Gestión Diaria
         </h2>
 
-        <div class="platform-window mb-20">
-            <div class="main-content">
-                <div class="bg-[#002f80] p-6 text-white flex justify-between items-center">
-                    <div class="flex items-center gap-4">
-                        <i class="ph-bold ph-list-bullets text-2xl"></i>
-                        <h3 class="font-black italic uppercase tracking-tighter text-xl">Tablero Diario de Noticias</h3>
-                    </div>
-                    <div class="flex gap-4">
-                        <input type="text" placeholder="Buscar noticia..." class="px-4 py-2 rounded-lg text-xs outline-none text-slate-800 w-64" id="search">
-                    </div>
+        <div class="platform-wrapper flex-col h-auto">
+            <div class="bg-[#002f80] p-6 text-white flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <i class="ph-bold ph-list-magnifying-glass text-2xl"></i>
+                    <h3 class="font-black italic uppercase tracking-tighter text-xl">Semáforo de Medios MML</h3>
                 </div>
-
-                <div class="table-container mt-8">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Titular / Medio</th>
-                                <th>Tono</th>
-                                <th>Resumen de Gestión</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listaSemaforo">
-                            </tbody>
-                    </table>
-                </div>
-                <p class="sim-note italic">* Nota: Plataforma anonimizada. Datos de carácter ilustrativo por motivos de confidencialidad.</p>
+                <input type="text" id="busqueda" onkeyup="filtrarTabla()" placeholder="Buscar noticia..." class="px-4 py-2 rounded-lg text-xs outline-none text-slate-800 w-72 border-none">
             </div>
+
+            <div class="overflow-x-auto">
+                <table class="semaforo-table" id="tablaSemaforo">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">Fecha</th>
+                            <th>Noticia / Medio</th>
+                            <th style="width: 120px;">Tono</th>
+                            <th>Resumen Estratégico</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodySemaforo">
+                        </tbody>
+                </table>
+            </div>
+            <div class="disclaimer italic">Plataforma anonimizada. Datos representativos de gestión de crisis.</div>
         </div>
     </div>
 
     <script>
-        const noticias = [
-            { f: '12/05', t: 'MML recupera áreas verdes en Cercado', m: 'El Comercio', tono: 'Positivo', r: 'Intervención exitosa que mejora la percepción ciudadana.', cls: 'row-positivo' },
-            { f: '12/05', t: 'Congestión vehicular por obras en Huaylas', m: 'Exitosa', tono: 'Negativo', r: 'Quejas vecinales. Se requiere presencia inmediata de fiscalización.', cls: 'row-negativo' },
-            { f: '11/05', t: 'Balance de seguridad del fin de semana', m: 'Panamericana', tono: 'Neutro', r: 'Nota informativa sobre operativos del Serenazgo.', cls: 'row-neutro' },
-            { f: '11/05', t: 'MML inaugura moderno complejo deportivo', m: 'Andina', tono: 'Positivo', r: 'Impacto positivo en juventudes y salud pública.', cls: 'row-positivo' },
-            { f: '10/05', t: 'Reclamos por falta de iluminación en parques', m: 'La República', tono: 'Negativo', r: 'Alerta crítica. Derivado a Gerencia de Servicios a la Ciudad.', cls: 'row-negativo' }
+        // --- DATOS SIMULADOS ---
+        const dataNoticias = [
+            { f: '12/05/2024', t: 'MML recupera áreas verdes en el Cercado', m: 'El Comercio', tono: 'Positivo', r: 'Impacto favorable en percepción ciudadana y seguridad.', cls: 'row-pos', b: 'bg-pos' },
+            { f: '12/05/2024', t: 'Congestión por obras en Av. Huaylas', m: 'Exitosa', tono: 'Negativo', r: 'Alerta de tráfico. Se requiere despliegue de inspectores.', cls: 'row-neg', b: 'bg-neg' },
+            { f: '11/05/2024', t: 'Balance de seguridad: Plan sereno 24/7', m: 'Panamericana', tono: 'Positivo', r: 'Difusión de resultados operativos del fin de semana.', cls: 'row-pos', b: 'bg-pos' },
+            { f: '11/05/2024', t: 'Reclamos por recojo de basura en zona norte', m: 'La República', tono: 'Negativo', r: 'Crisis incipiente. Derivado a Gerencia de Servicios.', cls: 'row-neg', b: 'bg-neg' },
+            { f: '10/05/2024', t: 'Conferencia sobre presupuesto participativo', m: 'Andina', tono: 'Neutro', r: 'Nota técnica sobre transparencia institucional.', cls: 'row-neu', b: 'bg-neu' }
         ];
 
         window.onload = () => {
-            // Cargar Tabla
-            document.getElementById('listaSemaforo').innerHTML = noticias.map(n => `
+            Chart.register(ChartDataLabels);
+
+            // TABLA SEMÁFORO (Tu lógica de colores por fila)
+            const tbody = document.getElementById('tbodySemaforo');
+            tbody.innerHTML = dataNoticias.map(n => `
                 <tr class="${n.cls}">
                     <td class="font-bold text-slate-400">${n.f}</td>
                     <td>
-                        <div class="font-black text-[#002f80] mb-1">${n.t}</div>
-                        <div class="text-[10px] font-bold text-slate-400 uppercase">${n.m}</div>
+                        <div class="font-black text-[#002f80] text-sm mb-1">${n.t}</div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase">${n.m}</div>
                     </td>
-                    <td><span class="badge bg-${n.tono.toLowerCase()}">${n.tono}</span></td>
+                    <td><span class="badge-mml ${n.b}">${n.tono}</span></td>
                     <td class="italic font-medium text-slate-600">${n.r}</td>
                 </tr>
             `).join('');
 
-            // Cargar Gráfico Dashboard
-            new Chart(document.getElementById('chartDash'), {
+            // GRÁFICO VPR (Tu estilo de barras con etiquetas)
+            new Chart(document.getElementById('chartVPR'), {
                 type: 'bar',
                 data: {
-                    labels: ['Impreso', 'Radial', 'Digital', 'TV'],
-                    datasets: [{ label: 'Ahorro VPR', data: [520000, 380000, 250000, 270000], backgroundColor: '#002f80', borderRadius: 8 }]
+                    labels: ['Impreso', 'Radial', 'TV', 'Digital'],
+                    datasets: [{
+                        label: 'VPR',
+                        data: [540000, 320000, 410000, 150000],
+                        backgroundColor: '#002f80',
+                        borderRadius: 6
+                    }]
                 },
-                options: { 
+                options: {
                     responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            anchor: 'end', align: 'top', font: { weight: '900', size: 10 },
+                            formatter: (v) => 'S/ ' + v.toLocaleString()
+                        }
+                    },
                     scales: { y: { display: false }, x: { grid: { display: false } } }
                 }
             });
+
+            // GRÁFICO TONO
+            new Chart(document.getElementById('chartTono'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Positivo', 'Neutro', 'Negativo'],
+                    datasets: [{
+                        data: [76, 14, 10],
+                        backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '80%' }
+            });
         };
+
+        function filtrarTabla() {
+            let q = document.getElementById('busqueda').value.toLowerCase();
+            let rows = document.querySelectorAll('#tbodySemaforo tr');
+            rows.forEach(r => r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none');
+        }
     </script>
 </body>
 </html>
