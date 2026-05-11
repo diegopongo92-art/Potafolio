@@ -3,252 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego | Portafolio de Inteligencia Gubernamental</title>
+    <title>Diego | Estrategia de Datos y Comunicación</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* --- ESTILOS DE TU DASHBOARD DE MONITOREO --- */
-        :root { --main: #002f80; --main-light: #2563eb; --bg: #f8fafc; }
-        
-        .kpi-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-left: 4px solid var(--main); }
-        .chart-container { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); height: 350px; }
-        
-        /* --- ESTILOS DE TU SEMÁFORO --- */
-        .header-semaforo { background: var(--main); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .search-container { padding: 15px 5%; background: white; border-bottom: 1px solid #e2e8f0; display: flex; gap: 10px; align-items: center; }
-        .search-box { flex: 1; position: relative; }
-        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #64748b; }
-        .search-box input { width: 100%; padding: 10px 10px 10px 40px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; outline: none; transition: 0.2s; }
-        
-        .badge { padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 10px; text-transform: uppercase; display: inline-block; }
+        /* --- ESTILOS DEL PORTAFOLIO (MODERNO) --- */
+        :root { --mml-blue: #002f80; --portfolio-dark: #0f172a; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--portfolio-dark); color: white; margin: 0; }
+
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #1e3a8a, #0f172a);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* --- TUS ESTILOS ORIGINALES (REPLICADOS EXACTAMENTE) --- */
+        .platform-container {
+            background: #f1f5f9; /* El fondo gris claro de tus archivos */
+            color: #1e293b;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Estilos Dashboard de Monitoreo */
+        .kpi-card-original {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--mml-blue);
+        }
+
+        /* Estilos Tablero/Semáforo */
+        .header-original { background: var(--mml-blue); color: white; padding: 20px 5%; }
+        .badge-original {
+            padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 10px; 
+            text-transform: uppercase; display: inline-block;
+        }
         .badge-positivo { background: #dcfce7; color: #166534; }
         .badge-neutro { background: #fef9c3; color: #854d0e; }
         .badge-negativo { background: #fee2e2; color: #991b1b; }
 
-        table { width: 100%; border-collapse: collapse; background: white; }
-        thead th { background: #f8fafc; color: #64748b; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 15px; text-align: left; border-bottom: 2px solid #e2e8f0; }
-        tbody td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+        .table-original { width: 100%; border-collapse: collapse; background: white; }
+        .table-original th { 
+            background: #f8fafc; color: #64748b; font-size: 10px; 
+            text-transform: uppercase; letter-spacing: 1px; padding: 15px; text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .table-original td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
 
-        /* NAVEGACIÓN DEL PORTAFOLIO */
-        .tab-active { color: white; border-bottom: 3px solid white; }
-        .hidden { display: none; }
+        .search-box-original {
+            width: 100%; padding: 12px 40px; border: 1px solid #e2e8f0; 
+            border-radius: 10px; outline: none; font-size: 14px;
+        }
     </style>
 </head>
-<body class="bg-[#f1f5f9]">
+<body>
 
-    <nav class="bg-[#002f80] text-white px-8 py-4 flex justify-between items-center sticky top-0 z-[1000]">
-        <div class="flex items-center gap-4">
-            <div class="bg-white text-[#002f80] p-2 rounded-lg font-black italic">DP</div>
-            <h1 class="text-lg font-black uppercase tracking-tighter">Diego | Estrategia Política</h1>
-        </div>
-        <div class="flex gap-6 text-xs font-black uppercase">
-            <button onclick="showTab('tab-dash')" class="tab-btn tab-active py-2">Dashboard Monitoreo</button>
-            <button onclick="showTab('tab-sema')" class="tab-btn py-2 opacity-60 hover:opacity-100">Semáforo Diario</button>
-        </div>
-    </nav>
-
-    <main id="tab-dash" class="p-8 max-w-[1600px] mx-auto">
-        <div class="flex justify-between items-end mb-8">
-            <div>
-                <h2 class="text-3xl font-black text-slate-800 italic uppercase">Monitoreo de Impacto VPR</h2>
-                <p class="text-slate-500 font-bold uppercase text-[10px] tracking-widest mt-1">Análisis de Valor Publicitario de Referencia - MML</p>
+    <section class="hero-gradient">
+        <div class="max-w-4xl">
+            <span class="text-blue-400 font-black tracking-[0.3em] uppercase text-xs">Politólogo & Estratega de Datos</span>
+            <h1 class="text-7xl md:text-9xl font-black italic uppercase tracking-tighter my-6">DIEGO</h1>
+            <p class="text-xl text-slate-400 leading-relaxed max-w-2xl mx-auto mb-10">
+                Especialista en comunicación gubernamental con enfoque en analítica. 
+                Desarrollo de herramientas personalizadas para la **Municipalidad de Lima**.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#proyectos" class="bg-blue-600 hover:bg-blue-500 px-10 py-5 rounded-full font-black uppercase text-xs transition-all transform hover:scale-105">Ver Proyectos</a>
             </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="kpi-card">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-[10px] font-black text-slate-400 uppercase">Ahorro VPR</p>
-                    <i class="ph-bold ph-trend-up text-emerald-500"></i>
-                </div>
-                <p class="text-2xl font-black text-[#002f80]" id="kpi-vpr">S/ 0</p>
+    <section id="proyectos" class="py-20 px-6">
+        
+        <div class="mb-32">
+            <div class="max-w-7xl mx-auto mb-10">
+                <h2 class="text-4xl font-black italic uppercase tracking-tighter">01. Dashboard de Monitoreo</h2>
+                <p class="text-slate-500 mt-2 font-bold uppercase text-[10px] tracking-widest">Análisis de Valor Publicitario (VPR)</p>
             </div>
-            <div class="kpi-card">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-[10px] font-black text-slate-400 uppercase">Alcance Total</p>
-                    <i class="ph-bold ph-users text-blue-500"></i>
-                </div>
-                <p class="text-2xl font-black text-[#002f80]" id="kpi-alcance">0</p>
-            </div>
-            <div class="kpi-card">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-[10px] font-black text-slate-400 uppercase">Notas Totales</p>
-                    <i class="ph-bold ph-newspaper text-slate-400"></i>
-                </div>
-                <p class="text-2xl font-black text-[#002f80]" id="kpi-notas">0</p>
-            </div>
-            <div class="kpi-card">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-[10px] font-black text-slate-400 uppercase">Protagonismo</p>
-                    <i class="ph-bold ph-star text-amber-500"></i>
-                </div>
-                <p class="text-2xl font-black text-[#002f80]" id="kpi-prot">0%</p>
-            </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="chart-container">
-                <p class="text-[10px] font-black uppercase text-slate-400 mb-4 flex items-center gap-2">
-                    <i class="ph-fill ph-chart-bar"></i> Ahorro por Tipo de Medio
-                </p>
-                <canvas id="c-ahorro-med"></canvas>
-            </div>
-            <div class="chart-container">
-                <p class="text-[10px] font-black uppercase text-slate-400 mb-4 flex items-center gap-2">
-                    <i class="ph-fill ph-chart-pie"></i> Distribución de Tono
-                </div>
-                <canvas id="c-tono"></canvas>
-            </div>
-        </div>
-    </main>
+            <div class="platform-container">
+                <div class="p-8 bg-white">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                        <div class="kpi-card-original">
+                            <p class="text-[10px] font-black text-slate-400 uppercase mb-2">Ahorro Publicitario</p>
+                            <p class="text-3xl font-black text-[#002f80]" id="dash-vpr">S/ 0</p>
+                        </div>
+                        <div class="kpi-card-original">
+                            <p class="text-[10px] font-black text-slate-400 uppercase mb-2">Alcance Estimado</p>
+                            <p class="text-3xl font-black text-[#002f80]" id="dash-alcance">0</p>
+                        </div>
+                        <div class="kpi-card-original" style="border-left-color: #10b981;">
+                            <p class="text-[10px] font-black text-slate-400 uppercase mb-2">Impacto Positivo</p>
+                            <p class="text-3xl font-black text-[#002f80]" id="dash-pos">0%</p>
+                        </div>
+                        <div class="kpi-card-original" style="border-left-color: #f59e0b;">
+                            <p class="text-[10px] font-black text-slate-400 uppercase mb-2">Menciones Totales</p>
+                            <p class="text-3xl font-black text-[#002f80]" id="dash-notas">0</p>
+                        </div>
+                    </div>
 
-    <main id="tab-sema" class="hidden">
-        <div class="header-semaforo">
-            <div class="flex items-center gap-4">
-                <i class="ph-bold ph-traffic-light text-3xl"></i>
-                <div>
-                    <h2 class="text-xl font-black italic uppercase tracking-tighter leading-none">Semáforo MML</h2>
-                    <p class="text-[9px] font-bold uppercase opacity-70">Tablero Diario de Gestión de Crisis</p>
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                            <p class="text-[10px] font-black uppercase text-slate-400 mb-6"><i class="ph-bold ph-chart-bar text-blue-600 mr-2"></i> Ahorro por Medio</p>
+                            <div class="h-80"><canvas id="canvas-medios"></canvas></div>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                            <p class="text-[10px] font-black uppercase text-slate-400 mb-6"><i class="ph-bold ph-chart-pie text-blue-600 mr-2"></i> Distribución de Tono</p>
+                            <div class="h-80"><canvas id="canvas-tono"></canvas></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex gap-2">
-                <button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-[10px] font-black uppercase transition">Alertas Hoy</button>
-                <button class="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg text-[10px] font-black uppercase transition">Exportar PDF</button>
+        </div>
+
+        <div class="mb-32">
+            <div class="max-w-7xl mx-auto mb-10">
+                <h2 class="text-4xl font-black italic uppercase tracking-tighter text-right">02. Semáforo de Noticias</h2>
+                <p class="text-slate-500 mt-2 font-bold uppercase text-[10px] tracking-widest text-right">Gestión de Crisis en Tiempo Real</p>
+            </div>
+
+            <div class="platform-container">
+                <header class="header-original">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-black italic tracking-tighter uppercase">Tablero Diario MML</h3>
+                        <div class="flex gap-2">
+                            <span class="bg-white/20 px-3 py-1 rounded text-[10px] font-bold uppercase">Live Update</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="bg-white p-6 border-b border-slate-100">
+                    <div class="relative max-w-xl mx-auto">
+                        <i class="ph ph-magnifying-glass absolute left-4 top-4 text-slate-400"></i>
+                        <input type="text" id="inputBusqueda" class="search-box-original" placeholder="Buscar noticia o medio..." onkeyup="filtrarTabla()">
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-x-auto">
+                    <table class="table-original" id="tablaNoticias">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Noticia Principal / Medio</th>
+                                <th>Tono</th>
+                                <th>Resumen Gestión</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyNoticias">
+                            </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <div class="search-container">
-            <div class="search-box">
-                <i class="ph ph-magnifying-glass"></i>
-                <input type="text" id="busqueda" placeholder="Buscar por titular, medio o resumen..." onkeyup="filtrarTabla()">
-            </div>
-        </div>
+    </section>
 
-        <div class="p-8">
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
-                <table id="tabla-noticias">
-                    <thead>
-                        <tr>
-                            <th style="width: 120px;">Fecha</th>
-                            <th>Titular y Medio</th>
-                            <th style="width: 120px;">Tono</th>
-                            <th>Resumen Estratégico</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lista-noticias">
-                        </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+    <footer class="py-20 text-center text-slate-600 border-t border-white/5">
+        <p class="text-[10px] font-black uppercase tracking-[0.5em]">© 2024 DIEGO | MML DATA PROJECTS</p>
+    </footer>
 
     <script>
-        // --- FUNCIÓN PARA MOSTRAR PESTAÑAS ---
-        function showTab(tabId) {
-            document.getElementById('tab-dash').classList.add('hidden');
-            document.getElementById('tab-sema').classList.add('hidden');
-            document.getElementById(tabId).classList.remove('hidden');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active', 'opacity-100'));
-            event.target.classList.add('tab-active', 'opacity-100');
-        }
-
-        // --- SIMULACIÓN DE DATOS (Mismos nombres de columnas de tus Sheets) ---
-        const fakeData = [
-            { fecha: '11/05/2024', marcaTemporal: '11/05/2024 09:30:00', titular: 'MML recupera espacios en el Centro Histórico', medio: 'El Comercio', tipoMedio: 'Impreso', tono: 'Positivo', resumen: 'Exitoso operativo de recuperación urbana.', vpr: 45000, alcance: 120000, protagonista: 'Sí' },
-            { fecha: '11/05/2024', marcaTemporal: '11/05/2024 10:15:00', titular: 'Avance de obras en Vía Expresa Sur al 70%', medio: 'RPP', tipoMedio: 'Radial', tono: 'Positivo', resumen: 'Cumplimiento de cronogramas en infraestructura vial.', vpr: 32000, alcance: 450000, protagonista: 'Sí' },
-            { fecha: '10/05/2024', marcaTemporal: '10/05/2024 08:20:00', titular: 'Quejas por congestión en Av. Abancay', medio: 'Exitosa', tipoMedio: 'Digital', tono: 'Negativo', resumen: 'Malestar ciudadano por desvíos no señalizados.', vpr: 12000, alcance: 85000, protagonista: 'No' },
-            { fecha: '10/05/2024', marcaTemporal: '10/05/2024 14:00:00', titular: 'Entrevista sobre nuevos planes de vivienda', medio: 'TV Perú', tipoMedio: 'Televisivo', tono: 'Neutro', resumen: 'Explicación técnica de los proyectos de vivienda social.', vpr: 75000, alcance: 600000, protagonista: 'Sí' }
+        // --- DATA SIMULADA (Misma estructura que tus CSV) ---
+        const dataSimulada = [
+            { fecha: '12/05/2024', titular: 'MML recupera áreas verdes en Cercado de Lima', medio: 'El Comercio', tipoMedio: 'Impreso', tono: 'Positivo', resumen: 'Impacto favorable en percepción vecinal.', vpr: 52000, alcance: 150000 },
+            { fecha: '12/05/2024', titular: 'Obras en Av. Huaylas avanzan según cronograma', medio: 'RPP Noticias', tipoMedio: 'Radial', tono: 'Positivo', resumen: 'Nota informativa de avance de gestión.', vpr: 35000, alcance: 400000 },
+            { fecha: '11/05/2024', titular: 'Debate por nuevo plan de desvíos en el Centro', medio: 'La República', tipoMedio: 'Digital', tono: 'Neutro', resumen: 'Se requiere reforzar comunicación de rutas.', vpr: 12000, alcance: 60000 },
+            { fecha: '11/05/2024', titular: 'Quejas por recojo de basura en zona periférica', medio: 'Exitosa', tipoMedio: 'Digital', tono: 'Negativo', resumen: 'Alerta de crisis. Derivado a Gerencia de Servicios.', vpr: 8000, alcance: 35000 }
         ];
 
-        // --- LÓGICA ORIGINAL DE TU DASHBOARD (PROCESAMIENTO) ---
-        function procesarDashboard() {
-            let totalVpr = 0, totalAlcance = 0, totalNotas = fakeData.length, protSi = 0;
-            let ahMed = {}, tonoCount = { 'Positivo': 0, 'Neutro': 0, 'Negativo': 0 };
+        // --- LÓGICA PROYECTO 1: DASHBOARD ---
+        function cargarDashboard() {
+            const totalVPR = dataSimulada.reduce((acc, r) => acc + r.vpr, 0);
+            const totalAlcance = dataSimulada.reduce((acc, r) => acc + r.alcance, 0);
+            const positivas = (dataSimulada.filter(r => r.tono === 'Positivo').length / dataSimulada.length * 100).toFixed(0);
 
-            fakeData.forEach(row => {
-                totalVpr += row.vpr;
-                totalAlcance += row.alcance;
-                if(row.protagonista === 'Sí') protSi++;
-                
-                // Agrupar por medio
-                ahMed[row.tipoMedio] = (ahMed[row.tipoMedio] || 0) + row.vpr;
-                // Contar tonos
-                tonoCount[row.tono]++;
-            });
+            document.getElementById('dash-vpr').innerText = `S/ ${totalVPR.toLocaleString()}`;
+            document.getElementById('dash-alcance').innerText = (totalAlcance/1000000).toFixed(1) + 'M';
+            document.getElementById('dash-pos').innerText = positivas + '%';
+            document.getElementById('dash-notas').innerText = dataSimulada.length;
 
-            // Actualizar KPIs
-            document.getElementById('kpi-vpr').innerText = `S/ ${totalVpr.toLocaleString()}`;
-            document.getElementById('kpi-alcance').innerText = totalAlcance.toLocaleString();
-            document.getElementById('kpi-notas').innerText = totalNotas;
-            document.getElementById('kpi-prot').innerText = `${((protSi/totalNotas)*100).toFixed(0)}%`;
-
-            // Gráfico 1: Ahorro por Medio
-            new Chart(document.getElementById('c-ahorro-med'), {
+            // Chart Medios (Tu configuración original)
+            new Chart(document.getElementById('canvas-medios'), {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(ahMed),
-                    datasets: [{ label: 'VPR', data: Object.values(ahMed), backgroundColor: '#002f80', borderRadius: 6 }]
+                    labels: ['Impreso', 'Radial', 'Digital', 'TV'],
+                    datasets: [{ label: 'VPR', data: [52000, 35000, 20000, 15000], backgroundColor: '#002f80', borderRadius: 8 }]
                 },
-                options: { 
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { datalabels: { display: true, anchor: 'end', align: 'top', font: { weight: 'bold' }, formatter: (v) => 'S/ ' + v.toLocaleString() } }
-                }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
-            // Gráfico 2: Tono
-            new Chart(document.getElementById('c-tono'), {
+            // Chart Tono
+            new Chart(document.getElementById('canvas-tono'), {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(tonoCount),
-                    datasets: [{ data: Object.values(tonoCount), backgroundColor: ['#10b981', '#f59e0b', '#ef4444'] }]
+                    labels: ['Positivo', 'Neutro', 'Negativo'],
+                    datasets: [{ data: [60, 20, 20], backgroundColor: ['#10b981', '#f59e0b', '#ef4444'], borderWidth: 0 }]
                 },
-                options: { responsive: true, maintainAspectRatio: false }
+                options: { responsive: true, maintainAspectRatio: false, cutout: '70%' }
             });
         }
 
-        // --- LÓGICA ORIGINAL DE TU SEMÁFORO (TABLA) ---
-        function procesarSemaforo() {
-            const tbody = document.getElementById('lista-noticias');
-            tbody.innerHTML = '';
-
-            fakeData.forEach(row => {
-                const badgeClass = row.tono === 'Positivo' ? 'badge-positivo' : (row.tono === 'Negativo' ? 'badge-negativo' : 'badge-neutro');
-                tbody.innerHTML += `
-                    <tr>
-                        <td><div class="font-bold">${row.fecha}</div><div class="text-[9px] opacity-50">${row.marcaTemporal.split(' ')[1]}</div></td>
-                        <td>
-                            <div class="font-black text-[#002f80] text-sm leading-tight mb-1">${row.titular}</div>
-                            <div class="text-[10px] font-black text-slate-400 uppercase">${row.medio} <span class="text-blue-500">(${row.tipoMedio})</span></div>
-                        </td>
-                        <td><span class="badge ${badgeClass}">${row.tono}</span></td>
-                        <td class="italic font-medium text-slate-600">${row.resumen}</td>
-                    </tr>
-                `;
-            });
+        // --- LÓGICA PROYECTO 2: TABLA/FILTRO ---
+        function cargarTabla() {
+            const body = document.getElementById('bodyNoticias');
+            body.innerHTML = dataSimulada.map(r => `
+                <tr>
+                    <td class="font-bold text-slate-400">${r.fecha}</td>
+                    <td>
+                        <div class="font-black text-[#002f80] text-sm leading-tight mb-1">${r.titular}</div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase">${r.medio} <span class="text-blue-500">(${r.tipoMedio})</span></div>
+                    </td>
+                    <td><span class="badge-original badge-${r.tono.toLowerCase()}">${r.tono}</span></td>
+                    <td class="italic font-medium text-slate-600">${r.resumen}</td>
+                </tr>
+            `).join('');
         }
 
         function filtrarTabla() {
-            let input = document.getElementById("busqueda").value.toLowerCase();
-            let filas = document.getElementById("lista-noticias").getElementsByTagName("tr");
-            for (let f of filas) {
-                f.style.display = f.textContent.toLowerCase().includes(input) ? "" : "none";
+            let filtro = document.getElementById("inputBusqueda").value.toLowerCase();
+            let filas = document.getElementById("bodyNoticias").getElementsByTagName("tr");
+            for (let i = 0; i < filas.length; i++) {
+                let texto = filas[i].textContent.toLowerCase();
+                filas[i].style.display = texto.includes(filtro) ? "" : "none";
             }
         }
 
-        // Iniciar todo
+        // Iniciar
         window.onload = () => {
             Chart.register(ChartDataLabels);
-            procesarDashboard();
-            procesarSemaforo();
+            cargarDashboard();
+            cargarTabla();
         };
     </script>
 </body>
