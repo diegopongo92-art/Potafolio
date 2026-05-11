@@ -3,246 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Pongo | Portafolio de Estrategia y Datos</title>
+    <title>Diego | Portafolio de Inteligencia de Datos</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* --- ESTILOS DEL PORTAFOLIO (EL "MARCO" MODERNO) --- */
-        :root { 
-            --mml-blue: #002f80; 
-            --portfolio-dark: #020617; 
-        }
-        body { font-family: 'Inter', sans-serif; background-color: var(--portfolio-dark); color: white; margin: 0; }
-        .hero-section {
-            background: radial-gradient(circle at 80% 20%, #1e3a8a 0%, #020617 60%);
-            padding: 100px 20px;
-            text-align: center;
-        }
-
-        /* --- ESTILOS EXACTOS DE TU DASHBOARD (Extraídos de dashboard de moniteo.txt) --- */
-        .mml-dashboard-root {
-            --bg-color: #f8fafc; --card-bg: #ffffff; --primary: #002f80;
-            --primary-light: #2563eb; --text-dark: #0f172a; --text-muted: #64748b;
-            --border: #e2e8f0; --radius: 16px;
-            --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 10px 25px -5px rgba(0, 47, 128, 0.08);
-            background-color: var(--bg-color); color: var(--text-dark);
-            border-radius: 24px; padding: 24px; overflow: hidden;
-        }
-
-        .kpi-box-original {
-            text-align: center; color: white; padding: 20px; border-radius: var(--radius);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            box-shadow: var(--shadow-md); position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
-        .kpi-bg-icon { position: absolute; right: -20px; bottom: -20px; font-size: 140px; opacity: 0.08; color: #fff; pointer-events: none; }
-        .kpi-box-original h2 { font-size: 46px; font-weight: 900; letter-spacing: -1.5px; margin: 0; z-index: 1; }
-
-        .chart-card-original {
-            background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border);
-            padding: 16px 20px; box-shadow: var(--shadow-md); transition: transform 0.2s ease;
-        }
-        .chart-card-original:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-
-        /* --- ESTILOS EXACTOS DE TU SEMÁFORO (Extraídos de tablero diario de noticias.txt) --- */
-        .semaforo-root {
-            --bg-sem: #f1f5f9; --primary-sem: #002f80; --accent-sem: #2563eb;
-            background: var(--bg-sem); border-radius: 24px; overflow: hidden; color: #1e293b;
-        }
-        .header-sem { background: var(--primary-sem); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        /* --- ESTILOS MODERNOS DEL PORTAFOLIO --- */
+        :root { --mml-blue: #002f80; --dark: #0f172a; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark); color: white; margin: 0; }
         
-        .card-sem { 
-            padding: 15px; border-radius: 10px; text-align: center; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; background: white;
-        }
-        .card-sem.positiva { background: #86efac; border-color: #4ade80; }
-        .card-sem.neutra { background: #fde047; border-color: #facc15; }
-        .card-sem.negativa { background: #fc8181; border-color: #f87171; }
+        .section-title { font-size: 3rem; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 2rem; }
 
-        .badge-original {
-            padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; 
-            text-transform: uppercase; display: inline-block;
+        /* --- CSS EXACTO DE TUS PLATAFORMAS (EXTRAÍDO DE TUS TXT) --- */
+        .platform-frame {
+            background: #f1f5f9;
+            color: #1e293b;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            max-width: 1300px;
+            margin: 0 auto 5rem auto;
         }
-        .badge-pos { background: #15803d; color: white; }
-        .badge-neg { background: #b91c1c; color: white; }
-        .badge-neu { background: #a16207; color: white; }
+
+        /* Estilos de Pestañas (Plataforma 1) */
+        .nav-tabs { background: white; border-bottom: 1px solid #e2e8f0; display: flex; padding: 0 20px; }
+        .tab-item { padding: 15px 25px; font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; color: #64748b; border-bottom: 3px solid transparent; }
+        .tab-item.active { color: var(--mml-blue); border-bottom-color: var(--mml-blue); }
+
+        /* Estilos Semáforo (Plataforma 2) */
+        .badge { padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 10px; text-transform: uppercase; }
+        .badge-positivo { background: #166534; color: white; }
+        .badge-neutro { background: #ca8a04; color: white; }
+        .badge-negativo { background: #991b1b; color: white; }
 
         table { width: 100%; border-collapse: collapse; background: white; }
-        th { background: #f8fafc; padding: 15px; text-align: left; font-size: 11px; color: #64748b; text-transform: uppercase; border-bottom: 1px solid #eee; }
-        td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 13px; vertical-align: top; }
+        th { background: #f8fafc; padding: 15px; text-align: left; font-size: 10px; text-transform: uppercase; color: #64748b; border-bottom: 2px solid #e2e8f0; }
+        td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+
+        /* Filas con color condicional (Tu lógica) */
+        .row-positivo { background-color: #f0fdf4 !important; }
+        .row-negativo { background-color: #fef2f2 !important; }
+        .row-neutro { background-color: #fffbeb !important; }
+
+        .disclaimer { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <header class="hero-section">
-        <div class="max-w-5xl mx-auto">
-            <h1 class="text-6xl md:text-8xl font-black italic tracking-tighter mb-4">DP PONGO</h1>
-            <p class="text-blue-400 font-bold uppercase tracking-[0.4em] text-sm mb-8">Data Analytics & Gov-Comm Specialist</p>
-            <div class="flex justify-center gap-6">
-                <a href="#dashboard" class="border-b-2 border-blue-500 pb-1 font-bold text-xs uppercase tracking-widest hover:text-blue-400 transition">01. Monitoreo</a>
-                <a href="#semaforo" class="border-b-2 border-blue-500 pb-1 font-bold text-xs uppercase tracking-widest hover:text-blue-400 transition">02. Semáforo</a>
-            </div>
-        </div>
+    <header class="py-20 px-10 text-center">
+        <h1 class="text-8xl font-black italic uppercase text-blue-600">Diego</h1>
+        <p class="text-blue-200 font-bold uppercase tracking-[0.5em] text-xs">Inteligencia de Datos • Municipalidad de Lima</p>
     </header>
 
-    <main class="max-w-[1400px] mx-auto py-20 px-4">
+    <main class="px-6">
         
-        <section id="dashboard" class="mb-40">
-            <div class="flex items-center gap-4 mb-10">
-                <span class="text-5xl font-black text-blue-900/30 italic">01</span>
+        <div class="max-w-7xl mx-auto mb-10"><h2 class="section-title">01. Dashboard MML</h2></div>
+        <div class="platform-frame">
+            <div class="nav-tabs">
+                <div class="tab-item active">Resumen General</div>
+                <div class="tab-item">Alcance de Medios</div>
+                <div class="tab-item">Ahorro Publicitario (VPR)</div>
+                <div class="tab-item">Análisis por Vocero</div>
+            </div>
+
+            <div class="p-8 bg-white">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+                    <div class="p-6 bg-[#f8fafc] border-l-4 border-[#002f80] rounded-r-xl">
+                        <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Ahorro Total</p>
+                        <p class="text-2xl font-black text-[#002f80]">S/ 1,420,000</p>
+                    </div>
+                    <div class="p-6 bg-[#f8fafc] border-l-4 border-blue-500 rounded-r-xl">
+                        <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Alcance Total</p>
+                        <p class="text-2xl font-black text-[#002f80]">4.2M</p>
+                    </div>
+                    <div class="p-6 bg-[#f8fafc] border-l-4 border-emerald-500 rounded-r-xl">
+                        <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Menciones</p>
+                        <p class="text-2xl font-black text-[#002f80]">856</p>
+                    </div>
+                    <div class="p-6 bg-[#f8fafc] border-l-4 border-amber-500 rounded-r-xl">
+                        <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Impacto Positivo</p>
+                        <p class="text-2xl font-black text-[#002f80]">78%</p>
+                    </div>
+                </div>
+
+                <div class="h-80 w-full"><canvas id="chartPrincipal"></canvas></div>
+            </div>
+            <div class="disclaimer pb-4 italic">* Simulación interactiva: Datos representativos para fines de portafolio.</div>
+        </div>
+
+        <div class="max-w-7xl mx-auto mb-10"><h2 class="section-title text-right">02. Semáforo de Noticias</h2></div>
+        <div class="platform-frame">
+            <header class="bg-[#002f80] p-6 text-white flex justify-between items-center">
                 <div>
-                    <h2 class="text-3xl font-black uppercase italic tracking-tighter">Panel de Monitoreo</h2>
-                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Plataforma de Análisis de Valor Publicitario</p>
+                    <h3 class="font-black italic uppercase tracking-tighter text-xl">Tablero de Gestión Diaria</h3>
+                    <p class="text-[9px] font-bold uppercase text-blue-300">Monitoreo de Crisis y Oportunidades</p>
                 </div>
+                <div class="flex gap-4">
+                    <input type="text" id="filtro" onkeyup="filtrar()" placeholder="Buscar noticia..." class="px-4 py-2 rounded-lg text-xs text-slate-800 outline-none w-64">
+                </div>
+            </header>
+
+            <div class="bg-white overflow-x-auto">
+                <table id="tablaNoticias">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Medio / Titular</th>
+                            <th>Tono</th>
+                            <th>Resumen Estratégico</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaNoticias">
+                        </tbody>
+                </table>
             </div>
-
-            <div class="mml-dashboard-root">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="kpi-box-original">
-                        <i class="ph-fill ph-megaphone kpi-bg-icon"></i>
-                        <h4 class="text-[11px] font-bold tracking-widest uppercase opacity-80 mb-2">Total Menciones</h4>
-                        <h2 id="total-menciones">1,248</h2>
-                    </div>
-                    <div class="kpi-box-original" style="background: linear-gradient(135deg, #059669, #10b981);">
-                        <i class="ph-fill ph-chart-line kpi-bg-icon"></i>
-                        <h4 class="text-[11px] font-bold tracking-widest uppercase opacity-80 mb-2">Ahorro Publicitario</h4>
-                        <h2>S/ 145K</h2>
-                    </div>
-                    <div class="kpi-box-original" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">
-                        <i class="ph-fill ph-users kpi-bg-icon"></i>
-                        <h4 class="text-[11px] font-bold tracking-widest uppercase opacity-80 mb-2">Alcance Total</h4>
-                        <h2>2.4M</h2>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="chart-card-original">
-                        <h3 class="text-[11px] font-bold text-slate-400 uppercase mb-4"><i class="ph ph-trend-up mr-2"></i>Menciones en el tiempo</h3>
-                        <div class="h-[300px]"><canvas id="c-time"></canvas></div>
-                    </div>
-                    <div class="chart-card-original">
-                        <h3 class="text-[11px] font-bold text-slate-400 uppercase mb-4"><i class="ph ph-pie-chart mr-2"></i>Tipo de Medio (%)</h3>
-                        <div class="h-[300px]"><canvas id="c-medio"></canvas></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="semaforo">
-            <div class="flex items-center gap-4 mb-10 justify-end text-right">
-                <div>
-                    <h2 class="text-3xl font-black uppercase italic tracking-tighter">Semáforo de Medios</h2>
-                    <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Gestión de Crisis y Alerta Temprana</p>
-                </div>
-                <span class="text-5xl font-black text-blue-900/30 italic">02</span>
-            </div>
-
-            <div class="semaforo-root">
-                <div class="header-sem">
-                    <h1 class="text-white font-black text-lg italic tracking-tight uppercase">SEMÁFORO DE MEDIOS MML</h1>
-                    <span class="text-[10px] text-blue-200 font-bold uppercase tracking-widest">Live Update 2024</span>
-                </div>
-
-                <div class="p-6">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div class="card-sem">
-                            <div class="text-[10px] font-bold text-slate-500 uppercase mb-1">Menciones</div>
-                            <div class="text-2xl font-black">48</div>
-                        </div>
-                        <div class="card-sem positiva">
-                            <div class="text-[10px] font-bold text-emerald-900 uppercase mb-1">Positivas</div>
-                            <div class="text-2xl font-black">32</div>
-                        </div>
-                        <div class="card-sem neutra">
-                            <div class="text-[10px] font-bold text-amber-900 uppercase mb-1">Neutras</div>
-                            <div class="text-2xl font-black">10</div>
-                        </div>
-                        <div class="card-sem negativa">
-                            <div class="text-[10px] font-bold text-red-900 uppercase mb-1">Negativas</div>
-                            <div class="text-2xl font-black">6</div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="width: 15%;">Fecha</th>
-                                    <th style="width: 30%;">Noticia / Medio</th>
-                                    <th style="width: 15%;">Tono</th>
-                                    <th style="width: 40%;">Resumen Gestión</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="font-bold text-slate-400">12/05/2024</td>
-                                    <td>
-                                        <div class="font-black text-[#002f80] mb-1">Recuperación de espacios en Mesa Redonda</div>
-                                        <div class="text-[10px] font-bold text-slate-400">EL COMERCIO (IMPRESO)</div>
-                                    </td>
-                                    <td><span class="badge-original badge-pos">Positivo</span></td>
-                                    <td class="font-medium text-slate-600 italic">Intervención conjunta exitosa con apoyo vecinal.</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold text-slate-400">12/05/2024</td>
-                                    <td>
-                                        <div class="font-black text-[#002f80] mb-1">Alerta por comercio ambulatorio en Av. Abancay</div>
-                                        <div class="text-[10px] font-bold text-slate-400">RPP (DIGITAL)</div>
-                                    </td>
-                                    <td><span class="badge-original badge-neg">Negativo</span></td>
-                                    <td class="font-medium text-slate-600 italic">Alerta de seguridad. Fiscalización en camino.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="disclaimer pb-4 italic">* Por seguridad y confidencialidad, los datos sensibles han sido anonimizados.</div>
+        </div>
 
     </main>
 
     <script>
-        // Lógica de gráficos respetando tu configuración original
-        window.onload = function() {
-            // Gráfico de Líneas (Menciones)
-            new Chart(document.getElementById('c-time'), {
-                type: 'line',
-                data: {
-                    labels: ['L','M','M','J','V','S','D'],
-                    datasets: [{
-                        label: 'Menciones',
-                        data: [120, 150, 180, 140, 210, 160, 130],
-                        borderColor: '#002f80',
-                        backgroundColor: 'rgba(0, 47, 128, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+        // DATOS MÁS EXTENSOS
+        const noticias = [
+            { f: '12/05', t: 'MML recupera áreas verdes', m: 'El Comercio', tono: 'Positivo', r: 'Gestión exitosa de espacios públicos.', cls: 'row-positivo' },
+            { f: '12/05', t: 'Críticas por congestión en Av. Abancay', m: 'Exitosa', tono: 'Negativo', r: 'Alerta de tráfico. Se requiere presencia de inspectores.', cls: 'row-negativo' },
+            { f: '11/05', t: 'Entrevista sobre nuevos planes viales', m: 'TV Perú', tono: 'Neutro', r: 'Explicación técnica de proyectos.', cls: 'row-neutro' },
+            { f: '11/05', t: 'Vecinos agradecen nueva iluminación', m: 'Panamericana', tono: 'Positivo', r: 'Refuerza percepción de seguridad.', cls: 'row-positivo' },
+            { f: '10/05', t: 'Demoras en obra de Vía Expresa Sur', m: 'La República', tono: 'Negativo', r: 'Riesgo reputacional por plazos.', cls: 'row-negativo' },
+            { f: '10/05', t: 'MML presenta balance de gestión trimestral', m: 'Andina', tono: 'Positivo', r: 'Difusión de logros institucionales.', cls: 'row-positivo' }
+        ];
 
-            // Gráfico de Dona (Medios)
-            new Chart(document.getElementById('c-medio'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Impreso', 'Digital', 'TV', 'Radio'],
-                    datasets: [{
-                        data: [30, 45, 15, 10],
-                        backgroundColor: ['#002f80', '#2563eb', '#64748b', '#94a3b8'],
-                        borderWidth: 0
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, cutout: '75%' }
+        function cargarTabla() {
+            const lista = document.getElementById('listaNoticias');
+            lista.innerHTML = noticias.map(n => `
+                <tr class="${n.cls}">
+                    <td class="font-bold text-slate-400">${n.f}</td>
+                    <td>
+                        <div class="font-black text-[#002f80] text-sm">${n.t}</div>
+                        <div class="text-[10px] font-bold text-slate-400 uppercase">${n.m}</div>
+                    </td>
+                    <td><span class="badge badge-${n.tono.toLowerCase()}">${n.tono}</span></td>
+                    <td class="italic font-medium text-slate-600">${n.r}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filtrar() {
+            let val = document.getElementById('filtro').value.toLowerCase();
+            let rows = document.querySelectorAll('#listaNoticias tr');
+            rows.forEach(r => {
+                r.style.display = r.innerText.toLowerCase().includes(val) ? '' : 'none';
             });
         }
+
+        window.onload = () => {
+            cargarTabla();
+            new Chart(document.getElementById('chartPrincipal'), {
+                type: 'bar',
+                data: {
+                    labels: ['Impreso', 'Radial', 'TV', 'Digital'],
+                    datasets: [{ label: 'Ahorro (VPR)', data: [500000, 300000, 420000, 200000], backgroundColor: '#002f80', borderRadius: 8 }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        };
     </script>
 </body>
 </html>
