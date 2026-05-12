@@ -1,1417 +1,631 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diego Pongo · Portafolio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
-:root{
-  --bg:#060a14;
-  --surface:#0d1526;
-  --surface2:#111d35;
-  --border:rgba(255,255,255,0.07);
-  --primary:#2c6fff;
-  --accent:#00e5c0;
-  --pos:#22c55e;
-  --neu:#f59e0b;
-  --neg:#ef4444;
-  --text:#e8edf8;
-  --muted:#7a8aaa;
-
-  --font-display:'Syne',sans-serif;
-  --font-body:'DM Sans',sans-serif;
+:root {
+  --white:     #ffffff;
+  --bg:        #f5f7fa;
+  --bg2:       #eef1f7;
+  --surface:   #ffffff;
+  --border:    #dde3ef;
+  --border2:   #c8d0e2;
+  --blue:      #1a3fa8;
+  --blue-mid:  #2554cc;
+  --blue-lite: #dce8ff;
+  --blue-text: #1a3fa8;
+  --teal:      #0e9e82;
+  --teal-lite: #d4f3ec;
+  --pos:       #15803d;
+  --pos-bg:    #dcfce7;
+  --neu:       #92400e;
+  --neu-bg:    #fef3c7;
+  --neg:       #991b1b;
+  --neg-bg:    #fee2e2;
+  --ink:       #111827;
+  --ink2:      #374151;
+  --muted:     #6b7280;
+  --subtle:    #9ca3af;
+  --r-sm:      8px;
+  --r:         14px;
+  --r-lg:      20px;
+  --sh-sm:     0 1px 4px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --sh:        0 4px 16px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.04);
+  --sh-lg:     0 12px 36px rgba(0,0,0,0.09),0 2px 8px rgba(0,0,0,0.05);
 }
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--font-body);
-  overflow-x:hidden;
-  line-height:1.6;
-}
-
-/* NOISE */
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:0;
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
 
 /* NAV */
-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  padding:18px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(6,10,20,0.86);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-}
-
-.nav-logo{
-  font-family:var(--font-display);
-  font-size:18px;
-  font-weight:800;
-}
-
-.nav-logo span{
-  color:var(--primary);
-}
-
-.nav-links{
-  display:flex;
-  gap:28px;
-}
-
-.nav-links a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:13px;
-  transition:.2s;
-}
-
-.nav-links a:hover{
-  color:white;
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 6%;height:60px}
+.nav-brand{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--ink)}
+.nav-brand em{color:var(--blue-mid);font-style:normal}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue-mid)}
 
 /* HERO */
-.hero{
-  min-height:100vh;
-  padding:130px 6% 80px;
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-}
+.hero{background:var(--white);border-bottom:1px solid var(--border);padding:108px 0 80px}
+.hero-inner{max-width:1080px;margin:0 auto;padding:0 6%;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--blue-lite);color:var(--blue-text);font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:22px}
+.hero h1{font-family:'Lora',serif;font-size:clamp(34px,4.5vw,56px);font-weight:700;line-height:1.1;letter-spacing:-1px;color:var(--ink);margin-bottom:20px}
+.hero h1 span{color:var(--blue-mid)}
+.hero-bio{font-size:16px;color:var(--ink2);line-height:1.75;max-width:520px;margin-bottom:32px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:7px;background:var(--blue-mid);color:#fff;padding:12px 24px;border-radius:var(--r-sm);font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 2px 12px rgba(37,84,204,.3);transition:all .2s}
+.btn-primary:hover{background:var(--blue);transform:translateY(-1px);box-shadow:0 4px 18px rgba(37,84,204,.35)}
+.btn-ghost{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--border2);color:var(--ink2);padding:12px 24px;border-radius:var(--r-sm);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:var(--blue-mid);color:var(--blue-mid)}
+.hero-aside{display:flex;flex-direction:column;gap:14px;min-width:210px}
+.stat-pill{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;text-align:center}
+.stat-pill .num{font-family:'Lora',serif;font-size:32px;font-weight:700;color:var(--blue-mid);letter-spacing:-1px;line-height:1}
+.stat-pill .lbl{font-size:11.5px;color:var(--muted);font-weight:500;margin-top:5px;line-height:1.4}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.chip{font-size:11.5px;font-weight:600;padding:5px 13px;border-radius:999px;background:var(--bg2);color:var(--ink2);border:1px solid var(--border)}
 
-.hero-glow{
-  position:absolute;
-  width:700px;
-  height:700px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(44,111,255,.15), transparent 70%);
-  right:-180px;
-  top:-180px;
-}
+/* SECTIONS */
+.wrap{max-width:1080px;margin:0 auto;padding:0 6%}
+section{padding:80px 0}
+section.alt{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.sec-title{font-family:'Lora',serif;font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:-.5px;color:var(--ink);margin-bottom:12px;line-height:1.2}
+.sec-sub{font-size:15px;color:var(--muted);max-width:540px;line-height:1.7;margin-bottom:48px}
 
-.hero-glow2{
-  position:absolute;
-  width:400px;
-  height:400px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(0,229,192,.08), transparent 70%);
-  bottom:-100px;
-  left:10%;
-}
+/* PROJECT CARD */
+.project-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh);overflow:hidden;margin-bottom:48px;transition:box-shadow .2s}
+.project-card:hover{box-shadow:var(--sh-lg)}
+.proj-hdr{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:flex-start;padding:36px 40px 28px;border-bottom:1px solid var(--border);background:var(--white)}
+.proj-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.proj-title{font-family:'Lora',serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:-.3px}
+.proj-desc{font-size:14px;color:var(--ink2);line-height:1.72;max-width:540px}
+.proj-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.pill{font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--blue-lite);color:var(--blue-text);border:1px solid #c2d5ff}
+.pill.teal{background:var(--teal-lite);color:var(--teal);border-color:#a7e9dc}
+.proj-badges{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.badge-live{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 13px;border-radius:999px;background:var(--pos-bg);color:var(--pos);border:1px solid #bbf7d0}
+.badge-org{font-size:11px;font-weight:500;padding:5px 13px;border-radius:999px;background:var(--bg2);color:var(--muted);border:1px solid var(--border)}
 
-.hero-content{
-  position:relative;
-  z-index:2;
-  max-width:760px;
-}
-
-.hero-label{
-  font-size:12px;
-  color:var(--accent);
-  letter-spacing:2px;
-  text-transform:uppercase;
-  margin-bottom:24px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.hero-label::before{
-  content:'';
-  width:30px;
-  height:1px;
-  background:var(--accent);
-}
-
-.hero h1{
-  font-family:var(--font-display);
-  font-size:clamp(48px,7vw,86px);
-  line-height:1;
-  font-weight:800;
-  margin-bottom:24px;
-  letter-spacing:-3px;
-}
-
-.hero h1 span{
-  color:var(--primary);
-}
-
-.hero-bio{
-  color:var(--muted);
-  max-width:580px;
-  font-size:16px;
-  line-height:1.8;
-  margin-bottom:40px;
-}
-
-.hero-ctas{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-}
-
-.btn-primary,
-.btn-ghost{
-  padding:14px 28px;
-  border-radius:10px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:600;
-  transition:.25s;
-}
-
-.btn-primary{
-  background:var(--primary);
-  color:white;
-  box-shadow:0 6px 24px rgba(44,111,255,.3);
-}
-
-.btn-primary:hover{
-  transform:translateY(-2px);
-}
-
-.btn-ghost{
-  border:1px solid var(--border);
-  color:var(--text);
-}
-
-.btn-ghost:hover{
-  background:rgba(255,255,255,.03);
-}
-
-.hero-chips{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:36px;
-}
-
-.chip{
-  padding:7px 14px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-  font-weight:700;
-}
-
-/* COMMON */
-section{
-  padding:100px 6%;
-  position:relative;
-  z-index:1;
-}
-
-.section-label{
-  color:var(--accent);
-  font-size:11px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  margin-bottom:14px;
-  font-weight:700;
-}
-
-.section-title{
-  font-family:var(--font-display);
-  font-size:clamp(34px,5vw,54px);
-  line-height:1.1;
-  margin-bottom:18px;
-  letter-spacing:-1px;
-}
-
-.section-sub{
-  color:var(--muted);
-  max-width:620px;
-  line-height:1.8;
-  margin-bottom:60px;
-}
-
-.divider{
-  height:1px;
-  background:var(--border);
-  margin:0 6%;
-}
-
-/* ABOUT */
-.about-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-}
-
-.about-text{
-  color:var(--muted);
-  font-size:15px;
-  line-height:1.9;
-}
-
-.about-text p{
-  margin-bottom:16px;
-}
-
-.about-text strong{
-  color:white;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.stat-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:26px;
-}
-
-.stat-num{
-  font-family:var(--font-display);
-  font-size:44px;
-  color:var(--primary);
-  font-weight:800;
-  line-height:1;
-}
-
-.stat-label{
-  margin-top:10px;
-  color:var(--muted);
-  font-size:12px;
-  text-transform:uppercase;
-}
-
-/* PROJECTS */
-.projects-grid{
-  display:flex;
-  flex-direction:column;
-  gap:60px;
-}
-
-.project-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:22px;
-  overflow:hidden;
-}
-
-.project-header{
-  padding:38px 40px 28px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.project-tag{
-  color:var(--accent);
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-  margin-bottom:12px;
-  font-weight:700;
-}
-
-.project-title{
-  font-family:var(--font-display);
-  font-size:30px;
-  margin-bottom:12px;
-}
-
-.project-desc{
-  color:var(--muted);
-  max-width:700px;
-}
-
-.project-pills{
-  margin-top:20px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.pill{
-  background:rgba(44,111,255,.1);
-  border:1px solid rgba(44,111,255,.2);
-  color:var(--primary);
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.pill.accent{
-  color:var(--accent);
-  border-color:rgba(0,229,192,.2);
-  background:rgba(0,229,192,.08);
-}
-
-.project-badges{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.badge-status,
-.badge-org{
-  padding:6px 14px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:700;
-  text-align:center;
-}
-
-.badge-status{
-  background:rgba(34,197,94,.15);
-  color:var(--pos);
-  border:1px solid rgba(34,197,94,.2);
-}
-
-.badge-org{
-  background:rgba(255,255,255,.04);
-  color:var(--muted);
-  border:1px solid var(--border);
-}
-
-.demo-area{
-  padding:34px 40px 40px;
-}
-
-.demo-label{
-  margin-bottom:20px;
-  color:var(--muted);
-  text-transform:uppercase;
-  font-size:11px;
-  letter-spacing:2px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.demo-label::before{
-  content:'●';
-  color:var(--accent);
-  font-size:8px;
-}
-
-/* KPIS */
-.kpi-row{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-bottom:18px;
-}
-
-.kpi{
-  background:var(--surface2);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px;
-}
-
-.kpi-val{
-  font-family:var(--font-display);
-  font-size:32px;
-  font-weight:800;
-}
-
-.kpi-lbl{
-  margin-top:8px;
-  font-size:11px;
-  color:var(--muted);
-  text-transform:uppercase;
-}
-
-.kpi-trend{
-  margin-top:8px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.up{color:var(--pos);}
-.down{color:var(--neg);}
-.flat{color:var(--neu);}
-
-/* CHARTS */
-.charts-row{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:16px;
-  margin-bottom:16px;
-}
-
-.charts-row2{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:16px;
-}
-
-.chart-box{
-  background:var(--surface2);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px;
-  min-height:260px;
-}
-
-.chart-title{
-  color:var(--muted);
-  font-size:11px;
-  margin-bottom:14px;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-  font-weight:700;
-}
-
-.chart-box canvas{
-  width:100% !important;
-  height:190px !important;
-}
+/* DEMO */
+.demo-area{padding:28px 40px 40px;background:var(--bg)}
+.demo-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.demo-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* TABS */
-.tab-bar{
-  display:flex;
-  gap:6px;
-  margin-bottom:20px;
-  background:var(--surface2);
-  padding:4px;
-  border-radius:10px;
-  width:fit-content;
-  border:1px solid var(--border);
-}
+.tab-bar{display:flex;gap:4px;margin-bottom:20px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:4px;width:fit-content;box-shadow:var(--sh-sm)}
+.tab-btn{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:8px 18px;border-radius:6px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .18s;font-family:'Plus Jakarta Sans',sans-serif}
+.tab-btn.active{background:var(--blue-mid);color:#fff}
+.tab-btn:hover:not(.active){color:var(--ink2);background:var(--bg2)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
 
-.tab-btn{
-  border:none;
-  background:transparent;
-  color:var(--muted);
-  padding:9px 18px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:700;
-}
+/* KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px 18px;box-shadow:var(--sh-sm)}
+.kpi-val{font-family:'Lora',serif;font-size:28px;font-weight:700;line-height:1;letter-spacing:-1px}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
+.kpi-trend{font-size:11.5px;font-weight:600;margin-top:7px}
+.up{color:var(--pos)}.down{color:var(--neg)}.flat{color:#b45309}
 
-.tab-btn.active{
-  background:var(--primary);
-  color:white;
-}
-
-.tab-panel{
-  display:none;
-}
-
-.tab-panel.active{
-  display:block;
-}
+/* CHART GRIDS */
+.g2{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g2x{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.chart-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px 18px;box-shadow:var(--sh-sm)}
+.chart-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:12px}
+.chart-card canvas{max-height:158px}
 
 /* SAVINGS */
-.savings-box{
-  display:flex;
-  gap:20px;
-  align-items:center;
-  background:linear-gradient(135deg, rgba(44,111,255,.15), rgba(0,229,192,.08));
-  border:1px solid rgba(44,111,255,.2);
-  border-radius:16px;
-  padding:24px;
-  margin-bottom:16px;
-}
-
-.savings-val{
-  font-family:var(--font-display);
-  color:var(--accent);
-  font-size:46px;
-  font-weight:800;
-}
+.savings-banner{background:linear-gradient(135deg,var(--blue-lite) 0%,var(--teal-lite) 100%);border:1px solid #c2d5ff;border-radius:var(--r-sm);padding:22px 26px;display:flex;align-items:center;gap:24px;margin-bottom:14px}
+.savings-num{font-family:'Lora',serif;font-size:40px;font-weight:700;color:var(--blue-mid);letter-spacing:-2px;line-height:1;white-space:nowrap}
+.savings-desc{font-size:13.5px;color:var(--ink2);line-height:1.6;border-left:2px solid var(--border2);padding-left:20px}
 
 /* NEWS TABLE */
-.news-table{
-  border:1px solid var(--border);
-  border-radius:12px;
-  overflow:hidden;
-}
+.d2-top{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.d2-btn{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:8px 16px;border-radius:var(--r-sm);cursor:pointer;border:1.5px solid var(--border);background:var(--white);color:var(--muted);transition:all .18s;font-family:'Plus Jakarta Sans',sans-serif}
+.d2-btn.active{background:var(--blue-mid);color:#fff;border-color:var(--blue-mid)}
+.d2-btn:hover:not(.active){border-color:var(--border2);color:var(--ink2)}
+.d2-search{flex:1;min-width:200px;background:var(--white);border:1.5px solid var(--border);color:var(--ink);border-radius:var(--r-sm);padding:8px 14px;font-size:13.5px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color .2s}
+.d2-search::placeholder{color:var(--subtle)}
+.d2-search:focus{border-color:var(--blue-mid)}
+.d2-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.d2-kpi{border-radius:var(--r-sm);padding:14px 16px;text-align:center;border:1px solid var(--border)}
+.d2-kpi.tot{background:var(--white)}
+.d2-kpi.pos{background:var(--pos-bg);border-color:#bbf7d0}
+.d2-kpi.neu{background:var(--neu-bg);border-color:#fde68a}
+.d2-kpi.neg{background:var(--neg-bg);border-color:#fecaca}
+.d2-kpi .val{font-family:'Lora',serif;font-size:26px;font-weight:700;line-height:1}
+.d2-kpi.tot .val{color:var(--ink)}
+.d2-kpi.pos .val{color:var(--pos)}
+.d2-kpi.neu .val{color:var(--neu)}
+.d2-kpi.neg .val{color:var(--neg)}
+.d2-kpi .lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:4px}
+.news-table{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;box-shadow:var(--sh-sm)}
+.news-row{display:grid;grid-template-columns:84px 1fr 96px 64px;gap:14px;padding:13px 16px;align-items:center;border-bottom:1px solid var(--border);font-size:13.5px;transition:background .12s}
+.news-row:last-child{border-bottom:none}
+.news-row:hover:not(.hdr){background:var(--bg)}
+.news-row.hdr{background:var(--bg2);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.news-date{font-size:12px;color:var(--muted);font-weight:500}
+.news-title{font-weight:600;line-height:1.35;color:var(--ink)}
+.news-source{font-size:11.5px;color:var(--muted);margin-top:2px}
+.nbadge{display:inline-block;padding:4px 10px;border-radius:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.nbadge.pos{background:var(--pos-bg);color:var(--pos)}
+.nbadge.neu{background:var(--neu-bg);color:var(--neu)}
+.nbadge.neg{background:var(--neg-bg);color:var(--neg)}
+.news-link{font-size:11.5px;font-weight:600;color:var(--blue-mid);text-decoration:none;padding:5px 10px;border-radius:6px;border:1.5px solid #c2d5ff;display:block;text-align:center;transition:all .18s}
+.news-link:hover{background:var(--blue-lite)}
 
-.news-row{
-  display:grid;
-  grid-template-columns:90px 1fr 100px 70px;
-  gap:12px;
-  padding:14px 16px;
-  border-bottom:1px solid var(--border);
-  align-items:center;
-}
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.skill-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px 26px;box-shadow:var(--sh-sm);transition:box-shadow .2s,transform .2s}
+.skill-card:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.skill-icon{font-size:26px;margin-bottom:12px}
+.skill-name{font-family:'Lora',serif;font-size:16px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.skill-desc{font-size:13.5px;color:var(--muted);line-height:1.65}
 
-.news-row:last-child{
-  border-bottom:none;
-}
-
-.news-row.header{
-  background:var(--surface2);
-  font-size:10px;
-  text-transform:uppercase;
-  color:var(--muted);
-  font-weight:700;
-}
-
-.news-title{
-  font-size:13px;
-  font-weight:600;
-}
-
-.news-source{
-  font-size:11px;
-  color:var(--muted);
-}
-
-.news-badge{
-  padding:4px 10px;
-  border-radius:6px;
-  font-size:10px;
-  font-weight:700;
-  display:inline-block;
-}
-
-.nb-pos{
-  background:rgba(34,197,94,.15);
-  color:#4ade80;
-}
-
-.nb-neu{
-  background:rgba(245,158,11,.15);
-  color:#fbbf24;
-}
-
-.nb-neg{
-  background:rgba(239,68,68,.15);
-  color:#f87171;
-}
-
-.news-link{
-  text-decoration:none;
-  color:var(--primary);
-  font-size:11px;
-  border:1px solid rgba(44,111,255,.2);
-  border-radius:6px;
-  padding:5px 10px;
-  text-align:center;
-}
-
-/* FILTER */
-.d2-controls{
-  display:flex;
-  gap:10px;
-  margin-bottom:18px;
-  flex-wrap:wrap;
-}
-
-.d2-btn{
-  border:1px solid var(--border);
-  background:var(--surface2);
-  color:var(--muted);
-  border-radius:8px;
-  padding:8px 14px;
-  cursor:pointer;
-  font-size:11px;
-  font-weight:700;
-}
-
-.d2-btn.active{
-  background:var(--primary);
-  color:white;
-  border-color:var(--primary);
-}
-
-.d2-search{
-  flex:1;
-  min-width:200px;
-  background:var(--surface2);
-  border:1px solid var(--border);
-  color:white;
-  border-radius:8px;
-  padding:8px 14px;
-}
-
-.d2-summary{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:18px;
-}
-
-.d2-card{
-  padding:16px;
-  border-radius:12px;
-  text-align:center;
-}
-
-.d2-card.total{
-  background:var(--surface2);
-  border:1px solid var(--border);
-}
-
-.d2-card.pos{
-  background:rgba(34,197,94,.1);
-}
-
-.d2-card.neu{
-  background:rgba(245,158,11,.1);
-}
-
-.d2-card.neg{
-  background:rgba(239,68,68,.1);
-}
-
-.d2-card-val{
-  font-family:var(--font-display);
-  font-size:30px;
-  font-weight:800;
-}
+/* TIMELINE */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:0;top:10px;bottom:0;width:1.5px;background:var(--border2)}
+.tl-item{position:relative;padding-bottom:44px}
+.tl-item::before{content:'';position:absolute;left:-34px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--blue-mid);box-shadow:0 0 0 4px rgba(37,84,204,.12)}
+.tl-period{font-size:12px;font-weight:700;color:var(--blue-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.tl-org{font-size:12px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.tl-role{font-family:'Lora',serif;font-size:19px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.tl-desc{font-size:14px;color:var(--ink2);line-height:1.72;max-width:580px}
+.tl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tl-tag{font-size:11.5px;font-weight:600;padding:4px 12px;border-radius:999px;background:var(--bg2);color:var(--muted);border:1px solid var(--border)}
 
 /* CONTACT */
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-}
-
-.contact-item{
-  display:flex;
-  gap:14px;
-  margin-bottom:16px;
-}
-
-.contact-icon{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  background:var(--surface2);
-  border:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.contact-label{
-  font-size:11px;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-
-.contact-val a{
-  color:var(--primary);
-  text-decoration:none;
-}
-
-.contact-note{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:34px;
-  color:var(--muted);
-  line-height:1.8;
-}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.contact-list{display:flex;flex-direction:column;gap:14px}
+.contact-item{display:flex;align-items:center;gap:14px}
+.contact-ico{width:42px;height:42px;border-radius:10px;background:var(--blue-lite);border:1px solid #c2d5ff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.contact-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.contact-val{font-size:14.5px;color:var(--ink);font-weight:500}
+.contact-val a{color:var(--blue-mid);text-decoration:none}
+.contact-val a:hover{text-decoration:underline}
+.contact-note{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:36px;box-shadow:var(--sh-sm)}
+.contact-note blockquote{font-family:'Lora',serif;font-size:20px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:18px}
+.contact-note p{font-size:13.5px;color:var(--muted);line-height:1.7}
 
 /* FOOTER */
-footer{
-  padding:26px 6%;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  color:var(--muted);
-  font-size:12px;
-}
+footer{background:var(--white);border-top:1px solid var(--border);padding:24px 6%;display:flex;justify-content:space-between;align-items:center}
+footer p{font-size:13px;color:var(--muted)}
 
-/* FADE */
-.fade-in{
-  opacity:0;
-  transform:translateY(20px);
-  transition:.6s;
-}
-
-.fade-in.visible{
-  opacity:1;
-  transform:translateY(0);
-}
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade-up.in{opacity:1;transform:translateY(0)}
 
 /* RESPONSIVE */
-@media(max-width:900px){
-
-  .about-grid,
-  .contact-grid,
-  .charts-row,
-  .charts-row2{
-    grid-template-columns:1fr;
-  }
-
-  .kpi-row{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .d2-summary{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .project-header{
-    flex-direction:column;
-  }
+@media(max-width:820px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-aside{flex-direction:row;flex-wrap:wrap;min-width:0}
+  .stat-pill{flex:1;min-width:140px}
+  .g2,.g2x{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .proj-hdr{grid-template-columns:1fr;padding:24px 20px}
+  .proj-badges{flex-direction:row;align-items:center}
+  .demo-area{padding:20px}
+  .news-row{grid-template-columns:70px 1fr}
+  .news-row .nbadge,.news-row .news-link{display:none}
 }
-
-@media(max-width:768px){
-
-  .nav-links{
-    display:none;
-  }
-
-  .hero h1{
-    font-size:48px;
-  }
-
-  .stats-grid{
-    grid-template-columns:1fr;
-  }
-
-  .kpi-row{
-    grid-template-columns:1fr;
-  }
-
-  .news-row{
-    grid-template-columns:70px 1fr;
-  }
-
-  .news-row .news-badge,
-  .news-row .news-link{
-    display:none;
-  }
-
-  footer{
-    flex-direction:column;
-    gap:10px;
-    text-align:center;
-  }
+@media(max-width:480px){
+  .skills-grid{grid-template-columns:1fr}
+  .d2-summary{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
-
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">Diego <span>Pongo</span></div>
-
+  <div class="nav-brand">Diego <em>Pongo</em></div>
   <div class="nav-links">
     <a href="#about">Sobre mí</a>
     <a href="#projects">Proyectos</a>
+    <a href="#experience">Experiencia</a>
     <a href="#contact">Contacto</a>
   </div>
 </nav>
 
-<section class="hero">
-
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-
-  <div class="hero-content">
-
-    <div class="hero-label">
-      Comunicación · Datos · Gobierno
-    </div>
-
-    <h1>
-      Diego Javier<br>
-      <span>Pongo</span> Quinteros
-    </h1>
-
-    <p class="hero-bio">
-      Analista de comunicación gubernamental con experiencia en la Municipalidad Metropolitana de Lima y Radio Nacional del Perú. Desarrollo dashboards de monitoreo mediático y herramientas de inteligencia comunicacional.
-    </p>
-
-    <div class="hero-ctas">
-      <a href="#projects" class="btn-primary">Ver proyectos</a>
-      <a href="#contact" class="btn-ghost">Contactar</a>
-    </div>
-
-    <div class="hero-chips">
-      <span class="chip">Monitoreo de Medios</span>
-      <span class="chip">Chart.js</span>
-      <span class="chip">HTML / CSS / JS</span>
-      <span class="chip">Comunicación Pública</span>
-    </div>
-
-  </div>
-
-</section>
-
-<div class="divider"></div>
-
-<section id="about">
-
-  <div class="section-label">Perfil</div>
-
-  <div class="about-grid fade-in">
-
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
     <div>
-
-      <div class="section-title">
-        Comunicación estratégica<br>
-        basada en datos
+      <div class="hero-eyebrow">Comunicación · Datos · Gobierno</div>
+      <h1>Diego Javier<br><span>Pongo</span> Quinteros</h1>
+      <p class="hero-bio">
+        Analista de comunicación gubernamental con experiencia en la Municipalidad Metropolitana de Lima y el IRTV. Diseño herramientas de inteligencia mediática que convierten el monitoreo de prensa en decisiones estratégicas.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">Ver proyectos ↓</a>
+        <a href="#contact" class="btn-ghost">Contactar</a>
       </div>
-
-      <div class="about-text">
-
-        <p>
-          Bachiller en Ciencia Política de la UNMSM con experiencia en comunicación gubernamental, monitoreo de medios y análisis de cobertura institucional.
-        </p>
-
-        <p>
-          Desarrollo herramientas digitales para convertir información mediática en indicadores estratégicos para la toma de decisiones.
-        </p>
-
-        <p>
-          Experiencia en producción periodística, dashboards interactivos, análisis de sentimiento y automatización de reportes institucionales.
-        </p>
-
+      <div class="hero-chips">
+        <span class="chip">Monitoreo de medios</span>
+        <span class="chip">Análisis de sentimiento</span>
+        <span class="chip">HTML / JS / Chart.js</span>
+        <span class="chip">Comunicación pública</span>
       </div>
-
     </div>
-
-    <div class="stats-grid">
-
-      <div class="stat-card">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Años de experiencia</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-num">400+</div>
-        <div class="stat-label">Medios monitoreados</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-num">800+</div>
-        <div class="stat-label">Notas producidas</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Dashboards implementados</div>
-      </div>
-
+    <div class="hero-aside">
+      <div class="stat-pill"><div class="num">2+</div><div class="lbl">Años en comunicación gubernamental</div></div>
+      <div class="stat-pill"><div class="num">400+</div><div class="lbl">Medios monitoreados</div></div>
+      <div class="stat-pill"><div class="num">800+</div><div class="lbl">Notas en Radio Nacional</div></div>
     </div>
-
   </div>
+</div>
 
+<!-- ABOUT -->
+<section id="about" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Perfil profesional</div>
+    <div class="sec-title">Comunicación que<br>se mide y mejora</div>
+    <p class="sec-sub">Bachiller en Ciencia Política de la UNMSM. Combino periodismo institucional con desarrollo de herramientas digitales: diseño dashboards de monitoreo que siguen en tiempo real la cobertura mediática, el tono editorial y el posicionamiento institucional en más de 400 medios. Mi especialidad es convertir millones de menciones en narrativas accionables para la toma de decisiones.</p>
+  </div>
 </section>
 
-<div class="divider"></div>
-
+<!-- PROJECTS -->
 <section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">Proyectos destacados</div>
+    <div class="sec-title">Herramientas que construí</div>
+    <p class="sec-sub">Demos interactivas con datos simulados. Las plataformas reales operan con bases de datos en vivo conectadas a Google Sheets y sistemas internos de la MML.</p>
 
-  <div class="section-label">Proyectos</div>
-
-  <div class="section-title">
-    Herramientas desarrolladas
-  </div>
-
-  <p class="section-sub">
-    Demos interactivas con datos simulados inspiradas en herramientas reales de monitoreo mediático.
-  </p>
-
-  <div class="projects-grid">
-
-    <div class="project-card fade-in">
-
-      <div class="project-header">
-
+    <!-- PROYECTO 1 -->
+    <div class="project-card fade-up">
+      <div class="proj-hdr">
         <div>
-
-          <div class="project-tag">
-            Proyecto 01 · Dashboard
-          </div>
-
-          <div class="project-title">
-            Monitoreo de Medios
-          </div>
-
-          <div class="project-desc">
-            Plataforma de inteligencia mediática con KPIs, análisis tonal, tendencias y reportes ejecutivos.
-          </div>
-
-          <div class="project-pills">
+          <div class="proj-tag">Proyecto 01 · Inteligencia Mediática</div>
+          <div class="proj-title">Dashboard de Monitoreo de Medios</div>
+          <div class="proj-desc">Tablero ejecutivo de análisis de cobertura mediática con tres vistas: Visión General, Semáforo de Sentimiento y Valor Publicitario Equivalente. Desarrollado para la Oficina General de Comunicaciones e Interinstitucionales de la MML.</div>
+          <div class="proj-pills">
+            <span class="pill">HTML5 / CSS3</span>
             <span class="pill">Chart.js</span>
-            <span class="pill">JavaScript</span>
-            <span class="pill accent">Google Sheets</span>
+            <span class="pill">PapaParse</span>
+            <span class="pill teal">Google Sheets API</span>
+            <span class="pill teal">Análisis de sentimiento</span>
           </div>
-
         </div>
-
-        <div class="project-badges">
-          <span class="badge-status">Activo</span>
+        <div class="proj-badges">
+          <span class="badge-live">● Activo</span>
           <span class="badge-org">MML · 2026</span>
         </div>
-
       </div>
-
       <div class="demo-area">
-
-        <div class="demo-label">
-          Demo interactiva
-        </div>
-
+        <div class="demo-label"><span class="demo-dot"></span>Demo interactiva — datos simulados</div>
         <div class="tab-bar">
-          <button class="tab-btn active" data-tab="general">General</button>
-          <button class="tab-btn" data-tab="semaforo">Semáforo</button>
-          <button class="tab-btn" data-tab="vpe">VPE</button>
+          <button class="tab-btn active" onclick="switchTab('p1','general',this)">General</button>
+          <button class="tab-btn" onclick="switchTab('p1','semaforo',this)">Semáforo</button>
+          <button class="tab-btn" onclick="switchTab('p1','vpe',this)">VPE</button>
         </div>
 
         <!-- GENERAL -->
-        <div class="tab-panel active" id="general">
-
+        <div class="tab-panel active" id="p1-general">
           <div class="kpi-row">
-
-            <div class="kpi">
-              <div class="kpi-val" style="color:var(--primary)">1,248</div>
-              <div class="kpi-lbl">Menciones</div>
-              <div class="kpi-trend up">↑ 12%</div>
-            </div>
-
-            <div class="kpi">
-              <div class="kpi-val" style="color:var(--pos)">647</div>
-              <div class="kpi-lbl">Positivas</div>
-              <div class="kpi-trend up">↑ 51%</div>
-            </div>
-
-            <div class="kpi">
-              <div class="kpi-val" style="color:var(--neu)">384</div>
-              <div class="kpi-lbl">Neutras</div>
-              <div class="kpi-trend flat">→ 30%</div>
-            </div>
-
-            <div class="kpi">
-              <div class="kpi-val" style="color:var(--neg)">217</div>
-              <div class="kpi-lbl">Negativas</div>
-              <div class="kpi-trend down">↓ 17%</div>
-            </div>
-
+            <div class="kpi"><div class="kpi-val" style="color:var(--blue-mid)">1,248</div><div class="kpi-lbl">Total menciones</div><div class="kpi-trend up">↑ 12% vs mes anterior</div></div>
+            <div class="kpi"><div class="kpi-val" style="color:var(--pos)">647</div><div class="kpi-lbl">Positivas</div><div class="kpi-trend up">51.8% del total</div></div>
+            <div class="kpi"><div class="kpi-val" style="color:#b45309">384</div><div class="kpi-lbl">Neutras</div><div class="kpi-trend flat">30.8% del total</div></div>
+            <div class="kpi"><div class="kpi-val" style="color:var(--neg)">217</div><div class="kpi-lbl">Negativas</div><div class="kpi-trend down">↓ 17.4% del total</div></div>
           </div>
-
-          <div class="charts-row">
-
-            <div class="chart-box">
-              <div class="chart-title">
-                Menciones por día
-              </div>
-
-              <canvas id="timelineChart"></canvas>
-            </div>
-
-            <div class="chart-box">
-              <div class="chart-title">
-                Distribución tonal
-              </div>
-
-              <canvas id="pieChart"></canvas>
-            </div>
-
+          <div class="g2">
+            <div class="chart-card"><div class="chart-lbl">Menciones diarias — Últimas 4 semanas</div><canvas id="c-timeline"></canvas></div>
+            <div class="chart-card"><div class="chart-lbl">Distribución tonal</div><canvas id="c-pie"></canvas></div>
           </div>
-
-          <div class="charts-row2">
-
-            <div class="chart-box">
-              <div class="chart-title">Protocolos</div>
-              <canvas id="barChart1"></canvas>
-            </div>
-
-            <div class="chart-box">
-              <div class="chart-title">Tipo de medio</div>
-              <canvas id="barChart2"></canvas>
-            </div>
-
-            <div class="chart-box">
-              <div class="chart-title">Cobertura geográfica</div>
-              <canvas id="barChart3"></canvas>
-            </div>
-
+          <div class="g3">
+            <div class="chart-card"><div class="chart-lbl">Top 5 dependencias</div><canvas id="c-proto"></canvas></div>
+            <div class="chart-card"><div class="chart-lbl">Por tipo de medio</div><canvas id="c-tipo"></canvas></div>
+            <div class="chart-card"><div class="chart-lbl">Origen geográfico</div><canvas id="c-geo"></canvas></div>
           </div>
-
         </div>
 
-        <!-- SEMAFORO -->
-        <div class="tab-panel" id="semaforo">
-
-          <div class="charts-row">
-
-            <div class="chart-box">
-              <div class="chart-title">
-                Tendencia tonal
-              </div>
-
-              <canvas id="lineChart2"></canvas>
-            </div>
-
-            <div class="chart-box">
-              <div class="chart-title">
-                Sentimiento
-              </div>
-
-              <canvas id="pieChart2"></canvas>
-            </div>
-
+        <!-- SEMÁFORO -->
+        <div class="tab-panel" id="p1-semaforo">
+          <div class="g2">
+            <div class="chart-card"><div class="chart-lbl">Tendencia de sentimiento — 4 semanas</div><canvas id="c-sent-time"></canvas></div>
+            <div class="chart-card"><div class="chart-lbl">Semáforo tonal</div><canvas id="c-sent-pie"></canvas></div>
           </div>
-
+          <div class="g2x" style="margin-top:14px">
+            <div class="chart-card"><div class="chart-lbl">Medios con más cobertura negativa</div><canvas id="c-neg-media"></canvas></div>
+            <div class="chart-card"><div class="chart-lbl">Sentimiento por tipo de medio</div><canvas id="c-sent-tipo"></canvas></div>
+          </div>
         </div>
 
         <!-- VPE -->
-        <div class="tab-panel" id="vpe">
-
-          <div class="savings-box">
-
-            <div>
-              <div class="savings-val">
-                S/ 2.4M
-              </div>
-
-              <div style="color:var(--muted)">
-                Valor Publicitario Equivalente
-              </div>
-            </div>
-
+        <div class="tab-panel" id="p1-vpe">
+          <div class="savings-banner">
+            <div class="savings-num">S/ 2.4M</div>
+            <div class="savings-desc">Valor Publicitario Equivalente acumulado este mes, calculado a partir de menciones positivas ponderadas por tarifa publicitaria de cada medio y espacio.</div>
           </div>
-
-          <div class="charts-row">
-
-            <div class="chart-box">
-              <div class="chart-title">
-                VPE por medio
-              </div>
-
-              <canvas id="vpeChart1"></canvas>
-            </div>
-
-            <div class="chart-box">
-              <div class="chart-title">
-                VPE por área
-              </div>
-
-              <canvas id="vpeChart2"></canvas>
-            </div>
-
+          <div class="g2x">
+            <div class="chart-card"><div class="chart-lbl">VPE por tipo de medio (S/)</div><canvas id="c-vpe-med"></canvas></div>
+            <div class="chart-card"><div class="chart-lbl">VPE por dependencia</div><canvas id="c-vpe-prot"></canvas></div>
           </div>
-
         </div>
-
       </div>
-
     </div>
 
+    <!-- PROYECTO 2 -->
+    <div class="project-card fade-up">
+      <div class="proj-hdr">
+        <div>
+          <div class="proj-tag">Proyecto 02 · Herramienta Operativa</div>
+          <div class="proj-title">Semáforo Diario de Noticias</div>
+          <div class="proj-desc">Tablero operativo en tiempo real que permite al equipo de comunicaciones filtrar, clasificar y exportar el flujo diario de noticias. Incluye búsqueda full-text, filtros por tono y tipo de medio, rango horario y exportación a PDF y Excel.</div>
+          <div class="proj-pills">
+            <span class="pill">HTML5 / CSS3</span>
+            <span class="pill">PapaParse</span>
+            <span class="pill">html2pdf.js</span>
+            <span class="pill teal">Google Forms / Sheets</span>
+            <span class="pill teal">Responsive</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="badge-live">● Activo</span>
+          <span class="badge-org">MML · 2025–2026</span>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="demo-label"><span class="demo-dot"></span>Demo interactiva — datos simulados</div>
+        <div class="d2-top">
+          <button class="d2-btn active" onclick="d2Filter('all',this)">Todo el mes</button>
+          <button class="d2-btn" onclick="d2Filter('pos',this)">Positivas</button>
+          <button class="d2-btn" onclick="d2Filter('neg',this)">Negativas</button>
+          <input class="d2-search" type="text" placeholder="Buscar titular o medio…" oninput="d2Search(this.value)">
+        </div>
+        <div class="d2-summary">
+          <div class="d2-kpi tot"><div class="val" id="d2-total">24</div><div class="lbl">Menciones</div></div>
+          <div class="d2-kpi pos"><div class="val" id="d2-pos">13</div><div class="lbl">Positivas</div></div>
+          <div class="d2-kpi neu"><div class="val" id="d2-neu">6</div><div class="lbl">Neutras</div></div>
+          <div class="d2-kpi neg"><div class="val" id="d2-neg">5</div><div class="lbl">Negativas</div></div>
+        </div>
+        <div class="news-table">
+          <div class="news-row hdr"><div>Fecha</div><div>Noticia / Medio</div><div>Tono</div><div>Enlace</div></div>
+          <div id="d2-body"></div>
+        </div>
+      </div>
+    </div>
   </div>
-
 </section>
 
-<div class="divider"></div>
-
-<section id="contact">
-
-  <div class="section-label">
-    Contacto
-  </div>
-
-  <div class="section-title">
-    Hablemos
-  </div>
-
-  <div class="contact-grid fade-in">
-
-    <div>
-
-      <div class="contact-item">
-        <div class="contact-icon">✉️</div>
-
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-val">
-            <a href="mailto:diego.pongo@unmsm.edu.pe">
-              diego.pongo@unmsm.edu.pe
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-
-        <div>
-          <div class="contact-label">Teléfono</div>
-          <div class="contact-val">
-            +51 994 580 247
-          </div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-
-        <div>
-          <div class="contact-label">Ubicación</div>
-          <div class="contact-val">
-            Lima, Perú
-          </div>
-        </div>
-      </div>
-
+<!-- SKILLS -->
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Capacidades</div>
+    <div class="sec-title">Qué puedo hacer</div>
+    <div class="skills-grid fade-up">
+      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Dashboards de medios</div><div class="skill-desc">Diseño tableros de monitoreo con análisis de sentimiento, tendencias temporales y VPE usando Chart.js y datos en vivo desde Google Sheets.</div></div>
+      <div class="skill-card"><div class="skill-icon">📰</div><div class="skill-name">Periodismo institucional</div><div class="skill-desc">Más de 800 notas informativas para Radio Nacional del Perú. Cobertura de entidades del Estado con enfoque en servicio al ciudadano.</div></div>
+      <div class="skill-card"><div class="skill-icon">🔍</div><div class="skill-name">Análisis de cobertura</div><div class="skill-desc">Identificación de patrones de posicionamiento, análisis de tono editorial y elaboración de reportes cuantitativos y cualitativos.</div></div>
+      <div class="skill-card"><div class="skill-icon">🛠️</div><div class="skill-name">Desarrollo de herramientas</div><div class="skill-desc">HTML, CSS, JavaScript, Chart.js, PapaParse. Interfaces conectadas a Google Sheets como backend ligero y accesible.</div></div>
+      <div class="skill-card"><div class="skill-icon">🏛️</div><div class="skill-name">Comunicación gubernamental</div><div class="skill-desc">Gestión de imagen institucional, coordinación con gerencias y organismos públicos, y difusión estratégica de políticas de Estado.</div></div>
+      <div class="skill-card"><div class="skill-icon">📱</div><div class="skill-name">Diseño responsive</div><div class="skill-desc">Interfaces que funcionan en desktop, tablet y móvil. Exportación a PDF y Excel integrada directamente en el navegador.</div></div>
     </div>
-
-    <div class="contact-note">
-
-      <strong>
-        Comunicación que se mide, se mejora.
-      </strong>
-
-      <br><br>
-
-      Desarrollo herramientas digitales para monitoreo mediático, análisis institucional y visualización de datos.
-
-    </div>
-
   </div>
+</section>
 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">Trayectoria</div>
+    <div class="sec-title">Experiencia</div>
+    <div class="timeline fade-up" style="margin-top:40px">
+      <div class="tl-item">
+        <div class="tl-period">Enero 2026 — Actualidad</div>
+        <div class="tl-org">Municipalidad Metropolitana de Lima</div>
+        <div class="tl-role">Analista de Medios — Oficina General de Comunicaciones e Interinstitucionales</div>
+        <div class="tl-desc">Desarrollo y mantenimiento del Dashboard de Monitoreo de Medios y el Semáforo Diario de Noticias. Elaboración de reportes de cobertura, análisis de tendencias y notas de prensa para las distintas gerencias y organismos de la MML. Seguimiento de más de 400 medios con análisis de tono, posicionamiento y VPE.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">Dashboard de Monitoreo</span>
+          <span class="tl-tag">Semáforo Diario</span>
+          <span class="tl-tag">+400 medios</span>
+          <span class="tl-tag">Reportes ejecutivos</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">Mayo 2024 — Diciembre 2025</div>
+        <div class="tl-org">Instituto de Radio y Televisión del Perú — Radio Nacional</div>
+        <div class="tl-role">Subdirección de Prensa — Periodista</div>
+        <div class="tl-desc">Desarrollo de herramientas de análisis para programas noticiosos de Radio Nacional. Producción de más de 800 notas informativas, entrevistas y reportajes. Análisis de contenidos y coyuntura de la agenda pública peruana e internacional.</div>
+        <div class="tl-tags">
+          <span class="tl-tag">+800 notas</span>
+          <span class="tl-tag">Radio Nacional</span>
+          <span class="tl-tag">Agenda pública</span>
+          <span class="tl-tag">Indicadores editoriales</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Contacto</div>
+    <div class="sec-title">Hablemos</div>
+    <div class="contact-grid fade-up">
+      <div class="contact-list">
+        <div class="contact-item">
+          <div class="contact-ico">✉️</div>
+          <div><div class="contact-lbl">Email</div><div class="contact-val"><a href="mailto:diego.pongo@unmsm.edu.pe">diego.pongo@unmsm.edu.pe</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">📞</div>
+          <div><div class="contact-lbl">Teléfono</div><div class="contact-val">+51 994 580 247</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">💼</div>
+          <div><div class="contact-lbl">LinkedIn</div><div class="contact-val"><a href="https://linkedin.com/in/diego-javier-pongo-quinteros" target="_blank">Diego Javier Pongo Quinteros</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">📍</div>
+          <div><div class="contact-lbl">Ubicación</div><div class="contact-val">Lima, Perú</div></div>
+        </div>
+      </div>
+      <div class="contact-note">
+        <blockquote>"La comunicación gubernamental que se mide, se mejora."</blockquote>
+        <p>Disponible para proyectos de consultoría en comunicación estratégica, desarrollo de herramientas de monitoreo mediático, o posiciones en equipos de comunicación institucional y periodismo de datos.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-  <span>© 2026 Diego Javier Pongo Quinteros</span>
-  <span>HTML · CSS · JavaScript</span>
+  <p>© 2026 Diego Javier Pongo Quinteros · Lima, Perú</p>
+  <p>Desarrollado en HTML · CSS · JavaScript</p>
 </footer>
 
 <script>
+// Chart global defaults
+Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+Chart.defaults.font.size   = 11;
+Chart.defaults.color       = '#6b7280';
 
-/* CONFIG */
-Chart.defaults.color = '#7a8aaa';
-
-Chart.defaults.font.family = "'DM Sans', sans-serif";
-
-const commonOptions = {
-  responsive:true,
-  maintainAspectRatio:false,
-  plugins:{
-    legend:{
-      labels:{
-        color:'#7a8aaa'
-      }
-    }
-  },
-  scales:{
-    x:{
-      ticks:{color:'#7a8aaa'},
-      grid:{color:'rgba(255,255,255,.04)'}
-    },
-    y:{
-      ticks:{color:'#7a8aaa'},
-      grid:{color:'rgba(255,255,255,.04)'}
-    }
-  }
+const TT = {
+  backgroundColor:'#1f2937', borderColor:'#374151', borderWidth:1,
+  titleColor:'#f9fafb', bodyColor:'#9ca3af', padding:10, cornerRadius:8
 };
+const BASE = {
+  responsive:true, maintainAspectRatio:false,
+  plugins:{ legend:{ display:false }, tooltip:TT }
+};
+const SY = { grid:{ color:'rgba(0,0,0,0.05)' } };
+const SX = { grid:{ display:false } };
+const LEG = { display:true, position:'bottom', labels:{ usePointStyle:true, boxWidth:8, padding:12 } };
 
-/* TIMELINE */
-new Chart(document.getElementById('timelineChart'),{
-  type:'line',
-  data:{
-    labels:['01','02','03','04','05','06','07','08','09','10','11','12'],
-    datasets:[{
-      data:[22,31,28,44,36,51,46,60,52,63,49,57],
-      borderColor:'#2c6fff',
-      backgroundColor:'rgba(44,111,255,.1)',
-      fill:true,
-      tension:.4
-    }]
-  },
-  options:commonOptions
-});
+// ── GENERAL TAB ──────────────────────────────────────────────
+const days = ['01/05','02/05','03/05','04/05','05/05','06/05','07/05','08/05','09/05','10/05','11/05','12/05'];
+new Chart('c-timeline',{ type:'line', data:{ labels:days, datasets:[{
+  data:[28,42,35,51,38,60,44,55,48,62,41,57],
+  borderColor:'#2554cc', backgroundColor:'rgba(37,84,204,.07)',
+  fill:true, tension:.4, borderWidth:2.5, pointRadius:3, pointBackgroundColor:'#2554cc'
+}]}, options:{...BASE, scales:{y:SY,x:SX}} });
 
-/* PIE */
-new Chart(document.getElementById('pieChart'),{
-  type:'doughnut',
-  data:{
-    labels:['Positivo','Neutro','Negativo'],
-    datasets:[{
-      data:[647,384,217],
-      backgroundColor:['#22c55e','#f59e0b','#ef4444']
-    }]
-  },
-  options:{
-    responsive:true,
-    maintainAspectRatio:false
-  }
-});
+new Chart('c-pie',{ type:'doughnut', data:{
+  labels:['Positivo','Neutro','Negativo'],
+  datasets:[{ data:[647,384,217], backgroundColor:['#15803d','#d97706','#dc2626'], borderWidth:3, borderColor:'#f5f7fa' }]
+}, options:{...BASE, plugins:{...BASE.plugins, legend:LEG}} });
 
-/* BAR 1 */
-new Chart(document.getElementById('barChart1'),{
-  type:'bar',
-  data:{
-    labels:['Alcaldía','Obras','Seguridad','Ambiente'],
-    datasets:[{
-      data:[320,210,180,130],
-      backgroundColor:'#2c6fff',
-      borderRadius:8
-    }]
-  },
-  options:commonOptions
-});
+new Chart('c-proto',{ type:'bar', data:{ labels:['Alcaldía','Obras','Seguridad','Medio Amb.','Movilidad'],
+  datasets:[{ data:[342,218,187,156,134], backgroundColor:'#2554cc', borderRadius:5 }]},
+  options:{...BASE, indexAxis:'y', scales:{x:{display:false},y:{grid:{display:false}}}} });
 
-/* BAR 2 */
-new Chart(document.getElementById('barChart2'),{
-  type:'bar',
-  data:{
-    labels:['Digital','TV','Radio','Prensa'],
-    datasets:[{
-      data:[500,300,200,180],
-      backgroundColor:'#00e5c0',
-      borderRadius:8
-    }]
-  },
-  options:commonOptions
-});
+new Chart('c-tipo',{ type:'bar', data:{ labels:['Digital','Televisión','Radio','Prensa'],
+  datasets:[{ data:[512,298,234,204], backgroundColor:'#0e9e82', borderRadius:5 }]},
+  options:{...BASE, indexAxis:'y', scales:{x:{display:false},y:{grid:{display:false}}}} });
 
-/* BAR 3 */
-new Chart(document.getElementById('barChart3'),{
-  type:'bar',
-  data:{
-    labels:['Lima','Nacional','Internacional'],
-    datasets:[{
-      data:[780,260,120],
-      backgroundColor:'#7c3aed',
-      borderRadius:8
-    }]
-  },
-  options:commonOptions
-});
+new Chart('c-geo',{ type:'bar', data:{ labels:['Lima Metr.','Nacional','Internacional','Regiones'],
+  datasets:[{ data:[784,286,108,70], backgroundColor:'#7c3aed', borderRadius:5 }]},
+  options:{...BASE, indexAxis:'y', scales:{x:{display:false},y:{grid:{display:false}}}} });
 
-/* SEMAFORO */
-new Chart(document.getElementById('lineChart2'),{
-  type:'line',
-  data:{
-    labels:['Semana 1','Semana 2','Semana 3','Semana 4'],
-    datasets:[
-      {
-        label:'Positivo',
-        data:[140,160,180,200],
-        borderColor:'#22c55e',
-        tension:.4
-      },
-      {
-        label:'Negativo',
-        data:[70,60,50,45],
-        borderColor:'#ef4444',
-        tension:.4
-      }
-    ]
-  },
-  options:commonOptions
-});
+// ── SEMÁFORO TAB ─────────────────────────────────────────────
+const weeks = ['Abr 21','Abr 28','May 5','May 12'];
+new Chart('c-sent-time',{ type:'line', data:{ labels:weeks, datasets:[
+  { label:'Positivo', data:[148,162,189,148], borderColor:'#15803d', tension:.4, borderWidth:2.5, pointRadius:3 },
+  { label:'Neutro',   data:[98,102,87,97],    borderColor:'#d97706', tension:.4, borderWidth:2.5, pointRadius:3 },
+  { label:'Negativo', data:[54,61,48,64],     borderColor:'#dc2626', tension:.4, borderWidth:2.5, pointRadius:3 }
+]}, options:{...BASE, plugins:{...BASE.plugins, legend:LEG}, scales:{y:SY,x:SX}} });
 
-/* PIE 2 */
-new Chart(document.getElementById('pieChart2'),{
-  type:'pie',
-  data:{
-    labels:['Positivo','Neutro','Negativo'],
-    datasets:[{
-      data:[647,384,217],
-      backgroundColor:['#22c55e','#f59e0b','#ef4444']
-    }]
-  }
-});
+new Chart('c-sent-pie',{ type:'pie', data:{
+  labels:['Positivo','Neutro','Negativo'],
+  datasets:[{ data:[647,384,217], backgroundColor:['#15803d','#d97706','#dc2626'], borderWidth:3, borderColor:'#f5f7fa' }]
+}, options:{...BASE, plugins:{...BASE.plugins, legend:LEG}} });
 
-/* VPE */
-new Chart(document.getElementById('vpeChart1'),{
-  type:'bar',
-  data:{
-    labels:['TV','Digital','Radio'],
-    datasets:[{
-      data:[980000,720000,420000],
-      backgroundColor:'#2c6fff',
-      borderRadius:8
-    }]
-  },
-  options:commonOptions
-});
+new Chart('c-neg-media',{ type:'bar', data:{ labels:['América TV','La República','Correo','RPP','Ojo Público'],
+  datasets:[{ data:[38,31,24,18,14], backgroundColor:'#dc2626', borderRadius:5 }]},
+  options:{...BASE, indexAxis:'y', scales:{x:{display:false},y:{grid:{display:false}}}} });
 
-new Chart(document.getElementById('vpeChart2'),{
-  type:'bar',
-  data:{
-    labels:['Alcaldía','Obras','Seguridad'],
-    datasets:[{
-      data:[620000,510000,430000],
-      backgroundColor:'#00e5c0',
-      borderRadius:8
-    }]
-  },
-  options:commonOptions
-});
+new Chart('c-sent-tipo',{ type:'bar', data:{ labels:['Digital','TV','Radio','Prensa'], datasets:[
+  { label:'Positivo', data:[280,142,118,107], backgroundColor:'#15803d', stack:'s' },
+  { label:'Neutro',   data:[148,86,74,76],    backgroundColor:'#d97706', stack:'s' },
+  { label:'Negativo', data:[84,70,42,21],     backgroundColor:'#dc2626', stack:'s' }
+]}, options:{...BASE, scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,display:false}},
+  plugins:{...BASE.plugins, legend:LEG}} });
 
-/* TABS */
-const tabButtons = document.querySelectorAll('.tab-btn');
+// ── VPE TAB ──────────────────────────────────────────────────
+const fmtPEN = v => 'S/ ' + v.toLocaleString('es-PE');
+new Chart('c-vpe-med',{ type:'bar', data:{ labels:['TV','Digital','Radio','Prensa'],
+  datasets:[{ data:[980000,740000,420000,260000], backgroundColor:'#2554cc', borderRadius:5 }]},
+  options:{...BASE, scales:{y:{display:false},x:SX},
+    plugins:{...BASE.plugins, tooltip:{...TT, callbacks:{label:ctx=>fmtPEN(ctx.raw)}}}, layout:{padding:{top:20}}} });
 
-tabButtons.forEach(btn=>{
+new Chart('c-vpe-prot',{ type:'bar', data:{ labels:['Alcaldía','Obras','Seguridad','Parques','Movilidad'],
+  datasets:[{ data:[680000,510000,490000,380000,340000], backgroundColor:'#0e9e82', borderRadius:5 }]},
+  options:{...BASE, scales:{y:{display:false},x:SX},
+    plugins:{...BASE.plugins, tooltip:{...TT, callbacks:{label:ctx=>fmtPEN(ctx.raw)}}}, layout:{padding:{top:20}}} });
 
-  btn.addEventListener('click',()=>{
+// ── TABS ─────────────────────────────────────────────────────
+function switchTab(proj, tab, btn) {
+  document.querySelectorAll('[id^="'+proj+'-"]').forEach(p => p.classList.remove('active'));
+  document.getElementById(proj+'-'+tab).classList.add('active');
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-    tabButtons.forEach(b=>b.classList.remove('active'));
+// ── NEWS ─────────────────────────────────────────────────────
+const news = [
+  {date:'12/05',title:'Municipalidad de Lima lanza plan de rehabilitación de parques distritales',source:'El Comercio · Digital',tone:'pos'},
+  {date:'12/05',title:'MML presenta nuevo sistema de gestión de residuos sólidos',source:'Andina · Digital',tone:'pos'},
+  {date:'12/05',title:'Obras en Av. Arequipa generan malestar en vecinos de Miraflores',source:'América TV · TV',tone:'neg'},
+  {date:'11/05',title:'Alcaldesa lidera reunión con alcaldes distritales sobre seguridad ciudadana',source:'RPP Noticias · Radio',tone:'pos'},
+  {date:'11/05',title:'Municipalidad suspende obra en SJL por irregularidades técnicas',source:'La República · Digital',tone:'neg'},
+  {date:'11/05',title:'Presupuesto para movilidad urbana 2026 aprobado en pleno municipal',source:'Gestión · Digital',tone:'neu'},
+  {date:'10/05',title:'Lima Verde: plan de arborización alcanzará 50 distritos este año',source:'El Peruano · Prensa',tone:'pos'},
+  {date:'10/05',title:'Serenazgo de Lima incrementa patrullaje nocturno en zonas de riesgo',source:'Panamericana TV · TV',tone:'pos'},
+  {date:'10/05',title:'Vecinos de Cercado denuncian demoras en recojo de basura',source:'Correo · Prensa',tone:'neg'},
+  {date:'09/05',title:'MML firmó convenio con Ministerio de Cultura para restaurar el Centro Histórico',source:'Andina · Digital',tone:'pos'},
+  {date:'09/05',title:'Sesión ordinaria de concejo: debate sobre tarifas de parqueo',source:'Canal N · TV',tone:'neu'},
+  {date:'08/05',title:'Lima implementará sistema de bicicletas públicas en 10 distritos',source:'El Comercio · Digital',tone:'pos'},
+  {date:'08/05',title:'Programa "Lima Solidaria" beneficia a más de 12,000 familias',source:'RPP · Radio',tone:'pos'},
+  {date:'07/05',title:'Auditoría detecta observaciones en contratos de servicios municipales',source:'IDL · Digital',tone:'neg'},
+  {date:'07/05',title:'Municipalidad abre convocatoria para becas de formación técnica',source:'Andina · Digital',tone:'pos'},
+  {date:'06/05',title:'Proyecto de renovación del Parque de la Exposición avanza al 60%',source:'Peru21 · Digital',tone:'neu'},
+  {date:'05/05',title:'MML recibe reconocimiento de ONU-Hábitat por gestión de espacios públicos',source:'El Comercio · Digital',tone:'pos'},
+  {date:'04/05',title:'Feria gastronómica "Lima Sabores" reúne a 200 emprendedores',source:'Latina TV · TV',tone:'pos'},
+  {date:'03/05',title:'Obras en Paseo de la República generan caos vehicular',source:'América TV · TV',tone:'neg'},
+  {date:'02/05',title:'Lima anuncia inversión de S/ 80M para modernización de mercados',source:'Gestión · Digital',tone:'pos'},
+  {date:'01/05',title:'Municipalidad reduce tiempos de atención al ciudadano con plataforma digital',source:'Andina · Digital',tone:'pos'},
+  {date:'30/04',title:'Presupuesto participativo 2026: ciudadanos priorizan seguridad y salud',source:'Radio Nacional · Radio',tone:'neu'},
+  {date:'29/04',title:'Regidores interrumpen sesión ordinaria de concejo municipal',source:'Canal N · TV',tone:'neg'},
+  {date:'28/04',title:'Lima inaugura nuevo centro comunitario en Villa El Salvador',source:'El Comercio · Digital',tone:'pos'},
+];
+const TL = { pos:'Positivo', neu:'Neutro', neg:'Negativo' };
+let cf='all', cs='';
 
-    btn.classList.add('active');
+function renderNews(){
+  let d = news;
+  if(cf==='pos') d=d.filter(n=>n.tone==='pos');
+  if(cf==='neg') d=d.filter(n=>n.tone==='neg');
+  if(cs){ const q=cs.toLowerCase(); d=d.filter(n=>n.title.toLowerCase().includes(q)||n.source.toLowerCase().includes(q)); }
+  document.getElementById('d2-total').textContent=d.length;
+  document.getElementById('d2-pos').textContent=d.filter(n=>n.tone==='pos').length;
+  document.getElementById('d2-neu').textContent=d.filter(n=>n.tone==='neu').length;
+  document.getElementById('d2-neg').textContent=d.filter(n=>n.tone==='neg').length;
+  document.getElementById('d2-body').innerHTML=d.map(n=>`
+    <div class="news-row">
+      <div class="news-date">${n.date}</div>
+      <div><div class="news-title">${n.title}</div><div class="news-source">${n.source}</div></div>
+      <div><span class="nbadge ${n.tone}">${TL[n.tone]}</span></div>
+      <div><a class="news-link" href="#">Ver</a></div>
+    </div>`).join('');
+}
+renderNews();
+function d2Filter(t,btn){ cf=t; document.querySelectorAll('.d2-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderNews(); }
+function d2Search(q){ cs=q; renderNews(); }
 
-    document.querySelectorAll('.tab-panel').forEach(panel=>{
-      panel.classList.remove('active');
-    });
-
-    const target = btn.dataset.tab;
-
-    document.getElementById(target).classList.add('active');
-
-  });
-
-});
-
-/* FADE */
-const observer = new IntersectionObserver(entries=>{
-
-  entries.forEach(entry=>{
-
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-    }
-
-  });
-
-},{threshold:.1});
-
-document.querySelectorAll('.fade-in').forEach(el=>{
-  observer.observe(el);
-});
-
+// ── SCROLL REVEAL ────────────────────────────────────────────
+const obs = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),{threshold:.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 </script>
-
 </body>
 </html>
+
