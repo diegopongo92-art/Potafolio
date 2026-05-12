@@ -608,77 +608,200 @@ footer{
       <div class="project-header">
 
         <div class="project-tag">
-          Proyecto 01 · Inteligencia Mediática
-        </div>
-
-        <div class="project-title">
-          Dashboard de Monitoreo de Medios
-        </div>
-
-        <div class="project-desc">
-          Plataforma de análisis de cobertura mediática y visualización de tendencias desarrollada para la Oficina de Comunicaciones y Relaciones Interinstitucionales de la Municipalidad Metropolitana de Lima.
-        </div>
-
-        <div class="project-pills">
-          <span class="pill">HTML5</span>
-          <span class="pill">CSS3</span>
-          <span class="pill">JavaScript</span>
-          <span class="pill">Chart.js</span>
-          <span class="pill">Google Sheets</span>
-        </div>
-
-      </div>
-
-      <div class="demo-area">
-
-        <img src=\"https://placehold.co/1200x500/eef2ff/1e293b?text=Dashboard+Preview\" style=\"width:100%;border-radius:18px;border:1px solid var(--border);\">
-
-      </div>
-
-    </div>
-
-    <div class="project-card">
-
+         <!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Proyectos destacados</div>
+  <div class="section-title">Herramientas que<br>construí</div>
+  <p class="section-sub">Demos interactivas con datos simulados. Las plataformas reales operan con bases de datos en vivo conectadas a Google Sheets y sistemas internos de la MML.</p>
+ 
+  <div class="projects-grid">
+ 
+    <!-- PROJECT 1: DASHBOARD MONITOREO -->
+    <div class="project-card fade-in">
       <div class="project-header">
-
-        <div class="project-tag">
-          Proyecto 02 · Comunicación Operativa
+        <div class="project-meta">
+          <div class="project-tag">Proyecto 01 · Inteligencia Mediática</div>
+          <div class="project-title">Dashboard de Monitoreo de Medios</div>
+          <div class="project-desc">Tablero ejecutivo de análisis de cobertura mediática con 3 vistas: Visión General, Semáforo de Sentimiento y Análisis de Valor Publicitario Equivalente. Diseñado para la Gerencia de Comunicaciones de la MML.</div>
+          <div class="project-pills">
+            <span class="pill">HTML5 / CSS3</span>
+            <span class="pill">Chart.js</span>
+            <span class="pill">PapaParse</span>
+            <span class="pill accent">Google Sheets API</span>
+            <span class="pill accent">Análisis de Sentimiento</span>
+          </div>
         </div>
-
-        <div class="project-title">
-          Semáforo Diario de Noticias
+        <div class="project-badges">
+          <span class="badge-status">● Activo</span>
+          <span class="badge-org">MML · 2026</span>
         </div>
-
-        <div class="project-desc">
-          Herramienta de seguimiento diario para clasificación de noticias, análisis de tono y monitoreo de coyuntura mediática.
-        </div>
-
-        <div class="project-pills">
-          <span class="pill">Responsive Design</span>
-          <span class="pill">Google Forms</span>
-          <span class="pill">PDF Export</span>
-          <span class="pill">Análisis de datos</span>
-        </div>
-
       </div>
-
       <div class="demo-area">
-
-        <img src=\"https://placehold.co/1200x500/f8fafc/1e293b?text=Semáforo+de+Noticias\" style=\"width:100%;border-radius:18px;border:1px solid var(--border);\">
-
+        <div class="demo-label">Demo interactiva — datos simulados</div>
+ 
+        <!-- TABS -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab(1,'general')">General</button>
+          <button class="tab-btn" onclick="switchTab(1,'semaforo')">Semáforo</button>
+          <button class="tab-btn" onclick="switchTab(1,'ahorro')">VPE</button>
+        </div>
+ 
+        <!-- TAB GENERAL -->
+        <div class="tab-panel active" id="p1-general">
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--primary)">1,248</div>
+              <div class="kpi-lbl">Total de menciones</div>
+              <div class="kpi-trend up">↑ 12% vs mes anterior</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--pos)">647</div>
+              <div class="kpi-lbl">Noticias positivas</div>
+              <div class="kpi-trend up">↑ 51.8% del total</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--neu)">384</div>
+              <div class="kpi-lbl">Noticias neutras</div>
+              <div class="kpi-trend flat">→ 30.8% del total</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--neg)">217</div>
+              <div class="kpi-lbl">Noticias negativas</div>
+              <div class="kpi-trend down">↓ 17.4% del total</div>
+            </div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">Menciones por día — Últimas 4 semanas</div>
+              <canvas id="c-timeline"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Distribución tonal</div>
+              <canvas id="c-pie"></canvas>
+            </div>
+          </div>
+          <div class="charts-row2">
+            <div class="chart-box">
+              <div class="chart-title">Top 5 protocolos</div>
+              <canvas id="c-proto"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Por tipo de medio</div>
+              <canvas id="c-tipo"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Origen geográfico</div>
+              <canvas id="c-geo"></canvas>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- TAB SEMÁFORO -->
+        <div class="tab-panel" id="p1-semaforo">
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">Tendencia de sentimiento — Últimas 3 semanas</div>
+              <canvas id="c-sent-time"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Semáforo tonal</div>
+              <canvas id="c-sent-pie"></canvas>
+            </div>
+          </div>
+          <div class="charts-row" style="margin-top:16px">
+            <div class="chart-box">
+              <div class="chart-title">Medios con más cobertura negativa</div>
+              <canvas id="c-neg-media"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Sentimiento por tipo de medio</div>
+              <canvas id="c-sent-tipo"></canvas>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- TAB VPE / AHORRO -->
+        <div class="tab-panel" id="p1-ahorro">
+          <div class="savings-box">
+            <div>
+              <div class="savings-val">S/ 2.4M</div>
+              <div class="savings-label">Valor Publicitario Equivalente acumulado este mes</div>
+            </div>
+            <div style="font-size:13px; color:var(--muted); max-width:280px; line-height:1.6; border-left:1px solid var(--border); padding-left:20px;">
+              Calculado a partir de las menciones positivas ponderadas por tarifa publicitaria de cada medio y espacio.
+            </div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">VPE por tipo de medio (S/)</div>
+              <canvas id="c-ahorro-med"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">VPE por protocolo / área</div>
+              <canvas id="c-ahorro-prot"></canvas>
+            </div>
+          </div>
+        </div>
+ 
       </div>
-
     </div>
-
+ 
+    <!-- PROJECT 2: SEMAFORO DIARIO -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-tag">Proyecto 02 · Herramienta Operativa</div>
+          <div class="project-title">Semáforo Diario de Noticias</div>
+          <div class="project-desc">Tablero operativo en tiempo real que permite al equipo de comunicaciones filtrar, clasificar y exportar el flujo diario de noticias. Incluye búsqueda full-text, filtros por tono y medio, rango horario y exportación a PDF y Excel.</div>
+          <div class="project-pills">
+            <span class="pill">HTML5 / CSS3</span>
+            <span class="pill">PapaParse</span>
+            <span class="pill">html2pdf.js</span>
+            <span class="pill accent">Google Forms / Sheets</span>
+            <span class="pill accent">Responsive Design</span>
+          </div>
+        </div>
+        <div class="project-badges">
+          <span class="badge-status">● Activo</span>
+          <span class="badge-org">MML · 2025–2026</span>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="demo-label">Demo interactiva — datos simulados</div>
+ 
+        <div class="d2-controls">
+          <button class="d2-btn active" onclick="d2Filter('all',this)">Todo el mes</button>
+          <button class="d2-btn" onclick="d2Filter('pos',this)">Solo positivas</button>
+          <button class="d2-btn" onclick="d2Filter('neg',this)">Solo negativas</button>
+          <input class="d2-search" type="text" placeholder="Buscar titular o medio…" oninput="d2Search(this.value)" id="d2-search-input">
+        </div>
+ 
+        <div class="d2-summary">
+          <div class="d2-card total"><div class="d2-card-val" id="d2-total">24</div><div class="d2-card-lbl"># Menciones</div></div>
+          <div class="d2-card pos"><div class="d2-card-val" id="d2-pos">13</div><div class="d2-card-lbl">Positivas</div></div>
+          <div class="d2-card neu"><div class="d2-card-val" id="d2-neu">6</div><div class="d2-card-lbl">Neutras</div></div>
+          <div class="d2-card neg"><div class="d2-card-val" id="d2-neg">5</div><div class="d2-card-lbl">Negativas</div></div>
+        </div>
+ 
+        <div class="news-table">
+          <div class="news-row header">
+            <div>Fecha</div>
+            <div>Noticia / Medio</div>
+            <div>Tono</div>
+            <div>Enlace</div>
+          </div>
+          <div id="news-tbody"></div>
+        </div>
+ 
+      </div>
+    </div>
+ 
   </div>
-
 </section>
-
+ 
 <div class="divider"></div>
+ 
 
-<section>
-
-  <div class="section-label">
     Capacidades
   </div>
 
