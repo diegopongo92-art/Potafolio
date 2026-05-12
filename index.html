@@ -1,223 +1,1177 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Pongo | Portafolio Inteligencia MML</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        :root {
-            --primary: #002f80;
-            --bg-body: #020617;
-            --bg-plat: #f8fafc;
-            --border: #e2e8f0;
-            --text-muted: #64748b;
-        }
-
-        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: white; margin: 0; }
-
-        /* PORTAFOLIO WRAPPER */
-        .project-container { max-width: 1400px; margin: 50px auto; padding: 0 20px; }
-        .platform-frame {
-            background: var(--bg-plat); color: #1e293b;
-            border-radius: 20px; overflow: hidden;
-            display: flex; height: 800px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        }
-
-        /* SIDEBAR (72px exactos) */
-        .sidebar {
-            width: 72px; background: white; border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; align-items: center; padding: 25px 0; gap: 30px;
-        }
-        .side-icon { font-size: 24px; color: #94a3b8; cursor: pointer; transition: 0.2s; position: relative; }
-        .side-icon.active { color: var(--primary); }
-        .side-icon.active::after {
-            content: ''; position: absolute; left: -25px; top: 50%; transform: translateY(-50%);
-            width: 4px; height: 25px; background: var(--primary); border-radius: 0 4px 4px 0;
-        }
-
-        /* CONTENIDO PRINCIPAL */
-        .main-view { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-        /* TABS (Tus 3 pestañas: General, Semáforo, Ahorro) */
-        .nav-tabs { background: white; display: flex; padding: 0 30px; border-bottom: 1px solid var(--border); gap: 40px; }
-        .tab-btn {
-            padding: 22px 0; font-size: 11px; font-weight: 800; text-transform: uppercase;
-            color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent;
-            letter-spacing: 0.5px; transition: 0.2s;
-        }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-        /* VISTAS */
-        .view-content { flex: 1; overflow-y: auto; display: none; }
-        .view-content.active { display: block; }
-
-        /* KPI CARDS */
-        .kpi-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 20px; padding: 30px; }
-        .kpi-card {
-            background: white; padding: 24px; border-radius: 16px; border-left: 4px solid var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.3s;
-        }
-        .kpi-card:hover { transform: translateY(-3px); }
-        .kpi-label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
-        .kpi-value { font-size: 26px; font-weight: 900; color: #0f172a; }
-
-        /* TABLA SEMÁFORO (Colores por fila exactos) */
-        .table-container { padding: 0 30px 30px 30px; }
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
-        th { background: #f1f5f9; padding: 18px; text-align: left; font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
-        td { padding: 18px; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-        
-        .row-positivo { background-color: #f0fdf4 !important; }
-        .row-negativo { background-color: #fef2f2 !important; }
-        .row-neutro { background-color: #fffbeb !important; }
-
-        .badge { padding: 5px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: white; }
-        .bg-positivo { background: #15803d; }
-        .bg-negativo { background: #b91c1c; }
-        .bg-neutro { background: #ca8a04; }
-
-        .disclaimer { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; text-align: center; padding: 20px; background: #f1f5f9; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diego Pongo · Portafolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --bg: #060a14;
+  --surface: #0d1526;
+  --surface2: #111d35;
+  --border: rgba(255,255,255,0.07);
+  --primary: #2c6fff;
+  --primary-glow: rgba(44,111,255,0.25);
+  --accent: #00e5c0;
+  --accent-glow: rgba(0,229,192,0.2);
+  --pos: #22c55e;
+  --neu: #f59e0b;
+  --neg: #ef4444;
+  --text: #e8edf8;
+  --muted: #7a8aaa;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+html { scroll-behavior: smooth; }
+ 
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+ 
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+ 
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 6%;
+  background: rgba(6,10,20,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 17px; font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+.nav-logo span { color: var(--primary); }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  color: var(--muted); text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 0.3px;
+}
+.nav-links a:hover { color: var(--text); }
+ 
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 6% 80px;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(44,111,255,0.12) 0%, transparent 70%);
+  top: -150px; right: -150px;
+  pointer-events: none;
+}
+.hero-glow2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,229,192,0.07) 0%, transparent 70%);
+  bottom: 0; left: 20%;
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 700px; }
+.hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.hero-label::before {
+  content: '';
+  display: block; width: 28px; height: 1px;
+  background: var(--accent);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+}
+.hero h1 span { color: var(--primary); }
+.hero-bio {
+  font-size: 16px; color: var(--muted);
+  max-width: 520px; line-height: 1.75;
+  margin-bottom: 44px;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary);
+  color: white;
+  padding: 14px 28px; border-radius: 10px;
+  font-size: 14px; font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s;
+  box-shadow: 0 4px 24px rgba(44,111,255,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(44,111,255,0.45); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 14px 28px; border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
+ 
+/* ── CHIPS HERO ── */
+.hero-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 40px; }
+.chip {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+ 
+/* ── SECTION COMMON ── */
+section { padding: 100px 6%; position: relative; z-index: 1; }
+.section-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 800; letter-spacing: -1px;
+  margin-bottom: 16px; line-height: 1.1;
+}
+.section-sub {
+  font-size: 15px; color: var(--muted);
+  max-width: 520px; line-height: 1.7;
+  margin-bottom: 60px;
+}
+ 
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 0 6%; }
+ 
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.about-text { font-size: 15px; color: var(--muted); line-height: 1.8; }
+.about-text p { margin-bottom: 16px; }
+.about-text strong { color: var(--text); font-weight: 500; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 40px; font-weight: 800;
+  color: var(--primary); letter-spacing: -2px;
+  line-height: 1;
+}
+.stat-num span { font-size: 22px; }
+.stat-label {
+  font-size: 12px; color: var(--muted); font-weight: 500;
+  margin-top: 8px; line-height: 1.4;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+ 
+/* ── PROJECTS ── */
+.projects-grid { display: flex; flex-direction: column; gap: 60px; }
+ 
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.project-card:hover { border-color: rgba(44,111,255,0.3); }
+ 
+.project-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 36px 40px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.project-meta { flex: 1; }
+.project-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.project-title {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 800;
+  letter-spacing: -0.5px; margin-bottom: 10px;
+}
+.project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 500px; }
+.project-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.pill {
+  font-size: 11px; font-weight: 600;
+  padding: 5px 12px; border-radius: 999px;
+  background: rgba(44,111,255,0.1);
+  color: var(--primary);
+  border: 1px solid rgba(44,111,255,0.2);
+}
+.pill.accent {
+  background: rgba(0,229,192,0.08);
+  color: var(--accent);
+  border-color: rgba(0,229,192,0.2);
+}
+ 
+.project-badges { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.badge-status {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(34,197,94,0.15);
+  color: var(--pos);
+  border: 1px solid rgba(34,197,94,0.25);
+}
+.badge-org {
+  font-size: 11px; font-weight: 600;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+ 
+/* ── DEMO CONTAINERS ── */
+.demo-area { padding: 32px 40px 40px; }
+.demo-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.demo-label::before {
+  content: '●'; color: var(--accent); font-size: 8px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+ 
+/* ── DASHBOARD 1 DEMO ── */
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.kpi {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 20px;
+}
+.kpi-val {
+  font-family: var(--font-display);
+  font-size: 30px; font-weight: 800;
+  letter-spacing: -1px; line-height: 1;
+}
+.kpi-lbl { font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.kpi-trend {
+  font-size: 11px; font-weight: 700; margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.up { color: var(--pos); } .down { color: var(--neg); } .flat { color: var(--neu); }
+ 
+.charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+.chart-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px;
+}
+.chart-title {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px;
+}
+.chart-box canvas { max-height: 160px; }
+ 
+.charts-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+ 
+/* ── DASHBOARD 2 DEMO ── */
+.d2-controls {
+  display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
+}
+.d2-btn {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  padding: 8px 16px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface2); color: var(--muted);
+  transition: all 0.2s;
+}
+.d2-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.d2-btn:hover:not(.active) { border-color: rgba(255,255,255,0.2); color: var(--text); }
+.d2-search {
+  flex: 1; min-width: 200px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: 8px; padding: 8px 14px;
+  font-size: 13px; font-family: var(--font-body); outline: none;
+  transition: border-color 0.2s;
+}
+.d2-search::placeholder { color: var(--muted); }
+.d2-search:focus { border-color: var(--primary); }
+ 
+.d2-summary { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
+.d2-card {
+  border-radius: 10px; padding: 14px 16px; text-align: center;
+  border: 1px solid transparent;
+}
+.d2-card.total { background: var(--surface2); border-color: var(--border); }
+.d2-card.pos { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.25); }
+.d2-card.neu { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.25); }
+.d2-card.neg { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.25); }
+.d2-card-val { font-family: var(--font-display); font-size: 28px; font-weight: 800; }
+.d2-card.total .d2-card-val { color: var(--text); }
+.d2-card.pos .d2-card-val { color: var(--pos); }
+.d2-card.neu .d2-card-val { color: var(--neu); }
+.d2-card.neg .d2-card-val { color: var(--neg); }
+.d2-card-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-top: 4px; }
+ 
+.news-table {
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.news-row {
+  display: grid; grid-template-columns: 90px 1fr 90px 60px;
+  gap: 12px; padding: 13px 16px; align-items: center;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px; transition: background 0.15s;
+}
+.news-row:hover { background: rgba(255,255,255,0.03); }
+.news-row:last-child { border-bottom: none; }
+.news-row.header {
+  background: var(--surface2);
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--muted);
+}
+.news-date { font-size: 12px; color: var(--muted); }
+.news-title { font-weight: 600; line-height: 1.3; }
+.news-source { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.news-badge {
+  display: inline-block; padding: 4px 10px; border-radius: 6px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+}
+.nb-pos { background: rgba(34,197,94,0.15); color: #4ade80; }
+.nb-neu { background: rgba(245,158,11,0.15); color: #fbbf24; }
+.nb-neg { background: rgba(239,68,68,0.15); color: #f87171; }
+.news-link {
+  font-size: 11px; font-weight: 600; color: var(--primary);
+  text-decoration: none; padding: 5px 10px; border-radius: 6px;
+  border: 1px solid rgba(44,111,255,0.3);
+  transition: all 0.2s; text-align: center;
+}
+.news-link:hover { background: rgba(44,111,255,0.1); }
+ 
+/* ── SKILLS SECTION ── */
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 24px 26px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.skill-card:hover { border-color: rgba(44,111,255,0.3); transform: translateY(-3px); }
+.skill-icon { font-size: 28px; margin-bottom: 14px; }
+.skill-name {
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 700; margin-bottom: 8px;
+}
+.skill-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+ 
+/* ── EXPERIENCE TIMELINE ── */
+.timeline { position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 8px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+  position: relative;
+}
+.tl-item::before {
+  content: '';
+  position: absolute; left: -4px; top: 8px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px rgba(44,111,255,0.15);
+}
+.tl-date {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-align: right; padding-right: 32px; padding-top: 2px;
+  letter-spacing: 0.3px;
+}
+.tl-org {
+  font-size: 11px; font-weight: 700; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+}
+.tl-role {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 700; margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+.tl-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.tl-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tl-hl {
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  color: var(--muted); border: 1px solid var(--border);
+}
+ 
+/* ── CONTACT ── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.contact-info { display: flex; flex-direction: column; gap: 16px; }
+.contact-item {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 14px;
+}
+.contact-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.contact-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.contact-val { font-size: 14px; color: var(--text); font-weight: 500; }
+.contact-val a { color: var(--primary); text-decoration: none; }
+.contact-val a:hover { text-decoration: underline; }
+ 
+.contact-note {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 36px;
+  font-size: 14px; color: var(--muted); line-height: 1.75;
+}
+.contact-note strong { color: var(--text); font-weight: 600; }
+.contact-note .quote {
+  font-size: 36px; line-height: 1;
+  color: var(--primary); font-family: Georgia, serif;
+  margin-bottom: 12px; display: block;
+}
+ 
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 6%;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--muted);
+}
+ 
+/* ── TABS ── */
+.tab-bar { display: flex; gap: 4px; margin-bottom: 20px; background: var(--surface2); border-radius: 10px; padding: 4px; border: 1px solid var(--border); width: fit-content; }
+.tab-btn {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 8px 18px; border-radius: 7px; cursor: pointer;
+  border: none; background: transparent; color: var(--muted);
+  transition: all 0.2s;
+}
+.tab-btn.active { background: var(--primary); color: white; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+ 
+/* ── SAVINGS DISPLAY ── */
+.savings-box {
+  background: linear-gradient(135deg, rgba(44,111,255,0.15) 0%, rgba(0,229,192,0.08) 100%);
+  border: 1px solid rgba(44,111,255,0.25);
+  border-radius: 14px; padding: 24px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 20px;
+}
+.savings-val {
+  font-family: var(--font-display);
+  font-size: 42px; font-weight: 800;
+  color: var(--accent); letter-spacing: -2px; line-height: 1;
+}
+.savings-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+ 
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .charts-row, .charts-row2 { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .tl-item { grid-template-columns: 1fr; gap: 8px; }
+  .tl-date { text-align: left; padding-right: 0; }
+  .timeline::before { display: none; }
+  .tl-item::before { display: none; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero h1 { font-size: 36px; }
+  .d2-summary { grid-template-columns: 1fr 1fr; }
+  .news-row { grid-template-columns: 70px 1fr; }
+  .news-row .news-badge, .news-row .news-link { display: none; }
+}
+ 
+/* ── ANIMATIONS ── */
+.fade-in {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
-
-    <div class="project-container">
-        <h1 class="text-5xl font-black italic uppercase tracking-tighter mb-2">Diego Pongo</h1>
-        <p class="text-blue-500 font-bold uppercase tracking-[0.4em] text-xs mb-10">Data Intelligence Portfolio</p>
-
-        <div class="platform-frame">
-            <aside class="sidebar">
-                <i class="ph-fill ph-house side-icon active"></i>
-                <i class="ph-bold ph-chart-pie side-icon"></i>
-                <i class="ph-bold ph-newspaper side-icon"></i>
-                <i class="ph-bold ph-users side-icon"></i>
-                <i class="ph-bold ph-gear side-icon" style="margin-top: auto;"></i>
-            </aside>
-
-            <main class="main-view">
-                <nav class="nav-tabs">
-                    <div class="tab-btn active" onclick="switchTab('general')">General</div>
-                    <div class="tab-btn" onclick="switchTab('semaforo')">Semáforo</div>
-                    <div class="tab-btn" onclick="switchTab('ahorro')">Ahorro</div>
-                </nav>
-
-                <section id="general" class="view-content active">
-                    <div class="kpi-grid">
-                        <div class="kpi-card"><p class="kpi-label">VPR Total</p><p class="kpi-value">S/ 1,420,000</p></div>
-                        <div class="kpi-card"><p class="kpi-label">Alcance</p><p class="kpi-value">4.2M</p></div>
-                        <div class="kpi-card"><p class="kpi-label">Notas</p><p class="kpi-value">856</p></div>
-                        <div class="kpi-card"><p class="kpi-label">Sentimiento</p><p class="kpi-value text-emerald-600">78%</p></div>
-                    </div>
-                    <div class="px-8 h-80"><canvas id="chartGeneral"></canvas></div>
-                </section>
-
-                <section id="semaforo" class="view-content">
-                    <div class="p-8">
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="font-black uppercase text-slate-400 text-xs">Monitoreo de Medios Diario</h3>
-                            <input type="text" placeholder="Buscar noticia..." class="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs outline-none w-64">
-                        </div>
-                        <div class="table-container p-0">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Noticia / Medio</th>
-                                        <th>Tono</th>
-                                        <th>Resumen Estratégico</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="listaSemaforo">
-                                    <tr class="row-positivo">
-                                        <td class="font-bold text-slate-400">12/05</td>
-                                        <td>
-                                            <div class="font-black text-[#002f80]">MML recupera áreas verdes</div>
-                                            <div class="text-[10px] font-bold text-slate-400 uppercase">El Comercio</div>
-                                        </td>
-                                        <td><span class="badge bg-positivo">Positivo</span></td>
-                                        <td class="italic font-medium">Gestión exitosa reconocida por vecinos.</td>
-                                    </tr>
-                                    <tr class="row-negativo">
-                                        <td class="font-bold text-slate-400">12/05</td>
-                                        <td>
-                                            <div class="font-black text-[#002f80]">Quejas por obras en Av. Huaylas</div>
-                                            <div class="text-[10px] font-bold text-slate-400 uppercase">Exitosa</div>
-                                        </td>
-                                        <td><span class="badge bg-negativo">Negativo</span></td>
-                                        <td class="italic font-medium">Alerta de tráfico. Se requiere fiscalización.</td>
-                                    </tr>
-                                    <tr class="row-neutro">
-                                        <td class="font-bold text-slate-400">11/05</td>
-                                        <td>
-                                            <div class="font-black text-[#002f80]">Entrevista a Vocero sobre planes</div>
-                                            <div class="text-[10px] font-bold text-slate-400 uppercase">TV Perú</div>
-                                        </td>
-                                        <td><span class="badge bg-neutro">Neutro</span></td>
-                                        <td class="italic font-medium">Nota técnica informativa.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="ahorro" class="view-content">
-                    <div class="p-8">
-                        <div class="bg-white p-8 rounded-2xl border border-slate-200 h-96">
-                            <p class="kpi-label mb-6">Ahorro Publicitario por Canal (VPR)</p>
-                            <canvas id="chartAhorro"></canvas>
-                        </div>
-                    </div>
-                </section>
-
-                <footer class="disclaimer">
-                    * Simulación Interactiva: Datos anonimizados por motivos de confidencialidad y seguridad.
-                </footer>
-            </main>
-        </div>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Diego <span>Pongo</span></div>
+  <div class="nav-links">
+    <a href="#about">Sobre mí</a>
+    <a href="#projects">Proyectos</a>
+    <a href="#experience">Experiencia</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-label">Comunicación · Datos · Gobierno</div>
+    <h1>Diego Javier<br><span>Pongo</span> Quinteros</h1>
+    <p class="hero-bio">
+      Analista de comunicación gubernamental con experiencia en la Municipalidad Metropolitana de Lima y el IRTV. Diseño herramientas de inteligencia mediática que convierten el monitoreo de prensa en decisiones estratégicas.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">↓ Ver proyectos</a>
+      <a href="#contact" class="btn-ghost">Contactar</a>
     </div>
-
-    <script>
-        // Lógica de cambio de pestañas
-        function switchTab(tabId) {
-            // Quitar clase active de todos los botones y vistas
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.view-content').forEach(view => view.classList.remove('active'));
-
-            // Agregar active al seleccionado
-            event.currentTarget.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
-
-        window.onload = () => {
-            // Chart General
-            new Chart(document.getElementById('chartGeneral'), {
-                type: 'line',
-                data: {
-                    labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie'],
-                    datasets: [{ label: 'Impacto', data: [65, 78, 72, 85, 78], borderColor: '#002f80', tension: 0.4, fill: true, backgroundColor: 'rgba(0, 47, 128, 0.05)' }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-
-            // Chart Ahorro
-            new Chart(document.getElementById('chartAhorro'), {
-                type: 'bar',
-                data: {
-                    labels: ['Impreso', 'Radial', 'TV', 'Digital'],
-                    datasets: [{ label: 'S/', data: [450000, 320000, 580000, 210000], backgroundColor: '#002f80', borderRadius: 8 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-        };
-    </script>
+    <div class="hero-chips">
+      <span class="chip">Monitoreo de Medios</span>
+      <span class="chip">Análisis de Sentimiento</span>
+      <span class="chip">Inteligencia Mediática</span>
+      <span class="chip">HTML / JS / Chart.js</span>
+      <span class="chip">Comunicación Pública</span>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Perfil</div>
+  <div class="about-grid fade-in">
+    <div>
+      <div class="section-title">Comunicación con<br>inteligencia de datos</div>
+      <div class="about-text">
+        <p>Bachiller en Ciencia Política de la UNMSM, con <strong>más de 3 años</strong> gestionando contenidos informativos gubernamentales en el <strong>IRTV (Radio Nacional del Perú)</strong> y la <strong>Municipalidad Metropolitana de Lima</strong>.</p>
+        <p>Combino periodismo institucional con desarrollo de herramientas digitales: diseño dashboards de monitoreo que permiten seguir en tiempo real la cobertura mediática, el tono editorial y el posicionamiento de una institución en más de <strong>400 medios</strong>.</p>
+        <p>Mi especialidad es construir puentes entre la comunicación estratégica y los datos: cada tablero que diseño traduce millones de menciones en narrativas accionables para la toma de decisiones.</p>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">3<span>+</span></div>
+        <div class="stat-label">Años en comunicación gubernamental</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">400<span>+</span></div>
+        <div class="stat-label">Medios monitoreados activamente</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">800<span>+</span></div>
+        <div class="stat-label">Notas informativas producidas (Radio Nacional)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Plataformas de inteligencia mediática desplegadas</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Proyectos destacados</div>
+  <div class="section-title">Herramientas que<br>construí</div>
+  <p class="section-sub">Demos interactivas con datos simulados. Las plataformas reales operan con bases de datos en vivo conectadas a Google Sheets y sistemas internos de la MML.</p>
+ 
+  <div class="projects-grid">
+ 
+    <!-- PROJECT 1: DASHBOARD MONITOREO -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-tag">Proyecto 01 · Inteligencia Mediática</div>
+          <div class="project-title">Dashboard de Monitoreo de Medios</div>
+          <div class="project-desc">Tablero ejecutivo de análisis de cobertura mediática con 3 vistas: Visión General, Semáforo de Sentimiento y Análisis de Valor Publicitario Equivalente. Diseñado para la Gerencia de Comunicaciones de la MML.</div>
+          <div class="project-pills">
+            <span class="pill">HTML5 / CSS3</span>
+            <span class="pill">Chart.js</span>
+            <span class="pill">PapaParse</span>
+            <span class="pill accent">Google Sheets API</span>
+            <span class="pill accent">Análisis de Sentimiento</span>
+          </div>
+        </div>
+        <div class="project-badges">
+          <span class="badge-status">● Activo</span>
+          <span class="badge-org">MML · 2026</span>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="demo-label">Demo interactiva — datos simulados</div>
+ 
+        <!-- TABS -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab(1,'general')">General</button>
+          <button class="tab-btn" onclick="switchTab(1,'semaforo')">Semáforo</button>
+          <button class="tab-btn" onclick="switchTab(1,'ahorro')">VPE</button>
+        </div>
+ 
+        <!-- TAB GENERAL -->
+        <div class="tab-panel active" id="p1-general">
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--primary)">1,248</div>
+              <div class="kpi-lbl">Total de menciones</div>
+              <div class="kpi-trend up">↑ 12% vs mes anterior</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--pos)">647</div>
+              <div class="kpi-lbl">Noticias positivas</div>
+              <div class="kpi-trend up">↑ 51.8% del total</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--neu)">384</div>
+              <div class="kpi-lbl">Noticias neutras</div>
+              <div class="kpi-trend flat">→ 30.8% del total</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-val" style="color:var(--neg)">217</div>
+              <div class="kpi-lbl">Noticias negativas</div>
+              <div class="kpi-trend down">↓ 17.4% del total</div>
+            </div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">Menciones por día — Últimas 4 semanas</div>
+              <canvas id="c-timeline"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Distribución tonal</div>
+              <canvas id="c-pie"></canvas>
+            </div>
+          </div>
+          <div class="charts-row2">
+            <div class="chart-box">
+              <div class="chart-title">Top 5 protocolos</div>
+              <canvas id="c-proto"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Por tipo de medio</div>
+              <canvas id="c-tipo"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Origen geográfico</div>
+              <canvas id="c-geo"></canvas>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- TAB SEMÁFORO -->
+        <div class="tab-panel" id="p1-semaforo">
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">Tendencia de sentimiento — Últimas 3 semanas</div>
+              <canvas id="c-sent-time"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Semáforo tonal</div>
+              <canvas id="c-sent-pie"></canvas>
+            </div>
+          </div>
+          <div class="charts-row" style="margin-top:16px">
+            <div class="chart-box">
+              <div class="chart-title">Medios con más cobertura negativa</div>
+              <canvas id="c-neg-media"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">Sentimiento por tipo de medio</div>
+              <canvas id="c-sent-tipo"></canvas>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- TAB VPE / AHORRO -->
+        <div class="tab-panel" id="p1-ahorro">
+          <div class="savings-box">
+            <div>
+              <div class="savings-val">S/ 2.4M</div>
+              <div class="savings-label">Valor Publicitario Equivalente acumulado este mes</div>
+            </div>
+            <div style="font-size:13px; color:var(--muted); max-width:280px; line-height:1.6; border-left:1px solid var(--border); padding-left:20px;">
+              Calculado a partir de las menciones positivas ponderadas por tarifa publicitaria de cada medio y espacio.
+            </div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-box">
+              <div class="chart-title">VPE por tipo de medio (S/)</div>
+              <canvas id="c-ahorro-med"></canvas>
+            </div>
+            <div class="chart-box">
+              <div class="chart-title">VPE por protocolo / área</div>
+              <canvas id="c-ahorro-prot"></canvas>
+            </div>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+ 
+    <!-- PROJECT 2: SEMAFORO DIARIO -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div class="project-meta">
+          <div class="project-tag">Proyecto 02 · Herramienta Operativa</div>
+          <div class="project-title">Semáforo Diario de Noticias</div>
+          <div class="project-desc">Tablero operativo en tiempo real que permite al equipo de comunicaciones filtrar, clasificar y exportar el flujo diario de noticias. Incluye búsqueda full-text, filtros por tono y medio, rango horario y exportación a PDF y Excel.</div>
+          <div class="project-pills">
+            <span class="pill">HTML5 / CSS3</span>
+            <span class="pill">PapaParse</span>
+            <span class="pill">html2pdf.js</span>
+            <span class="pill accent">Google Forms / Sheets</span>
+            <span class="pill accent">Responsive Design</span>
+          </div>
+        </div>
+        <div class="project-badges">
+          <span class="badge-status">● Activo</span>
+          <span class="badge-org">MML · 2025–2026</span>
+        </div>
+      </div>
+      <div class="demo-area">
+        <div class="demo-label">Demo interactiva — datos simulados</div>
+ 
+        <div class="d2-controls">
+          <button class="d2-btn active" onclick="d2Filter('all',this)">Todo el mes</button>
+          <button class="d2-btn" onclick="d2Filter('pos',this)">Solo positivas</button>
+          <button class="d2-btn" onclick="d2Filter('neg',this)">Solo negativas</button>
+          <input class="d2-search" type="text" placeholder="Buscar titular o medio…" oninput="d2Search(this.value)" id="d2-search-input">
+        </div>
+ 
+        <div class="d2-summary">
+          <div class="d2-card total"><div class="d2-card-val" id="d2-total">24</div><div class="d2-card-lbl"># Menciones</div></div>
+          <div class="d2-card pos"><div class="d2-card-val" id="d2-pos">13</div><div class="d2-card-lbl">Positivas</div></div>
+          <div class="d2-card neu"><div class="d2-card-val" id="d2-neu">6</div><div class="d2-card-lbl">Neutras</div></div>
+          <div class="d2-card neg"><div class="d2-card-val" id="d2-neg">5</div><div class="d2-card-lbl">Negativas</div></div>
+        </div>
+ 
+        <div class="news-table">
+          <div class="news-row header">
+            <div>Fecha</div>
+            <div>Noticia / Medio</div>
+            <div>Tono</div>
+            <div>Enlace</div>
+          </div>
+          <div id="news-tbody"></div>
+        </div>
+ 
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- SKILLS -->
+<section>
+  <div class="section-label">Capacidades</div>
+  <div class="section-title">Qué puedo hacer</div>
+  <div class="skills-grid fade-in">
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Dashboards de medios</div>
+      <div class="skill-desc">Diseño tableros de monitoreo con análisis de sentimiento, tendencias temporales y valor publicitario equivalente usando Chart.js y datos en vivo.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📰</div>
+      <div class="skill-name">Periodismo institucional</div>
+      <div class="skill-desc">Más de 800 notas informativas para Radio Nacional del Perú. Cobertura de entidades del Estado con enfoque en servicio al ciudadano.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">Análisis de cobertura</div>
+      <div class="skill-desc">Identificación de patrones de posicionamiento, análisis de tono editorial y elaboración de reportes cuantitativos y cualitativos.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🛠️</div>
+      <div class="skill-name">Desarrollo de herramientas</div>
+      <div class="skill-desc">HTML, CSS, JavaScript, Chart.js, PapaParse. Construcción de interfaces conectadas a Google Sheets como backend ligero.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🏛️</div>
+      <div class="skill-name">Comunicación gubernamental</div>
+      <div class="skill-desc">Gestión de imagen institucional, coordinación con gerencias y organismos públicos, y difusión de políticas de Estado.</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <div class="skill-name">Diseño responsive</div>
+      <div class="skill-desc">Interfaces que funcionan en desktop, tablet y móvil. Exportación a PDF y Excel integrada directamente en el navegador.</div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Trayectoria</div>
+  <div class="section-title">Experiencia</div>
+ 
+  <div class="timeline fade-in" style="padding-left:24px; margin-top:40px;">
+    <div class="tl-item">
+      <div class="tl-date">Ene 2026 — Actualidad</div>
+      <div>
+        <div class="tl-org">Municipalidad Metropolitana de Lima</div>
+        <div class="tl-role">Analista de Medios — Gerencia de Comunicaciones</div>
+        <div class="tl-desc">Desarrollo y mantenimiento del Dashboard de Monitoreo de Medios y el Semáforo Diario de Noticias. Elaboración de reportes de cobertura, análisis de tendencias y notas de prensa para gerencias y organismos de la MML.</div>
+        <div class="tl-highlights">
+          <span class="tl-hl">Dashboard Monitoreo</span>
+          <span class="tl-hl">Semáforo Diario</span>
+          <span class="tl-hl">+400 medios</span>
+          <span class="tl-hl">Reportes ejecutivos</span>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">May 2024 — Dic 2025</div>
+      <div>
+        <div class="tl-org">Instituto de Radio y Televisión del Perú — Radio Nacional</div>
+        <div class="tl-role">Subdir. de Prensa — Periodista</div>
+        <div class="tl-desc">Desarrollo de herramientas de análisis para programas noticiosos. Producción de más de 800 notas informativas, entrevistas y reportajes para la Radio Nacional. Análisis de contenidos y coyuntura de la agenda pública peruana.</div>
+        <div class="tl-highlights">
+          <span class="tl-hl">+800 notas</span>
+          <span class="tl-hl">Radio Nacional</span>
+          <span class="tl-hl">Agenda pública</span>
+          <span class="tl-hl">Indicadores editoriales</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<div class="divider"></div>
+ 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contacto</div>
+  <div class="section-title">Hablemos</div>
+  <div class="contact-grid fade-in">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val"><a href="mailto:diego.pongo@unmsm.edu.pe">diego.pongo@unmsm.edu.pe</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Teléfono</div>
+          <div class="contact-val">+51 994 580 247</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💼</div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-val"><a href="https://linkedin.com/in/diego-javier-pongo-quinteros" target="_blank">Diego Javier Pongo Quinteros</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Ubicación</div>
+          <div class="contact-val">Lima, Perú</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-note">
+      <span class="quote">"</span>
+      <strong>Comunicación gubernamental que se mide, se mejora.</strong>
+      <br><br>
+      Estoy disponible para proyectos de consultoría en comunicación estratégica, desarrollo de herramientas de monitoreo mediático, o posiciones en equipos de comunicación institucional y periodismo de datos.
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <span>© 2026 Diego Javier Pongo Quinteros · Lima, Perú</span>
+  <span style="color:var(--muted)">Desarrollado en HTML · CSS · JavaScript</span>
+</footer>
+ 
+<script>
+// ─── DATA SIMULADA ───────────────────────────────────────────
+const CHART_DEFAULTS = {
+  color: '#7a8aaa',
+  font: { family: "'DM Sans', sans-serif", size: 11 }
+};
+Chart.defaults.color = CHART_DEFAULTS.color;
+Chart.defaults.font = CHART_DEFAULTS.font;
+ 
+const commonOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      backgroundColor: '#0d1526',
+      borderColor: 'rgba(255,255,255,0.1)',
+      borderWidth: 1,
+      titleColor: '#e8edf8',
+      bodyColor: '#7a8aaa',
+      padding: 10,
+      cornerRadius: 8
+    }
+  }
+};
+ 
+// ─── CHART 1: TIMELINE ───────────────────────────────────────
+const days = ['01/05','02/05','03/05','04/05','05/05','06/05','07/05','08/05','09/05','10/05','11/05','12/05'];
+const timelineData = [28,42,35,51,38,60,44,55,48,62,41,57];
+new Chart(document.getElementById('c-timeline'), {
+  type: 'line',
+  data: {
+    labels: days,
+    datasets: [{
+      data: timelineData,
+      borderColor: '#2c6fff',
+      backgroundColor: 'rgba(44,111,255,0.08)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 2.5,
+      pointRadius: 3,
+      pointBackgroundColor: '#2c6fff'
+    }]
+  },
+  options: {
+    ...commonOptions,
+    scales: {
+      y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { stepSize: 20 } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+ 
+// ─── CHART 2: PIE TONAL ──────────────────────────────────────
+new Chart(document.getElementById('c-pie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Positivo','Neutro','Negativo'],
+    datasets: [{ data: [647,384,217], backgroundColor: ['#22c55e','#f59e0b','#ef4444'], borderWidth: 2, borderColor: '#0d1526' }]
+  },
+  options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: true, position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } } } }
+});
+ 
+// ─── CHART 3: PROTO ──────────────────────────────────────────
+new Chart(document.getElementById('c-proto'), {
+  type: 'bar',
+  data: {
+    labels: ['Alcaldía','Obras','Seguridad','Medio Ambiente','Movilidad'],
+    datasets: [{ data: [342,218,187,156,134], backgroundColor: '#2c6fff', borderRadius: 6 }]
+  },
+  options: { ...commonOptions, indexAxis: 'y', scales: { x: { display: false }, y: { grid: { display: false } } } }
+});
+ 
+// ─── CHART 4: TIPO MEDIO ─────────────────────────────────────
+new Chart(document.getElementById('c-tipo'), {
+  type: 'bar',
+  data: {
+    labels: ['Digital','Televisión','Radio','Prensa escrita'],
+    datasets: [{ data: [512,298,234,204], backgroundColor: '#00e5c0', borderRadius: 6 }]
+  },
+  options: { ...commonOptions, indexAxis: 'y', scales: { x: { display: false }, y: { grid: { display: false } } } }
+});
+ 
+// ─── CHART 5: GEO ────────────────────────────────────────────
+new Chart(document.getElementById('c-geo'), {
+  type: 'bar',
+  data: {
+    labels: ['Lima Metropolitana','Nacional','Internacional','Regiones'],
+    datasets: [{ data: [784,286,108,70], backgroundColor: '#7c3aed', borderRadius: 6 }]
+  },
+  options: { ...commonOptions, indexAxis: 'y', scales: { x: { display: false }, y: { grid: { display: false } } } }
+});
+ 
+// ─── SEMÁFORO CHARTS ─────────────────────────────────────────
+const weeks = ['Apr 21','Apr 28','May 5','May 12'];
+new Chart(document.getElementById('c-sent-time'), {
+  type: 'line',
+  data: {
+    labels: weeks,
+    datasets: [
+      { label:'Positivo', data:[148,162,189,148], borderColor:'#22c55e', tension:0.4, borderWidth:2.5, pointRadius:3 },
+      { label:'Neutro',   data:[98,102,87,97],    borderColor:'#f59e0b', tension:0.4, borderWidth:2.5, pointRadius:3 },
+      { label:'Negativo', data:[54,61,48,64],     borderColor:'#ef4444', tension:0.4, borderWidth:2.5, pointRadius:3 }
+    ]
+  },
+  options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: true, position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.04)' } }, x: { grid: { display: false } } } }
+});
+ 
+new Chart(document.getElementById('c-sent-pie'), {
+  type: 'pie',
+  data: {
+    labels: ['Positivo','Neutro','Negativo'],
+    datasets: [{ data: [647,384,217], backgroundColor: ['#22c55e','#f59e0b','#ef4444'], borderWidth: 2, borderColor: '#0d1526' }]
+  },
+  options: { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { display: true, position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } } } }
+});
+ 
+new Chart(document.getElementById('c-neg-media'), {
+  type: 'bar',
+  data: {
+    labels: ['América TV','La República','Correo','RPP','Ojo Público'],
+    datasets: [{ data: [38,31,24,18,14], backgroundColor: '#ef4444', borderRadius: 6 }]
+  },
+  options: { ...commonOptions, indexAxis: 'y', scales: { x: { display: false }, y: { grid: { display: false } } } }
+});
+ 
+new Chart(document.getElementById('c-sent-tipo'), {
+  type: 'bar',
+  data: {
+    labels: ['Digital','TV','Radio','Prensa'],
+    datasets: [
+      { label: 'Positivo', data: [280,142,118,107], backgroundColor: '#22c55e', stack: 's' },
+      { label: 'Neutro',   data: [148,86,74,76],    backgroundColor: '#f59e0b', stack: 's' },
+      { label: 'Negativo', data: [84,70,42,21],     backgroundColor: '#ef4444', stack: 's' }
+    ]
+  },
+  options: { ...commonOptions, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, display: false } } }
+});
+ 
+// ─── VPE CHARTS ──────────────────────────────────────────────
+new Chart(document.getElementById('c-ahorro-med'), {
+  type: 'bar',
+  data: {
+    labels: ['TV','Digital','Radio','Prensa'],
+    datasets: [{ data: [980000,740000,420000,260000], backgroundColor: '#2c6fff', borderRadius: 6 }]
+  },
+  options: { ...commonOptions, scales: { y: { display: false }, x: { grid: { display: false } } }, plugins: { ...commonOptions.plugins, tooltip: { ...commonOptions.plugins.tooltip, callbacks: { label: ctx => 'S/ ' + ctx.raw.toLocaleString('es-PE') } } }, layout: { padding: { top: 20 } } }
+});
+ 
+new Chart(document.getElementById('c-ahorro-prot'), {
+  type: 'bar',
+  data: {
+    labels: ['Alcaldía','Obras','Seguridad','Parques','Movilidad'],
+    datasets: [{ data: [680000,510000,490000,380000,340000], backgroundColor: '#00e5c0', borderRadius: 6 }]
+  },
+  options: { ...commonOptions, scales: { y: { display: false }, x: { grid: { display: false } } }, plugins: { ...commonOptions.plugins, tooltip: { ...commonOptions.plugins.tooltip, callbacks: { label: ctx => 'S/ ' + ctx.raw.toLocaleString('es-PE') } } }, layout: { padding: { top: 20 } } }
+});
+ 
+// ─── TABS ────────────────────────────────────────────────────
+function switchTab(proj, tab) {
+  document.querySelectorAll(`#p${proj}-general, #p${proj}-semaforo, #p${proj}-ahorro`).forEach(p => p.classList.remove('active'));
+  document.getElementById(`p${proj}-${tab}`).classList.add('active');
+  const btns = document.querySelectorAll(`.project-card:nth-child(${proj}) .tab-btn`);
+  btns.forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+ 
+// ─── NEWS DATA ───────────────────────────────────────────────
+const newsData = [
+  { date:'12/05', title:'Municipalidad de Lima lanza plan de rehabilitación de parques distritales', source:'El Comercio · Digital', tone:'pos' },
+  { date:'12/05', title:'MML presenta nuevo sistema de gestión de residuos sólidos', source:'Andina · Digital', tone:'pos' },
+  { date:'12/05', title:'Obras en Av. Arequipa generan malestar en vecinos de Miraflores', source:'América TV · TV', tone:'neg' },
+  { date:'11/05', title:'Alcaldesa lidera reunión con alcaldes distritales sobre seguridad ciudadana', source:'RPP Noticias · Radio', tone:'pos' },
+  { date:'11/05', title:'Municipalidad suspende obra en SJL por irregularidades técnicas', source:'La República · Digital', tone:'neg' },
+  { date:'11/05', title:'Presupuesto para movilidad urbana 2026 fue aprobado en pleno municipal', source:'Gestión · Digital', tone:'neu' },
+  { date:'10/05', title:'Lima Verde: plan de arborización alcanzará 50 distritos este año', source:'El Peruano · Prensa', tone:'pos' },
+  { date:'10/05', title:'Serenazgo de Lima incrementa patrullaje nocturno en zonas de riesgo', source:'Panamericana TV · TV', tone:'pos' },
+  { date:'10/05', title:'Vecinos de Cercado denuncian demoras en recojo de basura', source:'Correo · Prensa', tone:'neg' },
+  { date:'09/05', title:'MML firmó convenio con Ministerio de Cultura para restaurar el Centro Histórico', source:'Andina · Digital', tone:'pos' },
+  { date:'09/05', title:'Sesión ordinaria de concejo: debate sobre tarifas de parqueo', source:'Canal N · TV', tone:'neu' },
+  { date:'08/05', title:'Lima implementará sistema de bicicletas públicas en 10 distritos', source:'El Comercio · Digital', tone:'pos' },
+  { date:'08/05', title:'Programa "Lima Solidaria" beneficia a más de 12,000 familias', source:'RPP · Radio', tone:'pos' },
+  { date:'07/05', title:'Auditoría detecta observaciones en contratos de servicios municipales', source:'IDL · Digital', tone:'neg' },
+  { date:'07/05', title:'Municipalidad abre convocatoria para becas de formación técnica', source:'Andina · Digital', tone:'pos' },
+  { date:'06/05', title:'Proyecto de renovación del Parque de la Exposición avanza al 60%', source:'Peru21 · Digital', tone:'neu' },
+  { date:'05/05', title:'MML recibe reconocimiento de ONU-Hábitat por gestión de espacios públicos', source:'El Comercio · Digital', tone:'pos' },
+  { date:'04/05', title:'Feria gastronómica "Lima Sabores" reúne a 200 emprendedores', source:'Latina TV · TV', tone:'pos' },
+  { date:'03/05', title:'Obras de desvío en Paseo de la República generan caos vehicular', source:'América TV · TV', tone:'neg' },
+  { date:'02/05', title:'Lima anuncia inversión de S/ 80M para modernización de mercados', source:'Gestión · Digital', tone:'pos' },
+  { date:'01/05', title:'Municipalidad reduce tiempos de atención al ciudadano con plataforma digital', source:'Andina · Digital', tone:'pos' },
+  { date:'30/04', title:'Presupuesto participativo 2026: ciudadanos priorizan seguridad y salud', source:'Radio Nacional · Radio', tone:'neu' },
+  { date:'29/04', title:'Acción de regidores interrumpe sesión de concejo municipal', source:'Canal N · TV', tone:'neg' },
+  { date:'28/04', title:'Lima inaugura nuevo centro comunitario en Villa El Salvador', source:'El Comercio · Digital', tone:'pos' },
+];
+ 
+let currentFilter = 'all';
+let currentSearch = '';
+ 
+function renderNews() {
+  let data = newsData;
+  if (currentFilter === 'pos') data = data.filter(n => n.tone === 'pos');
+  if (currentFilter === 'neg') data = data.filter(n => n.tone === 'neg');
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    data = data.filter(n => n.title.toLowerCase().includes(q) || n.source.toLowerCase().includes(q));
+  }
+  const pos = data.filter(n=>n.tone==='pos').length;
+  const neu = data.filter(n=>n.tone==='neu').length;
+  const neg = data.filter(n=>n.tone==='neg').length;
+  document.getElementById('d2-total').textContent = data.length;
+  document.getElementById('d2-pos').textContent = pos;
+  document.getElementById('d2-neu').textContent = neu;
+  document.getElementById('d2-neg').textContent = neg;
+ 
+  const labels = { pos: 'Positivo', neu: 'Neutro', neg: 'Negativo' };
+  const tbody = document.getElementById('news-tbody');
+  tbody.innerHTML = data.map(n => `
+    <div class="news-row">
+      <div class="news-date">${n.date}</div>
+      <div>
+        <div class="news-title">${n.title}</div>
+        <div class="news-source">${n.source}</div>
+      </div>
+      <div><span class="news-badge nb-${n.tone}">${labels[n.tone]}</span></div>
+      <div><a class="news-link" href="#">Ver</a></div>
+    </div>
+  `).join('');
+}
+renderNews();
+ 
+function d2Filter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.d2-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNews();
+}
+function d2Search(q) {
+  currentSearch = q;
+  renderNews();
+}
+ 
+// ─── SCROLL ANIMATIONS ───────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
