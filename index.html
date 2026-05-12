@@ -1,245 +1,875 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego Pongo | Portafolio de Inteligencia de Datos</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --primary: #002f80;
-            --bg-page: #f1f5f9;
-            --surface: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-        }
+<title>Diego Pongo · Portafolio</title>
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-page); 
-            color: var(--text-main);
-            margin: 0;
-            line-height: 1.5;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: 72px; background: var(--surface); border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; align-items: center; padding: 30px 0; gap: 35px;
-            position: fixed; height: 100vh; left: 0; top: 0; z-index: 50;
-        }
-        .side-icon { font-size: 24px; color: #94a3b8; cursor: pointer; transition: 0.2s; position: relative; }
-        .side-icon.active { color: var(--primary); }
-        .side-icon.active::after {
-            content: ''; position: absolute; left: -24px; top: 50%; transform: translateY(-50%);
-            width: 4px; height: 24px; background: var(--primary); border-radius: 0 4px 4px 0;
-        }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        /* --- MAIN CONTENT --- */
-        .content-wrapper { margin-left: 72px; padding: 40px; max-width: 1300px; }
+<style>
 
-        .header-section { margin-bottom: 40px; }
-        .header-section h1 { font-size: 3.5rem; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -2px; color: var(--text-main); margin: 0; }
-        .header-section p { font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.75rem; color: var(--primary); }
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface2: #f0f4fa;
+  --border: rgba(15,23,42,0.08);
 
-        /* --- PLATAFORMA --- */
-        .platform-card {
-            background: var(--surface); border-radius: 24px; overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border); min-height: 700px; display: flex; flex-direction: column;
-        }
+  --primary: #1d4ed8;
+  --primary-glow: rgba(29,78,216,0.12);
 
-        /* TABS */
-        .nav-tabs { display: flex; padding: 0 40px; border-bottom: 1px solid var(--border); gap: 40px; background: var(--surface); }
-        .tab-btn {
-            padding: 24px 0; font-size: 11px; font-weight: 800; text-transform: uppercase;
-            color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent;
-            letter-spacing: 1px; transition: 0.2s;
-        }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+  --accent: #0f766e;
+  --accent-glow: rgba(15,118,110,0.08);
 
-        /* VISTAS */
-        .tab-content { display: none; padding: 40px; flex: 1; }
-        .tab-content.active { display: block; }
+  --pos: #15803d;
+  --neu: #b45309;
+  --neg: #b91c1c;
 
-        /* KPI CARDS */
-        .kpi-grid { display: grid; grid-template-cols: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-bottom: 40px; }
-        .kpi-card {
-            padding: 24px; border-radius: 16px; background: #f8fafc; border: 1px solid var(--border);
-            transition: 0.3s;
-        }
-        .kpi-card:hover { border-color: var(--primary); transform: translateY(-2px); }
-        .kpi-label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
-        .kpi-value { font-size: 1.75rem; font-weight: 900; color: var(--text-main); }
+  --text: #0f172a;
+  --muted: #475569;
 
-        /* TABLA SEMÁFORO (Modo Claro) */
-        .sem-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
-        .sem-table th { background: #f1f5f9; padding: 16px; text-align: left; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
-        .sem-table td { padding: 18px 16px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: middle; }
-        
-        /* Colores de fila mejorados para legibilidad */
-        .row-pos { background-color: #f0fdf4 !important; }
-        .row-neg { background-color: #fef2f2 !important; }
-        .row-neu { background-color: #fffbeb !important; }
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
 
-        .badge { padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; color: white; }
-        .bg-pos { background: #166534; }
-        .bg-neg { background: #991b1b; }
-        .bg-neu { background: #ca8a04; }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-        .footer-note { font-size: 10px; font-weight: 700; color: #94a3b8; text-align: center; padding: 24px; text-transform: uppercase; }
-    </style>
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+  line-height:1.7;
+}
+
+section{
+  padding:100px 6%;
+}
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:18px 6%;
+
+  background:rgba(255,255,255,0.82);
+
+  backdrop-filter:blur(16px);
+
+  border-bottom:1px solid var(--border);
+
+  box-shadow:0 1px 0 rgba(15,23,42,0.05);
+}
+
+.nav-logo{
+  font-family:var(--font-display);
+  font-size:18px;
+  font-weight:800;
+}
+
+.nav-logo span{
+  color:var(--primary);
+}
+
+.nav-links{
+  display:flex;
+  gap:28px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.nav-links a:hover{
+  color:var(--primary);
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+}
+
+.hero-content{
+  max-width:760px;
+}
+
+.hero-label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:24px;
+}
+
+.hero h1{
+  font-family:var(--font-display);
+  font-size:72px;
+  line-height:1;
+  margin-bottom:28px;
+  letter-spacing:-3px;
+}
+
+.hero h1 span{
+  color:var(--primary);
+}
+
+.hero-bio{
+  font-size:18px;
+  color:var(--muted);
+  max-width:620px;
+  margin-bottom:40px;
+}
+
+.hero-ctas{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.btn-primary{
+  background:var(--primary);
+  color:white;
+  text-decoration:none;
+  padding:14px 28px;
+  border-radius:18px;
+  font-weight:700;
+  transition:.2s;
+  box-shadow:0 8px 20px rgba(29,78,216,0.14);
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+}
+
+.btn-ghost{
+  border:1px solid var(--border);
+  color:var(--text);
+  text-decoration:none;
+  padding:14px 28px;
+  border-radius:18px;
+  font-weight:600;
+  background:white;
+}
+
+.hero-chips{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:34px;
+}
+
+.chip{
+  background:white;
+  border:1px solid var(--border);
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+}
+
+.divider{
+  height:1px;
+  background:var(--border);
+  margin:0 6%;
+}
+
+.section-label{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+.section-title{
+  font-family:var(--font-display);
+  font-size:52px;
+  line-height:1.1;
+  margin-bottom:18px;
+  letter-spacing:-2px;
+}
+
+.section-sub{
+  max-width:700px;
+  color:var(--muted);
+  margin-bottom:60px;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+}
+
+.about-text p{
+  margin-bottom:18px;
+  color:var(--muted);
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.stat-card,
+.project-card,
+.skill-card,
+.contact-note{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:24px;
+  box-shadow:0 4px 20px rgba(15,23,42,0.04);
+}
+
+.stat-card{
+  padding:28px;
+}
+
+.stat-num{
+  font-size:42px;
+  font-family:var(--font-display);
+  color:var(--primary);
+  font-weight:800;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:10px;
+}
+
+.projects-grid{
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+}
+
+.project-card{
+  overflow:hidden;
+}
+
+.project-header{
+  padding:38px;
+  border-bottom:1px solid var(--border);
+}
+
+.project-tag{
+  color:var(--accent);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.project-title{
+  font-size:34px;
+  font-family:var(--font-display);
+  margin-bottom:14px;
+}
+
+.project-desc{
+  color:var(--muted);
+  max-width:700px;
+}
+
+.project-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px;
+}
+
+.pill{
+  padding:8px 14px;
+  border-radius:999px;
+  background:#eff6ff;
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+}
+
+.demo-area{
+  padding:38px;
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.skill-card{
+  padding:28px;
+}
+
+.skill-name{
+  font-size:20px;
+  font-family:var(--font-display);
+  margin-bottom:12px;
+}
+
+.skill-desc{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.timeline{
+  border-left:2px solid var(--border);
+  padding-left:32px;
+}
+
+.tl-item{
+  margin-bottom:50px;
+}
+
+.tl-date{
+  color:var(--accent);
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.tl-org{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--primary);
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.tl-role{
+  font-size:24px;
+  font-family:var(--font-display);
+  margin-bottom:10px;
+}
+
+.tl-desc{
+  color:var(--muted);
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+
+.contact-info{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.contact-item{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+
+.contact-icon{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:white;
+  border:1px solid var(--border);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.contact-label{
+  font-size:12px;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.contact-val{
+  font-size:15px;
+  font-weight:600;
+}
+
+.contact-val a{
+  color:var(--primary);
+  text-decoration:none;
+}
+
+.contact-note{
+  padding:36px;
+}
+
+footer{
+  padding:30px 6%;
+  border-top:1px solid var(--border);
+
+  display:flex;
+  justify-content:space-between;
+
+  color:var(--muted);
+  font-size:13px;
+}
+
+@media(max-width:768px){
+
+  .hero h1{
+    font-size:48px;
+  }
+
+  .about-grid,
+  .skills-grid,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+}
+
+</style>
 </head>
+
 <body>
 
-    <aside class="sidebar">
-        <i class="ph-fill ph-house side-icon active"></i>
-        <i class="ph-bold ph-chart-line side-icon"></i>
-        <i class="ph-bold ph-newspaper side-icon"></i>
-        <i class="ph-bold ph-users side-icon"></i>
-        <i class="ph-bold ph-gear side-icon" style="margin-top: auto;"></i>
-    </aside>
+<nav>
 
-    <main class="content-wrapper">
-        <header class="header-section">
-            <h1>DIEGO PONGO</h1>
-            <p>Analista de Datos e Inteligencia de Medios • 2 AÑOS DE EXPERIENCIA</p>
-        </header>
+  <div class="nav-logo">
+    Diego <span>Pongo</span>
+  </div>
 
-        <div class="platform-card">
-            <nav class="nav-tabs">
-                <div class="tab-btn active" onclick="openTab(event, 'general')">Resumen General</div>
-                <div class="tab-btn" onclick="openTab(event, 'semaforo')">Semáforo de Medios</div>
-                <div class="tab-btn" onclick="openTab(event, 'ahorro')">Ahorro Publicitario</div>
-            </nav>
+  <div class="nav-links">
+    <a href="#about">Sobre mí</a>
+    <a href="#projects">Proyectos</a>
+    <a href="#experience">Experiencia</a>
+    <a href="#contact">Contacto</a>
+  </div>
 
-            <section id="general" class="tab-content active">
-                <div class="kpi-grid">
-                    <div class="kpi-card"><div class="kpi-label">VPR Acumulado</div><div class="kpi-value">S/ 1,420,800</div></div>
-                    <div class="kpi-card"><div class="kpi-label">Alcance Total</div><div class="kpi-value">4.2M</div></div>
-                    <div class="kpi-card"><div class="kpi-label">Sentimiento Positivo</div><div class="kpi-value text-green-600">78.4%</div></div>
-                    <div class="kpi-card"><div class="kpi-label">Menciones Totales</div><div class="kpi-value">856</div></div>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[350px]">
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100"><canvas id="chartGeneral"></canvas></div>
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100"><canvas id="chartPie"></canvas></div>
-                </div>
-            </section>
+</nav>
 
-            <section id="semaforo" class="tab-content">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="font-black uppercase text-xs tracking-widest text-slate-400">Monitoreo Diario de Noticias</h2>
-                    <input type="text" placeholder="Buscar por medio o noticia..." class="px-4 py-2 border border-slate-200 rounded-xl text-sm outline-none focus:border-blue-500 w-80">
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="sem-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 15%">Fecha</th>
-                                <th style="width: 45%">Titular / Medio</th>
-                                <th style="width: 15%">Sentimiento</th>
-                                <th style="width: 25%">Resumen de Gestión</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="row-pos">
-                                <td class="font-bold text-slate-400">12/05/24</td>
-                                <td>
-                                    <div class="font-bold text-slate-800 text-[15px] mb-1">MML recupera áreas verdes en Cercado</div>
-                                    <div class="text-[10px] font-black text-blue-800 uppercase">El Comercio</div>
-                                </td>
-                                <td><span class="badge bg-pos">Positivo</span></td>
-                                <td class="italic font-medium text-slate-600">Gestión efectiva del equipo de servicios.</td>
-                            </tr>
-                            <tr class="row-neg">
-                                <td class="font-bold text-slate-400">12/05/24</td>
-                                <td>
-                                    <div class="font-bold text-slate-800 text-[15px] mb-1">Quejas por tráfico en Av. Huaylas</div>
-                                    <div class="text-[10px] font-black text-blue-800 uppercase">Exitosa</div>
-                                </td>
-                                <td><span class="badge bg-neg">Negativo</span></td>
-                                <td class="italic font-medium text-slate-600">Alerta crítica. Requiere intervención inmediata.</td>
-                            </tr>
-                            <tr class="row-neu">
-                                <td class="font-bold text-slate-400">11/05/24</td>
-                                <td>
-                                    <div class="font-bold text-slate-800 text-[15px] mb-1">Balance de operativos de seguridad</div>
-                                    <div class="text-[10px] font-black text-blue-800 uppercase">Andina</div>
-                                </td>
-                                <td><span class="badge bg-neu">Neutro</span></td>
-                                <td class="italic font-medium text-slate-600">Nota técnica informativa sobre serenazgo.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+<section class="hero">
 
-            <section id="ahorro" class="tab-content">
-                <div class="bg-slate-50 p-10 rounded-2xl border border-slate-100 h-[500px]">
-                    <h3 class="font-black uppercase text-xs mb-8 text-slate-400">Ahorro Publicitario por Canal (VPR)</h3>
-                    <canvas id="chartAhorro"></canvas>
-                </div>
-            </section>
+  <div class="hero-content">
 
-            <footer class="footer-note">
-                * Datos sensibles anonimizados para fines de portafolio comercial
-            </footer>
+    <div class="hero-label">
+      Comunicación · Datos · Gobierno
+    </div>
+
+    <h1>
+      Diego Javier<br>
+      <span>Pongo</span> Quinteros
+    </h1>
+
+    <p class="hero-bio">
+      Analista de comunicación y monitoreo mediático con experiencia en entidades públicas y medios estatales. Desarrollo herramientas digitales para el análisis estratégico de información, seguimiento de coyuntura y visualización de datos aplicados a la comunicación institucional.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">
+        Ver proyectos
+      </a>
+
+      <a href="#contact" class="btn-ghost">
+        Contactar
+      </a>
+    </div>
+
+    <div class="hero-chips">
+      <span class="chip">Monitoreo de medios</span>
+      <span class="chip">Dashboards</span>
+      <span class="chip">Comunicación pública</span>
+      <span class="chip">HTML / CSS / JS</span>
+      <span class="chip">Análisis de datos</span>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+
+  <div class="section-label">
+    Perfil
+  </div>
+
+  <div class="about-grid">
+
+    <div>
+
+      <div class="section-title">
+        Comunicación estratégica con análisis de datos
+      </div>
+
+      <div class="about-text">
+
+        <p>
+          Bachiller en Ciencia Política de la UNMSM, con <strong>2 años de experiencia</strong> en comunicación institucional, monitoreo mediático y producción periodística para entidades públicas.
+        </p>
+
+        <p>
+          He desarrollado herramientas digitales orientadas al seguimiento de cobertura periodística, análisis de tendencias y visualización de información para equipos de comunicación gubernamental.
+        </p>
+
+        <p>
+          Mi enfoque combina comunicación estratégica, análisis de coyuntura y automatización de procesos mediante dashboards interactivos y sistemas conectados a Google Sheets y herramientas web.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">
+          Años de experiencia profesional
         </div>
-    </main>
+      </div>
 
-    <script>
-        // LÓGICA DE CAMBIO DE PESTAÑAS
-        function openTab(evt, tabName) {
-            const contents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
-            
-            const btns = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < btns.length; i++) btns[i].classList.remove("active");
-            
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
+      <div class="stat-card">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">
+          Seguimiento de coyuntura y medios
+        </div>
+      </div>
 
-        // GRÁFICOS
-        window.onload = () => {
-            const commonOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
+      <div class="stat-card">
+        <div class="stat-num">800+</div>
+        <div class="stat-label">
+          Notas informativas elaboradas
+        </div>
+      </div>
 
-            // General Chart
-            new Chart(document.getElementById('chartGeneral'), {
-                type: 'line',
-                data: {
-                    labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
-                    datasets: [{ label: 'Impacto', data: [65, 82, 74, 91, 85, 70, 78], borderColor: '#002f80', tension: 0.4, fill: true, backgroundColor: 'rgba(0, 47, 128, 0.05)' }]
-                },
-                options: commonOptions
-            });
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">
+          Herramientas de monitoreo desarrolladas
+        </div>
+      </div>
 
-            // Sentimiento Pie
-            new Chart(document.getElementById('chartPie'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Positivo', 'Neutro', 'Negativo'],
-                    datasets: [{ data: [78, 12, 10], backgroundColor: ['#166534', '#ca8a04', '#991b1b'], borderWidth: 0 }]
-                },
-                options: { ...commonOptions, cutout: '70%' }
-            });
+    </div>
 
-            // Ahorro Bar
-            new Chart(document.getElementById('chartAhorro'), {
-                type: 'bar',
-                data: {
-                    labels: ['Impreso', 'Radial', 'TV', 'Digital', 'Redes Sociales'],
-                    datasets: [{ data: [520000, 310000, 680000, 240000, 150000], backgroundColor: '#002f80', borderRadius: 10 }]
-                },
-                options: commonOptions
-            });
-        };
-    </script>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+
+  <div class="section-label">
+    Proyectos
+  </div>
+
+  <div class="section-title">
+    Herramientas desarrolladas
+  </div>
+
+  <p class="section-sub">
+    Plataformas de monitoreo y análisis mediático orientadas a comunicación institucional y seguimiento de información pública.
+  </p>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+
+      <div class="project-header">
+
+        <div class="project-tag">
+          Proyecto 01 · Inteligencia Mediática
+        </div>
+
+        <div class="project-title">
+          Dashboard de Monitoreo de Medios
+        </div>
+
+        <div class="project-desc">
+          Plataforma de análisis de cobertura mediática y visualización de tendencias desarrollada para la Oficina de Comunicaciones y Relaciones Interinstitucionales de la Municipalidad Metropolitana de Lima.
+        </div>
+
+        <div class="project-pills">
+          <span class="pill">HTML5</span>
+          <span class="pill">CSS3</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Chart.js</span>
+          <span class="pill">Google Sheets</span>
+        </div>
+
+      </div>
+
+      <div class="demo-area">
+
+        <img src=\"https://placehold.co/1200x500/eef2ff/1e293b?text=Dashboard+Preview\" style=\"width:100%;border-radius:18px;border:1px solid var(--border);\">
+
+      </div>
+
+    </div>
+
+    <div class="project-card">
+
+      <div class="project-header">
+
+        <div class="project-tag">
+          Proyecto 02 · Comunicación Operativa
+        </div>
+
+        <div class="project-title">
+          Semáforo Diario de Noticias
+        </div>
+
+        <div class="project-desc">
+          Herramienta de seguimiento diario para clasificación de noticias, análisis de tono y monitoreo de coyuntura mediática.
+        </div>
+
+        <div class="project-pills">
+          <span class="pill">Responsive Design</span>
+          <span class="pill">Google Forms</span>
+          <span class="pill">PDF Export</span>
+          <span class="pill">Análisis de datos</span>
+        </div>
+
+      </div>
+
+      <div class="demo-area">
+
+        <img src=\"https://placehold.co/1200x500/f8fafc/1e293b?text=Semáforo+de+Noticias\" style=\"width:100%;border-radius:18px;border:1px solid var(--border);\">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section>
+
+  <div class="section-label">
+    Capacidades
+  </div>
+
+  <div class="section-title">
+    Especialidades
+  </div>
+
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-name">Dashboards</div>
+      <div class="skill-desc">
+        Desarrollo de herramientas de monitoreo mediático y visualización de datos.
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-name">Comunicación pública</div>
+      <div class="skill-desc">
+        Producción de contenidos institucionales y cobertura de entidades públicas.
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-name">Análisis mediático</div>
+      <div class="skill-desc">
+        Seguimiento de coyuntura, análisis de tono y reportes estratégicos.
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section id="experience">
+
+  <div class="section-label">
+    Experiencia
+  </div>
+
+  <div class="section-title">
+    Trayectoria profesional
+  </div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+
+      <div class="tl-date">
+        Ene 2026 — Actualidad
+      </div>
+
+      <div class="tl-org">
+        Municipalidad Metropolitana de Lima
+      </div>
+
+      <div class="tl-role">
+        Analista de Medios — Oficina de Comunicaciones y Relaciones Interinstitucionales
+      </div>
+
+      <div class="tl-desc">
+        Desarrollo de dashboards de monitoreo mediático, seguimiento de cobertura periodística y elaboración de reportes estratégicos para comunicación institucional.
+      </div>
+
+    </div>
+
+    <div class="tl-item">
+
+      <div class="tl-date">
+        May 2024 — Dic 2025
+      </div>
+
+      <div class="tl-org">
+        Instituto de Radio y Televisión del Perú
+      </div>
+
+      <div class="tl-role">
+        Periodista — Radio Nacional del Perú
+      </div>
+
+      <div class="tl-desc">
+        Producción de contenidos periodísticos, entrevistas y notas informativas relacionadas con agenda pública y entidades del Estado.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+
+  <div class="section-label">
+    Contacto
+  </div>
+
+  <div class="section-title">
+    Hablemos
+  </div>
+
+  <div class="contact-grid">
+
+    <div class="contact-info">
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          ✉️
+        </div>
+
+        <div>
+          <div class="contact-label">
+            Email
+          </div>
+
+          <div class="contact-val">
+            diego.pongo@unmsm.edu.pe
+          </div>
+        </div>
+
+      </div>
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          📞
+        </div>
+
+        <div>
+          <div class="contact-label">
+            Teléfono
+          </div>
+
+          <div class="contact-val">
+            +51 994 580 247
+          </div>
+        </div>
+
+      </div>
+
+      <div class="contact-item">
+
+        <div class="contact-icon">
+          💼
+        </div>
+
+        <div>
+          <div class="contact-label">
+            LinkedIn
+          </div>
+
+          <div class="contact-val">
+            linkedin.com/in/diego-javier-pongo-quinteros
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="contact-note">
+
+      <h3 style="margin-bottom:16px;font-family:var(--font-display);">
+        Comunicación institucional basada en datos
+      </h3>
+
+      <p style="color:var(--muted);">
+        Disponible para proyectos de monitoreo mediático, análisis de información, dashboards institucionales y comunicación estratégica.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <span>
+    © 2026 Diego Javier Pongo Quinteros
+  </span>
+
+  <span>
+    Lima, Perú
+  </span>
+
+</footer>
+
 </body>
 </html>
